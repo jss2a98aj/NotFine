@@ -21,7 +21,7 @@ public abstract class MixinBlockLeaves extends Block {
     }
 
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-        if(field_150129_M[1].length > 0) {
+        if(field_150129_M[0] != null) {
             int renderMode = NotFineSettings.leavesRenderMode;
             if(renderMode == 3) {
                 int xPos = x, yPos = y, zPos = z;

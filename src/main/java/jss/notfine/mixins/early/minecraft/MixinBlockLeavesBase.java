@@ -2,6 +2,7 @@ package jss.notfine.mixins.early.minecraft;
 
 import jss.notfine.core.NotFineSettings;
 import jss.util.DirectionHelper;
+import jss.util.Directions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLeavesBase;
@@ -57,14 +58,53 @@ public abstract class MixinBlockLeavesBase extends Block {
                     if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
                         renderCheck++;
                     }
-                    x += 2 * DirectionHelper.xDirectionalIncrease[side];
-                    y += 2 * DirectionHelper.yDirectionalIncrease[side];
-                    z += 2 * DirectionHelper.zDirectionalIncrease[side];
-                    otherBlock = world.getBlock(x, y, z);
-                    if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
-                        renderCheck--;
+                    boolean renderSide = renderCheck == 6;
+                    if(renderSide) {
+                        x += 2 * DirectionHelper.xDirectionalIncrease[side];
+                        y += 2 * DirectionHelper.yDirectionalIncrease[side];
+                        z += 2 * DirectionHelper.zDirectionalIncrease[side];
+                        otherBlock = world.getBlock(x, y, z);
+                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                            renderSide = false;
+                        }
+                        Directions nextSide = DirectionHelper.relatuveADirections[side];
+                        otherBlock = world.getBlock(
+                            x + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()],
+                            y + DirectionHelper.yDirectionalIncrease[nextSide.ordinal()],
+                            z + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()]
+                        );
+                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                            renderSide = true;
+                        }
+                        nextSide = DirectionHelper.relatuveBDirections[side];
+                        otherBlock = world.getBlock(
+                            x + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()],
+                            y + DirectionHelper.yDirectionalIncrease[nextSide.ordinal()],
+                            z + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()]
+                        );
+                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                            renderSide = true;
+                        }
+                        nextSide = DirectionHelper.relatuveCDirections[side];
+                        otherBlock = world.getBlock(
+                            x + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()],
+                            y + DirectionHelper.yDirectionalIncrease[nextSide.ordinal()],
+                            z + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()]
+                        );
+                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                            renderSide = true;
+                        }
+                        nextSide = DirectionHelper.relatuveDDirections[side];
+                        otherBlock = world.getBlock(
+                            x + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()],
+                            y + DirectionHelper.yDirectionalIncrease[nextSide.ordinal()],
+                            z + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()]
+                        );
+                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                            renderSide = true;
+                        }
                     }
-                    return renderCheck == 6;
+                    return renderSide;
                 }
         }
         return true;
