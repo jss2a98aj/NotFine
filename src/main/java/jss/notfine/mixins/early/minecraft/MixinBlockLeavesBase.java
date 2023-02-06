@@ -67,40 +67,43 @@ public abstract class MixinBlockLeavesBase extends Block {
                         if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
                             renderSide = false;
                         }
-                        Directions nextSide = DirectionHelper.relatuveADirections[side];
+                        x -= DirectionHelper.xDirectionalIncrease[side];
+                        y -= DirectionHelper.yDirectionalIncrease[side];
+                        z -= DirectionHelper.zDirectionalIncrease[side];
+                        int nextSide = DirectionHelper.relativeADirections[side].ordinal();
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()],
-                            y + DirectionHelper.yDirectionalIncrease[nextSide.ordinal()],
-                            z + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()]
+                            x + DirectionHelper.zDirectionalIncrease[nextSide],
+                            y + DirectionHelper.yDirectionalIncrease[nextSide],
+                            z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
-                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                        if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
-                        nextSide = DirectionHelper.relatuveBDirections[side];
+                        nextSide = DirectionHelper.relativeBDirections[side].ordinal();
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()],
-                            y + DirectionHelper.yDirectionalIncrease[nextSide.ordinal()],
-                            z + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()]
+                            x + DirectionHelper.zDirectionalIncrease[nextSide],
+                            y + DirectionHelper.yDirectionalIncrease[nextSide],
+                            z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
-                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                        if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
-                        nextSide = DirectionHelper.relatuveCDirections[side];
+                        nextSide = DirectionHelper.relativeCDirections[side].ordinal();
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()],
-                            y + DirectionHelper.yDirectionalIncrease[nextSide.ordinal()],
-                            z + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()]
+                            x + DirectionHelper.zDirectionalIncrease[nextSide],
+                            y + DirectionHelper.yDirectionalIncrease[nextSide],
+                            z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
-                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                        if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
-                        nextSide = DirectionHelper.relatuveDDirections[side];
+                        nextSide = DirectionHelper.relativeDDirections[side].ordinal();
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()],
-                            y + DirectionHelper.yDirectionalIncrease[nextSide.ordinal()],
-                            z + DirectionHelper.zDirectionalIncrease[nextSide.ordinal()]
+                            x + DirectionHelper.zDirectionalIncrease[nextSide],
+                            y + DirectionHelper.yDirectionalIncrease[nextSide],
+                            z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
-                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                        if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
                     }

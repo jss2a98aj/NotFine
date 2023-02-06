@@ -48,7 +48,7 @@ public class DirectionHelper {
     };
 
 
-    public static final Directions[] relatuveADirections = {
+    public static final Directions[] relativeADirections = {
         Directions.ZNeg,
         Directions.ZPos,
         Directions.XNeg,
@@ -57,7 +57,7 @@ public class DirectionHelper {
         Directions.YPos
     };
 
-    public static final Directions[] relatuveBDirections = {
+    public static final Directions[] relativeBDirections = {
         Directions.ZPos,
         Directions.ZNeg,
         Directions.XPos,
@@ -66,7 +66,7 @@ public class DirectionHelper {
         Directions.YNeg
     };
 
-    public static final Directions[] relatuveCDirections = {
+    public static final Directions[] relativeCDirections = {
         Directions.XNeg,
         Directions.XPos,
         Directions.YNeg,
@@ -74,7 +74,7 @@ public class DirectionHelper {
         Directions.ZNeg,
         Directions.ZPos
     };
-    public static final Directions[] relatuveDDirections = {
+    public static final Directions[] relativeDDirections = {
         Directions.XPos,
         Directions.XNeg,
         Directions.YPos,
