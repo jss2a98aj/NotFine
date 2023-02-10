@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(RenderGlobal.class)
-public class MixinRenderGlobal {
+public abstract class MixinRenderGlobal {
 
     /**
      * @author jss2a98aj
