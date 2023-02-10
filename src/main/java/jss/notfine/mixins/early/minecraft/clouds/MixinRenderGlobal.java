@@ -86,7 +86,7 @@ public class MixinRenderGlobal {
         float cloudScrollingZ = (float)MathHelper.floor_double(cameraOffsetZ) * scrollSpeed;
 
         float cloudWidth = 8f;
-        int renderRadius = (int)(NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS.getValue() / cloudScale);
+        int renderRadius = (int)(NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS.getValue() / (cloudScale * 2f));
         float edgeOverlap = 0.0001f;//0.001F;
         GL11.glScalef(cloudInteriorWidth, 1.0F, cloudInteriorWidth);
 
