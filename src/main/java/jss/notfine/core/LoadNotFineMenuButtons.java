@@ -26,10 +26,18 @@ public class LoadNotFineMenuButtons {
         if(event.gui instanceof GuiVideoSettings) {
             for (Object rowObject : ((GuiOptionsRowList)((GuiVideoSettings)event.gui).optionsRowList).field_148184_k) {
                 GuiOptionsRowList.Row row = (GuiOptionsRowList.Row)rowObject;
-                //GuiButton buttonOne = row.field_148323_b;
+                GuiButton buttonOne = row.field_148323_b;
                 GuiButton buttonTwo = row.field_148324_c;
-
-                if(buttonTwo != null && buttonTwo.id == GameSettings.Options.RENDER_CLOUDS.ordinal()) {
+                if(buttonOne.id == GameSettings.Options.RENDER_CLOUDS.ordinal()) {
+                    row.field_148324_c = new GuiNotFineMenuButton(
+                        buttonOne.id,
+                        buttonOne.xPosition, buttonOne.yPosition,
+                        buttonOne.width, buttonOne.height,
+                        "NotFine Alpha",
+                        new GuiNotFineSettings(event.gui, "NotFine Alpha Settings", settings)
+                    );
+                    break;
+                } else if(buttonTwo != null && buttonTwo.id == GameSettings.Options.RENDER_CLOUDS.ordinal()) {
                     row.field_148324_c = new GuiNotFineMenuButton(
                         buttonTwo.id,
                         buttonTwo.xPosition, buttonTwo.yPosition,
@@ -37,6 +45,7 @@ public class LoadNotFineMenuButtons {
                         "NotFine Alpha",
                         new GuiNotFineSettings(event.gui, "NotFine Alpha Settings", settings)
                     );
+                    break;
                 }
             }
         }
