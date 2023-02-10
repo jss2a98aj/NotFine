@@ -3,7 +3,6 @@ package jss.notfine.mixins.early.minecraft.clouds;
 import jss.notfine.core.NotFineSettings;
 import net.minecraft.client.renderer.EntityRenderer;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -21,7 +20,5 @@ public abstract class MixinEntityRenderer {
     private float modifyFarPlane(float original) {
         return Math.max(original, NotFineSettings.minimumFarPlaneDistance);
     }
-
-    @Shadow private float farPlaneDistance;
 
 }
