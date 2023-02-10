@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.7.11",
+  "package": "jss.notfine.mixins.early",
+  "refmap": "mixins.notfine.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8"
+}
+
