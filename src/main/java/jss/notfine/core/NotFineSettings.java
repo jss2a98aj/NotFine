@@ -1,53 +1,67 @@
 package jss.notfine.core;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import jss.notfine.NotFine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.MathHelper;
+import net.minecraftforge.common.config.Configuration;
 
 import java.io.*;
 
 public class NotFineSettings {
 
-    public static int minimumFarPlaneDistance = 4;
+    public static int minimumFarPlaneDistance;
+    public static float cloudScale;
 
-    private static File settingsFile;
+    private static Configuration settingsFile;
 
     public static void loadSettings() {
-        if (FMLClientHandler.instance().isLoading()) {
-            return;
-        }
-
         if(settingsFile == null) {
-            Minecraft mc = Minecraft.getMinecraft();
-            settingsFile = new File(mc.mcDataDir + "optionsGraphics.txt");
+            File userSettingsFile = new File(Launch.minecraftHome + File.separator + "optionsGraphics.cfg");
+            settingsFile = new Configuration(userSettingsFile);
         }
+        for(Settings setting : Settings.values()) {
 
-        if(!settingsFile.exists()) {
-            return;
+            setting.setValue(settingsFile.getFloat(
+                setting.name(),
+                ("Settings"),
+                setting.base,
+                setting.minimum,
+                setting.maximum,
+                ("Increments in steps of " + setting.step)
+            ));
         }
-
-
+        if(settingsFile.hasChanged()) {
+            settingsFile.save();
+        }
     }
 
     public static void saveSettings() {
         if(settingsFile == null) {
             return;
         }
-
-
+        for(Settings setting : Settings.values()) {
+            settingsFile.get(
+                "Settings",
+                setting.name(),
+                setting.base
+            ).set(setting.value);
+        }
+        settingsFile.save();
     }
 
     private static void settingUpdated(Settings setting) {
         Minecraft mc = Minecraft.getMinecraft();
         switch(setting) {
             case CLOUD_HEIGHT:
+            case CLOUD_SCALE:
             case MODE_CLOUDS:
             case RENDER_DISTANCE_CLOUDS:
                 if(Settings.MODE_CLOUDS.value != 2f) {
-                    minimumFarPlaneDistance = (int)(16f * Settings.RENDER_DISTANCE_CLOUDS.value);
+                    minimumFarPlaneDistance = (int)(32f * Settings.RENDER_DISTANCE_CLOUDS.value);
                     minimumFarPlaneDistance += Math.abs(Settings.CLOUD_HEIGHT.value);
+                    cloudScale = Settings.CLOUD_SCALE.value;
+                    cloudScale *= 1f + (Settings.RENDER_DISTANCE_CLOUDS.value - 4) * 0.06f;
                     mc.gameSettings.clouds = true;
                 } else {
                     minimumFarPlaneDistance = 128;
@@ -64,8 +78,9 @@ public class NotFineSettings {
     }
 
     public enum Settings {
-        CLOUD_HEIGHT(true, 128f, 64f, 384f, 16f),
+        CLOUD_HEIGHT(true, 128f, 96f, 384f, 16f),
         CLOUD_SCALE(true, 1f, 0.5f, 4f, 0.5f),
+        FOG_DEPTH(false,1f, 0f, 1f, 1f),
         //-1 default, 0 fancy, 1 fast, 2 off
         MODE_CLOUDS(false,-1f, -1f, 2f, 1f),
         //0 OFF, 1 ON

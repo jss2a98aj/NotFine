@@ -23,17 +23,7 @@ public class MixinRenderGlobal {
 
     /**
      * @author jss2a98aj
-     * @reason Enable cloud fog.
-     */
-    @Overwrite
-    public boolean hasCloudFog(double cameraX, double cameraY, double cameraZ, float fov) {
-        //TODO: Uncut cloud fog
-        return false;
-    }
-
-    /**
-     * @author jss2a98aj
-     * @reason Adjust fast cloud render.
+     * @reason Adjust how cloud render mode is selected.
      */
     @Overwrite
     public void renderClouds(float partialTicks) {
@@ -78,8 +68,8 @@ public class MixinRenderGlobal {
         }
         double cloudTick = ((float)cloudTickCounter + partialTicks);
 
-        float cloudInteriorWidth = 12.0F;
-        float cloudInteriorHeight = 4.0F;
+        float cloudInteriorWidth = 12.0F * NotFineSettings.cloudScale;
+        float cloudInteriorHeight = 4.0F * NotFineSettings.cloudScale;
         float cameraOffsetY = (float)(mc.renderViewEntity.lastTickPosY + (mc.renderViewEntity.posY - mc.renderViewEntity.lastTickPosY) * (double)partialTicks);
         double cameraOffsetX = (mc.renderViewEntity.prevPosX + (mc.renderViewEntity.posX - mc.renderViewEntity.prevPosX) * (double)partialTicks + cloudTick * 0.03D) / (double)cloudInteriorWidth;
         double cameraOffsetZ = (mc.renderViewEntity.prevPosZ + (mc.renderViewEntity.posZ - mc.renderViewEntity.prevPosZ) * (double)partialTicks) / (double)cloudInteriorWidth + 0.33D;
@@ -95,7 +85,7 @@ public class MixinRenderGlobal {
         float cloudScrollingZ = (float)MathHelper.floor_double(cameraOffsetZ) * scrollSpeed;
 
         float cloudWidth = 8f;
-        int renderRadius = 4;
+        int renderRadius = (int)(NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS.getValue() / NotFineSettings.cloudScale);
         float edgeOverlap = 0.0001f;//0.001F;
         GL11.glScalef(cloudInteriorWidth, 1.0F, cloudInteriorWidth);
 
@@ -214,19 +204,19 @@ public class MixinRenderGlobal {
             green = altGreen;
             blue = altBlue;
         }
-        double cloudTick = ((float)this.cloudTickCounter + partialTicks);
+        double cloudTick = ((float)cloudTickCounter + partialTicks);
 
         float cameraOffsetY = (float)(mc.renderViewEntity.lastTickPosY + (mc.renderViewEntity.posY - mc.renderViewEntity.lastTickPosY) * (double)partialTicks);
-        double cameraOffsetX = this.mc.renderViewEntity.prevPosX + (this.mc.renderViewEntity.posX - this.mc.renderViewEntity.prevPosX) * (double)partialTicks + cloudTick * 0.029999999329447746D;
-        double cameraOffsetZ = this.mc.renderViewEntity.prevPosZ + (this.mc.renderViewEntity.posZ - this.mc.renderViewEntity.prevPosZ) * (double)partialTicks;
+        double cameraOffsetX = mc.renderViewEntity.prevPosX + (mc.renderViewEntity.posX - mc.renderViewEntity.prevPosX) * (double)partialTicks + cloudTick * 0.029999999329447746D;
+        double cameraOffsetZ = mc.renderViewEntity.prevPosZ + (mc.renderViewEntity.posZ - mc.renderViewEntity.prevPosZ) * (double)partialTicks;
         cameraOffsetX -= MathHelper.floor_double(cameraOffsetX / 2048.0D) * 2048;
         cameraOffsetZ -= MathHelper.floor_double(cameraOffsetZ / 2048.0D) * 2048;
 
         float renderRadius = 32 * NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS.getValue();
-        double uvScale = 0.0005D / NotFineSettings.Settings.CLOUD_SCALE.getValue();
+        double uvScale = 0.0005D / NotFineSettings.cloudScale;
 
-        float uvShiftX = (float)(cameraOffsetX * (double)uvScale);
-        float uvShiftZ = (float)(cameraOffsetZ * (double)uvScale);
+        float uvShiftX = (float)(cameraOffsetX * uvScale);
+        float uvShiftZ = (float)(cameraOffsetZ * uvScale);
 
         double cameraRelativeY = theWorld.provider.getCloudHeight() - cameraOffsetY + 0.33F;
         double neg = -renderRadius;
