@@ -213,7 +213,7 @@ public class MixinRenderGlobal {
         cameraOffsetZ -= MathHelper.floor_double(cameraOffsetZ / 2048.0D) * 2048;
 
         float renderRadius = 32 * NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS.getValue();
-        double uvScale = 0.0005D / NotFineSettings.cloudScale;
+        double uvScale = 0.0005D / NotFineSettings.Settings.CLOUD_SCALE.getValue();
 
         float uvShiftX = (float)(cameraOffsetX * uvScale);
         float uvShiftZ = (float)(cameraOffsetZ * uvScale);
