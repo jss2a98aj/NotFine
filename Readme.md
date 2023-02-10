@@ -6,6 +6,8 @@ Extra video settings for Minecraft 1.7.10 implemented with Mixins
 
 Achieving and exceeding feature parity with Optifine, but not shaders.
 
+Adding support for new leaf rendering modes to modded leaves.
+
 Shaders will be supported when paired with [Angelica](https://github.com/GTNewHorizons/Angelica) if all goes well.
 
 # Know Conflicts:
