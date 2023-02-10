@@ -12,12 +12,12 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class MixinEntityRenderer {
 
     @ModifyConstant(method = "renderWorld", constant = @Constant(doubleValue = 128.0D), expect = 2)
-    double modifyCloudHeightCheck(double original) {
+    double notFine$modifyCloudHeightCheck(double original) {
         return NotFineSettings.cloudTranslucencyCheck;
     }
 
     @ModifyArg(method = "setupCameraTransform", at = @At(value = "INVOKE", target = "Lorg/lwjgl/util/glu/Project;gluPerspective(FFFF)V", remap = false), index = 3)
-    private float modifyFarPlane(float original) {
+    private float notFine$modifyFarPlane(float original) {
         return Math.max(original, NotFineSettings.minimumFarPlaneDistance);
     }
 

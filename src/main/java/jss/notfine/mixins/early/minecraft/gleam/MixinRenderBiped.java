@@ -17,7 +17,7 @@ public abstract class MixinRenderBiped {
             target = "Lnet/minecraft/item/ItemStack;isItemEnchanted()Z"
         )
     )
-    private boolean toggleGleam(ItemStack stack) {
+    private boolean notFine$toggleGlint(ItemStack stack) {
         return NotFineSettings.Settings.MODE_GLEAM_WORLD.isValueBase() && stack.isItemEnchanted();
     }
 

@@ -14,23 +14,8 @@ import java.util.Random;
 @Mixin(RenderGlobal.class)
 public abstract class MixinRenderGlobal {
 
-        /*@Redirect(method = "renderStars", at = @At(value = "NEW", target = "Ljava/util/Random;<init>(J)V", ordinal = 0, remap = false))
-        private Random redirectRenderStarsRandom(long seed) {
-            return new RandomXoshiro256StarStar(seed);
-        }
-
-        @Inject(method = "renderStars", at = @At("HEAD"), cancellable = true)
-        void toggleStars(CallbackInfo ci) {
-            if(NotFineSettings.starCount <= 0) ci.cancel();
-        }
-
-        @ModifyConstant(method = "renderStars", constant = @Constant(intValue = 1500))
-        private static int setStarCount(int old) {
-            return NotFineSettings.starCount;
-        }*/
-
     @Inject(method = "renderSky", at = @At("HEAD"), cancellable = true)
-    void toggleSky(CallbackInfo ci) {
+    void notFine$toggleSky(CallbackInfo ci) {
         if(!NotFineSettings.Settings.MODE_SKY.isValueBase()) ci.cancel();
     }
 
@@ -90,6 +75,5 @@ public abstract class MixinRenderGlobal {
 
         tessellator.draw();
     }
-
 
 }

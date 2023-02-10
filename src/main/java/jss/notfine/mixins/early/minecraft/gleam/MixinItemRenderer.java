@@ -18,7 +18,7 @@ public abstract class MixinItemRenderer {
         ),
         remap = false
     )
-    private boolean toggleGleam(ItemStack stack, int pass) {
+    private boolean notFine$toggleGlint(ItemStack stack, int pass) {
         return NotFineSettings.Settings.MODE_GLEAM_WORLD.isValueBase() && stack.hasEffect(pass);
     }
 
