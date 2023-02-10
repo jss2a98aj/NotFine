@@ -8,7 +8,7 @@ Achieving and exceeding feature parity with Optifine, but not shaders.
 
 Adding support for new leaf rendering modes to modded leaves.
 
-Shaders will be supported when paired with [Angelica](https://github.com/GTNewHorizons/Angelica) if all goes well.
+Shaders will be supported when paired with [Angelica](https://github.com/GTNewHorizons/Angelica) or [Shader Mod](https://github.com/basdxz/ShadersMod/) if all goes well.
 
 # Know Conflicts:
 
