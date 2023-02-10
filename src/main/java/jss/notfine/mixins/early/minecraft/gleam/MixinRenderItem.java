@@ -1,6 +1,7 @@
 package jss.notfine.mixins.early.minecraft.gleam;
 
 import jss.notfine.core.NotFineSettings;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -9,12 +10,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = RenderItem.class)
 public abstract class MixinRenderItem {
-
-	@Shadow
-	public float zLevel;
 
 	/**
 	 * @author jss2a98aj
@@ -61,5 +61,19 @@ public abstract class MixinRenderItem {
 
         OpenGlHelper.glBlendFunc(770, 771, 1, 0);
     }
+
+    @Redirect(
+        method = "renderDroppedItem(Lnet/minecraft/entity/item/EntityItem;Lnet/minecraft/util/IIcon;IFFFFI)V",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/item/ItemStack;hasEffect(I)Z"
+        ),
+        remap = false
+    )
+    private boolean notFine$toggleGlint(ItemStack stack, int pass) {
+        return NotFineSettings.Settings.MODE_GLEAM_WORLD.isValueBase() && stack.hasEffect(pass);
+    }
+
+    @Shadow public float zLevel;
 
 }
