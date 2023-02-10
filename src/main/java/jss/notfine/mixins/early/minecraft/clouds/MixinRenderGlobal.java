@@ -68,8 +68,9 @@ public class MixinRenderGlobal {
         }
         double cloudTick = ((float)cloudTickCounter + partialTicks);
 
-        float cloudInteriorWidth = 12.0F * NotFineSettings.cloudScale;
-        float cloudInteriorHeight = 4.0F * NotFineSettings.cloudScale;
+        float cloudScale = NotFineSettings.Settings.CLOUD_SCALE.getValue();
+        float cloudInteriorWidth = 12.0F * cloudScale;
+        float cloudInteriorHeight = 4.0F * cloudScale;
         float cameraOffsetY = (float)(mc.renderViewEntity.lastTickPosY + (mc.renderViewEntity.posY - mc.renderViewEntity.lastTickPosY) * (double)partialTicks);
         double cameraOffsetX = (mc.renderViewEntity.prevPosX + (mc.renderViewEntity.posX - mc.renderViewEntity.prevPosX) * (double)partialTicks + cloudTick * 0.03D) / (double)cloudInteriorWidth;
         double cameraOffsetZ = (mc.renderViewEntity.prevPosZ + (mc.renderViewEntity.posZ - mc.renderViewEntity.prevPosZ) * (double)partialTicks) / (double)cloudInteriorWidth + 0.33D;
@@ -85,7 +86,7 @@ public class MixinRenderGlobal {
         float cloudScrollingZ = (float)MathHelper.floor_double(cameraOffsetZ) * scrollSpeed;
 
         float cloudWidth = 8f;
-        int renderRadius = (int)(NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS.getValue() / NotFineSettings.cloudScale);
+        int renderRadius = (int)(NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS.getValue() / cloudScale);
         float edgeOverlap = 0.0001f;//0.001F;
         GL11.glScalef(cloudInteriorWidth, 1.0F, cloudInteriorWidth);
 
@@ -103,76 +104,78 @@ public class MixinRenderGlobal {
             }
 
             for(int chunkX = -renderRadius + 1; chunkX <= renderRadius; ++chunkX) {
-                for(int chunkY = -renderRadius + 1; chunkY <= renderRadius; ++chunkY) {
+                for(int chunkZ = -renderRadius + 1; chunkZ <= renderRadius; ++chunkZ) {
                     tessellator.startDrawingQuads();
                     float chunkOffsetX = (chunkX * cloudWidth);
-                    float chunkOffsetY = (chunkY * cloudWidth);
+                    float chunkOffsetZ = (chunkZ * cloudWidth);
                     float startX = chunkOffsetX - cameraRelativeX;
-                    float startZ = chunkOffsetY - cameraRelativeZ;
+                    float startZ = chunkOffsetZ - cameraRelativeZ;
 
                     //Cloud top
                     if(cameraRelativeY > -cloudInteriorHeight - 1.0F) {
                         tessellator.setColorRGBA_F(red * 0.7F, green * 0.7F, blue * 0.7F, 0.8F);
                         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-                        tessellator.addVertexWithUV(startX, cameraRelativeY, (startZ + cloudWidth), (chunkOffsetX * scrollSpeed + cloudScrollingX), ((chunkOffsetY + cloudWidth) * scrollSpeed + cloudScrollingZ));
-                        tessellator.addVertexWithUV((startX + cloudWidth), cameraRelativeY, (startZ + cloudWidth), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + cloudWidth) * scrollSpeed + cloudScrollingZ));
-                        tessellator.addVertexWithUV((startX + cloudWidth), cameraRelativeY, startZ, ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), (chunkOffsetY * scrollSpeed + cloudScrollingZ));
-                        tessellator.addVertexWithUV(startX, cameraRelativeY, startZ, (chunkOffsetX * scrollSpeed + cloudScrollingX), (chunkOffsetY * scrollSpeed + cloudScrollingZ));
+                        tessellator.addVertexWithUV(startX, cameraRelativeY, (startZ + cloudWidth), (chunkOffsetX * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + cloudWidth) * scrollSpeed + cloudScrollingZ));
+                        tessellator.addVertexWithUV((startX + cloudWidth), cameraRelativeY, (startZ + cloudWidth), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + cloudWidth) * scrollSpeed + cloudScrollingZ));
+                        tessellator.addVertexWithUV((startX + cloudWidth), cameraRelativeY, startZ, ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), (chunkOffsetZ * scrollSpeed + cloudScrollingZ));
+                        tessellator.addVertexWithUV(startX, cameraRelativeY, startZ, (chunkOffsetX * scrollSpeed + cloudScrollingX), (chunkOffsetZ * scrollSpeed + cloudScrollingZ));
                     }
                     //Cloud bottom
                     if(cameraRelativeY <= cloudInteriorHeight + 1.0F) {
                         tessellator.setColorRGBA_F(red, green, blue, 0.8F);
                         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-                        tessellator.addVertexWithUV(startX, (cameraRelativeY + cloudInteriorHeight - edgeOverlap), (startZ + cloudWidth), ((chunkOffsetX) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + cloudWidth) * scrollSpeed + cloudScrollingZ));
-                        tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY + cloudInteriorHeight - edgeOverlap), (startZ + cloudWidth), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + cloudWidth) * scrollSpeed + cloudScrollingZ));
-                        tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY + cloudInteriorHeight - edgeOverlap), startZ, ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), (chunkOffsetY * scrollSpeed + cloudScrollingZ));
-                        tessellator.addVertexWithUV(startX, (cameraRelativeY + cloudInteriorHeight - edgeOverlap), startZ, (chunkOffsetX * scrollSpeed + cloudScrollingX), (chunkOffsetY * scrollSpeed + cloudScrollingZ));
+                        tessellator.addVertexWithUV(startX, (cameraRelativeY + cloudInteriorHeight - edgeOverlap), (startZ + cloudWidth), ((chunkOffsetX) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + cloudWidth) * scrollSpeed + cloudScrollingZ));
+                        tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY + cloudInteriorHeight - edgeOverlap), (startZ + cloudWidth), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + cloudWidth) * scrollSpeed + cloudScrollingZ));
+                        tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY + cloudInteriorHeight - edgeOverlap), startZ, ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), (chunkOffsetZ * scrollSpeed + cloudScrollingZ));
+                        tessellator.addVertexWithUV(startX, (cameraRelativeY + cloudInteriorHeight - edgeOverlap), startZ, (chunkOffsetX * scrollSpeed + cloudScrollingX), (chunkOffsetZ * scrollSpeed + cloudScrollingZ));
                     }
 
                     tessellator.setColorRGBA_F(red * 0.9F, green * 0.9F, blue * 0.9F, 0.8F);
-                    float chunk;
+                    if(Math.abs(chunkX) < 6 && Math.abs(chunkZ) < 6) {
+                        float chunk;
 
-                    if(chunkX > -1) {
-                        tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-                        for(chunk = 0f; chunk < cloudWidth; ++chunk) {
-                            double x = startX + chunk;
-                            tessellator.addVertexWithUV(x, cameraRelativeY, (startZ + cloudWidth), ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + cloudWidth) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV(x, (cameraRelativeY + cloudInteriorHeight), (startZ + cloudWidth), ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + cloudWidth) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV(x, (cameraRelativeY + cloudInteriorHeight), startZ, ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetY) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV(x, cameraRelativeY, startZ, ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetY) * scrollSpeed + cloudScrollingZ));
+                        if (chunkX > -1) {
+                            tessellator.setNormal(-1.0F, 0.0F, 0.0F);
+                            for (chunk = 0f; chunk < cloudWidth; ++chunk) {
+                                double x = startX + chunk;
+                                tessellator.addVertexWithUV(x, cameraRelativeY, (startZ + cloudWidth), ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + cloudWidth) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV(x, (cameraRelativeY + cloudInteriorHeight), (startZ + cloudWidth), ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + cloudWidth) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV(x, (cameraRelativeY + cloudInteriorHeight), startZ, ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV(x, cameraRelativeY, startZ, ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ) * scrollSpeed + cloudScrollingZ));
+                            }
                         }
-                    }
 
-                    if(chunkX <= 1) {
-                        tessellator.setNormal(1.0F, 0.0F, 0.0F);
-                        for(chunk = 0f; chunk < cloudWidth; ++chunk) {
-                            double x = startX + chunk + 1.0F - edgeOverlap;
-                            tessellator.addVertexWithUV(x, cameraRelativeY, (startZ + cloudWidth), ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + cloudWidth) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV(x, (cameraRelativeY + cloudInteriorHeight), (startZ + cloudWidth), ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + cloudWidth) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV(x, (cameraRelativeY + cloudInteriorHeight), startZ, ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetY) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV(x, cameraRelativeY, startZ, ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetY) * scrollSpeed + cloudScrollingZ));
+                        if (chunkX <= 1) {
+                            tessellator.setNormal(1.0F, 0.0F, 0.0F);
+                            for (chunk = 0f; chunk < cloudWidth; ++chunk) {
+                                double x = startX + chunk + 1.0F - edgeOverlap;
+                                tessellator.addVertexWithUV(x, cameraRelativeY, (startZ + cloudWidth), ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + cloudWidth) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV(x, (cameraRelativeY + cloudInteriorHeight), (startZ + cloudWidth), ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + cloudWidth) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV(x, (cameraRelativeY + cloudInteriorHeight), startZ, ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV(x, cameraRelativeY, startZ, ((chunkOffsetX + chunk + 0.5F) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ) * scrollSpeed + cloudScrollingZ));
+                            }
                         }
-                    }
 
-                    tessellator.setColorRGBA_F(red * 0.8F, green * 0.8F, blue * 0.8F, 0.8F);
+                        tessellator.setColorRGBA_F(red * 0.8F, green * 0.8F, blue * 0.8F, 0.8F);
 
-                    if(chunkY > -1) {
-                        tessellator.setNormal(0.0F, 0.0F, -1.0F);
-                        for(chunk = 0f; chunk < cloudWidth; ++chunk) {
-                            tessellator.addVertexWithUV(startX, (cameraRelativeY + cloudInteriorHeight), (startZ +chunk), ((chunkOffsetX) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY + cloudInteriorHeight), (startZ + chunk), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY), (startZ + chunk), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV(startX, (cameraRelativeY), (startZ + chunk), ((chunkOffsetX) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                        if (chunkZ > -1) {
+                            tessellator.setNormal(0.0F, 0.0F, -1.0F);
+                            for (chunk = 0f; chunk < cloudWidth; ++chunk) {
+                                tessellator.addVertexWithUV(startX, (cameraRelativeY + cloudInteriorHeight), (startZ + chunk), ((chunkOffsetX) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY + cloudInteriorHeight), (startZ + chunk), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY), (startZ + chunk), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV(startX, (cameraRelativeY), (startZ + chunk), ((chunkOffsetX) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                            }
                         }
-                    }
 
-                    if(chunkY <= 1) {
-                        tessellator.setNormal(0.0F, 0.0F, 1.0F);
-                        for(chunk = 0f; chunk < cloudWidth; ++chunk) {
-                            tessellator.addVertexWithUV(startX, (cameraRelativeY + cloudInteriorHeight), (startZ + chunk + 1.0F - edgeOverlap), (chunkOffsetX * scrollSpeed + cloudScrollingX), ((chunkOffsetY + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY + cloudInteriorHeight), (startZ + chunk + 1.0F - edgeOverlap), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV((startX + cloudWidth), cameraRelativeY, (startZ + chunk + 1.0F - edgeOverlap), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetY + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
-                            tessellator.addVertexWithUV(startX, (cameraRelativeY), (startZ + chunk + 1.0F - edgeOverlap), (chunkOffsetX * scrollSpeed + cloudScrollingX), ((chunkOffsetY + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                        if (chunkZ <= 1) {
+                            tessellator.setNormal(0.0F, 0.0F, 1.0F);
+                            for (chunk = 0f; chunk < cloudWidth; ++chunk) {
+                                tessellator.addVertexWithUV(startX, (cameraRelativeY + cloudInteriorHeight), (startZ + chunk + 1.0F - edgeOverlap), (chunkOffsetX * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV((startX + cloudWidth), (cameraRelativeY + cloudInteriorHeight), (startZ + chunk + 1.0F - edgeOverlap), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV((startX + cloudWidth), cameraRelativeY, (startZ + chunk + 1.0F - edgeOverlap), ((chunkOffsetX + cloudWidth) * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                                tessellator.addVertexWithUV(startX, (cameraRelativeY), (startZ + chunk + 1.0F - edgeOverlap), (chunkOffsetX * scrollSpeed + cloudScrollingX), ((chunkOffsetZ + chunk + 0.5F) * scrollSpeed + cloudScrollingZ));
+                            }
                         }
                     }
                     tessellator.draw();
