@@ -1,4 +1,4 @@
-package jss.notfine.mixins.early.minecraft;
+package jss.notfine.mixins.early.minecraft.particles;
 
 import java.util.Random;
 
@@ -27,18 +27,30 @@ public abstract class MixinBlockEnchantmentTable extends BlockContainer {
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		//Unneeded in vanilla as the super call is empty.
 		//super.randomDisplayTick(world, x, y, z, rand);
+        float particleChance = NotFineSettings.Settings.PARTICLES_ENC_TABLE.getValue();
+        if(particleChance <= 0) {
+            return;
+        }
 		for (int xPos = x - 2; xPos <= x + 2; ++xPos) {
 			for (int zPos = z - 2; zPos <= z + 2; ++zPos) {
 				if (xPos > x - 2 && xPos < x + 2 && zPos == z - 1) {
 					zPos = z + 2;
 				}
-				if (rand.nextInt(16) <= NotFineSettings.enchantmentDensity) {
+				if (rand.nextInt(16) <= particleChance) {
 					for (int yPos = y; yPos <= y + 1; ++yPos) {
 						if (world.getBlock(xPos, yPos, zPos).getEnchantPowerBonus(world, xPos, yPos, zPos) > 0f) {
 							if (!world.isAirBlock((xPos - x) / 2 + x, yPos, (zPos - z) / 2 + z)) {
 								break;
 							}
-							world.spawnParticle("enchantmenttable", (double)x + 0.5D, (double)y + 2.0D, (double)z + 0.5D, (double)((float)(xPos - x) + rand.nextFloat()) - 0.5D, (double)((float)(yPos - y) - rand.nextFloat() - 1.0F), (double)((float)(zPos - z) + rand.nextFloat()) - 0.5D);
+							world.spawnParticle(
+                                "enchantmenttable",
+                                (double)x + 0.5D,
+                                (double)y + 2.0D,
+                                (double)z + 0.5D,
+                                (double)((float)(xPos - x) + rand.nextFloat()) - 0.5D,
+                                (float)(yPos - y) - rand.nextFloat() - 1.0F,
+                                (double)((float)(zPos - z) + rand.nextFloat()) - 0.5D
+                            );
 						}
 					}
 				}

@@ -1,4 +1,4 @@
-package jss.notfine.mixins.early.minecraft;
+package jss.notfine.mixins.early.minecraft.gleam;
 
 import jss.notfine.core.NotFineSettings;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +22,7 @@ public abstract class MixinRenderItem {
 	 */
 	@Overwrite
     private void renderGlint(int unused, int posX, int posY, int width, int height) {
-        if(!NotFineSettings.gleamRender) {
+        if(!NotFineSettings.Settings.MODE_GLEAM_INV.isValueBase()) {
             return;
         }
         final float timeUVSpeed = 0.00390625F;
@@ -39,20 +39,20 @@ public abstract class MixinRenderItem {
 
             tessellator.startDrawingQuads();
             tessellator.addVertexWithUV(
-            	(double)posX, (double)(posY + height), (double)zLevel,
-            	(double)((timeUVNoise + (float)height * layerUVNoise) * timeUVSpeed), (double)((float)height * timeUVSpeed)
+            	posX, (posY + height), zLevel,
+            	((timeUVNoise + (float)height * layerUVNoise) * timeUVSpeed), ((float)height * timeUVSpeed)
             );
             tessellator.addVertexWithUV(
-            	(double)(posX + width), (double)(posY + height), (double)zLevel,
-            	(double)((timeUVNoise + (float)width + (float)height * layerUVNoise) * timeUVSpeed), (double)((float)height * timeUVSpeed)
+            	(posX + width), (posY + height), zLevel,
+            	((timeUVNoise + (float)width + (float)height * layerUVNoise) * timeUVSpeed), ((float)height * timeUVSpeed)
             );
             tessellator.addVertexWithUV(
-            	(double)(posX + width), (double)posY, (double)zLevel,
-            	(double)((timeUVNoise + (float)width) * timeUVSpeed), 0D
+            	(posX + width), posY, zLevel,
+            	((timeUVNoise + (float)width) * timeUVSpeed), 0D
             );
             tessellator.addVertexWithUV(
-            	(double)posX, (double)posY, (double)zLevel,
-            	(double)(timeUVNoise * timeUVSpeed), 0D
+            	posX, posY, zLevel,
+            	(timeUVNoise * timeUVSpeed), 0D
             );
             tessellator.draw();
 

@@ -1,4 +1,4 @@
-package jss.notfine.mixins.early.minecraft;
+package jss.notfine.mixins.early.minecraft.gleam;
 
 import jss.notfine.core.NotFineSettings;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = ItemRenderer.class)
-public class MixinItemRenderer {
+public abstract class MixinItemRenderer {
 
     @Redirect(
         method = "renderItem(Lnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/item/ItemStack;ILnet/minecraftforge/client/IItemRenderer$ItemRenderType;)V",
@@ -19,7 +19,7 @@ public class MixinItemRenderer {
         remap = false
     )
     private boolean toggleGleam(ItemStack stack, int pass) {
-        return NotFineSettings.gleamRender && stack.hasEffect(pass);
+        return NotFineSettings.Settings.MODE_GLEAM_WORLD.isValueBase() && stack.hasEffect(pass);
     }
 
 }

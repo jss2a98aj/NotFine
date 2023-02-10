@@ -1,4 +1,4 @@
-package jss.notfine.mixins.early.minecraft;
+package jss.notfine.mixins.early.minecraft.particles;
 
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityFX;
@@ -18,19 +18,9 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 @Mixin(value = EffectRenderer.class)
 public abstract class MixinEffectRenderer {
-
-    @Shadow @Final
-    private static ResourceLocation particleTextures;
-
-    @Shadow
-    private List[] fxLayers;
-
-    @Shadow
-    private TextureManager renderer;
 
     /**
      * @author jss2a98aj
@@ -81,17 +71,11 @@ public abstract class MixinEffectRenderer {
                     } catch (Throwable throwable) {
                         CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
                         CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
-                        crashreportcategory.addCrashSectionCallable("Particle", new Callable() {
-                            public String call()
-                            {
-                                return entityfx.toString();
-                            }
-                        });
-                        crashreportcategory.addCrashSectionCallable("Particle Type", new Callable() {
-                            public String call() {
-                                return i == 0 ? "MISC_TEXTURE" : (i == 1 ? "TERRAIN_TEXTURE" : (i == 2 ? "ITEM_TEXTURE" : (i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i)));
-                            }
-                        });
+                        crashreportcategory.addCrashSectionCallable("Particle", entityfx::toString);
+                        crashreportcategory.addCrashSectionCallable(
+                            "Particle Type",
+                            () -> i == 0 ? "MISC_TEXTURE" : (i == 1 ? "TERRAIN_TEXTURE" : (i == 2 ? "ITEM_TEXTURE" : (i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i)))
+                        );
                         throw new ReportedException(crashreport);
                     }
                 }
@@ -101,5 +85,10 @@ public abstract class MixinEffectRenderer {
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
     }
+
+    @Shadow @Final
+    private static ResourceLocation particleTextures;
+    @Shadow private List[] fxLayers;
+    @Shadow private TextureManager renderer;
 
 }

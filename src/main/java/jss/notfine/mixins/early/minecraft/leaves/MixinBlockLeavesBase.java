@@ -1,21 +1,17 @@
-package jss.notfine.mixins.early.minecraft;
+package jss.notfine.mixins.early.minecraft.leaves;
 
 import jss.notfine.core.NotFineSettings;
 import jss.util.DirectionHelper;
-import jss.util.Directions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = BlockLeavesBase.class)
 public abstract class MixinBlockLeavesBase extends Block {
-
-    protected MixinBlockLeavesBase(Material materialIn) {
-        super(materialIn);
-    }
 
     @Override
     public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
@@ -23,7 +19,7 @@ public abstract class MixinBlockLeavesBase extends Block {
         if (otherBlock.isOpaqueCube()) {
             return false;
         }
-        switch(NotFineSettings.leavesRenderMode) {
+        switch((int)NotFineSettings.Settings.MODE_LEAVES.getValue()) {
             case 1:
             case 2:
                 return !(otherBlock instanceof BlockLeavesBase);
@@ -70,7 +66,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                         x -= DirectionHelper.xDirectionalIncrease[side];
                         y -= DirectionHelper.yDirectionalIncrease[side];
                         z -= DirectionHelper.zDirectionalIncrease[side];
-                        int nextSide = DirectionHelper.relativeADirections[side].ordinal();
+                        int nextSide = DirectionHelper.relativeADirections[side];
                         otherBlock = world.getBlock(
                             x + DirectionHelper.zDirectionalIncrease[nextSide],
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
@@ -79,7 +75,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                         if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
-                        nextSide = DirectionHelper.relativeBDirections[side].ordinal();
+                        nextSide = DirectionHelper.relativeBDirections[side];
                         otherBlock = world.getBlock(
                             x + DirectionHelper.zDirectionalIncrease[nextSide],
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
@@ -88,7 +84,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                         if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
-                        nextSide = DirectionHelper.relativeCDirections[side].ordinal();
+                        nextSide = DirectionHelper.relativeCDirections[side];
                         otherBlock = world.getBlock(
                             x + DirectionHelper.zDirectionalIncrease[nextSide],
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
@@ -97,7 +93,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                         if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
-                        nextSide = DirectionHelper.relativeDDirections[side].ordinal();
+                        nextSide = DirectionHelper.relativeDDirections[side];
                         otherBlock = world.getBlock(
                             x + DirectionHelper.zDirectionalIncrease[nextSide],
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
@@ -109,8 +105,15 @@ public abstract class MixinBlockLeavesBase extends Block {
                     }
                     return renderSide;
                 }
+            default:
+                return !field_150121_P && otherBlock instanceof BlockLeavesBase ? false : true;
         }
-        return true;
+    }
+
+    @Shadow protected boolean field_150121_P;
+
+    protected MixinBlockLeavesBase(Material material) {
+        super(material);
     }
 
 }

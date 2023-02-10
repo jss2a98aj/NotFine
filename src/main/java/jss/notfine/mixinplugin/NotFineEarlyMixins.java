@@ -2,6 +2,7 @@ package jss.notfine.mixinplugin;
 
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+import jss.notfine.NotFine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,18 +19,30 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
 
     @Override
     public List<String> getMixins(Set<String> loadedCoreMods) {
+        NotFine.logger.info("Kicking off NotFine early mixins.");
+
         List<String> mixins = new ArrayList<>();
 
-        mixins.add("minecraft.MixinBlockLeavesBase");
-        mixins.add("minecraft.MixinBlockLeaves");
-        mixins.add("minecraft.MixinBlockOldLeaf");
-        mixins.add("minecraft.MixinBlockNewLeaf");
+        mixins.add("minecraft.clouds.MixinEntityRenderer");
+        mixins.add("minecraft.clouds.MixinGameSettings");
+        mixins.add("minecraft.clouds.MixinRenderGlobal");
+
+        mixins.add("minecraft.gleam.MixinItemRenderer");
+        mixins.add("minecraft.gleam.MixinRenderBiped");
+        mixins.add("minecraft.gleam.MixinRenderItem");
+        mixins.add("minecraft.gleam.MixinRenderPlayer");
+
+        mixins.add("minecraft.leaves.MixinBlockLeaves");
+        mixins.add("minecraft.leaves.MixinBlockLeavesBase");
+
+        mixins.add("minecraft.particles.MixinBlockEnchantmentTable");
+        mixins.add("minecraft.particles.MixinEffectRenderer");
+
         mixins.add("minecraft.MixinRenderGlobal");
         mixins.add("minecraft.MixinWorldType");
-        mixins.add("minecraft.MixinBlockEnchantmentTable");
-        mixins.add("minecraft.MixinEffectRenderer");
-        mixins.add("minecraft.MixinRenderItem");
-        mixins.add("minecraft.MixinItemRenderer");
+
+        mixins.add("minecraft.MixinGameSettings");
+        mixins.add("minecraft.MixinOptions");
 
         return mixins;
     }
@@ -58,4 +71,5 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
     public String getAccessTransformerClass() {
         return null;
     }
+
 }
