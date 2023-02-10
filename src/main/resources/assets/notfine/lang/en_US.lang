@@ -1,5 +1,9 @@
 options.cloud_height=Cloud Height
 options.cloud_scale=Cloud Scale
+options.mode_cloud_translucency=Cloud Translucency
+options.mode_cloud_translucency.-1=Default
+options.mode_cloud_translucency.0=Always
+options.mode_cloud_translucency.1=Never
 options.mode_clouds=Clouds
 options.mode_clouds.-1=Default
 options.mode_clouds.0=Fancy

@@ -11,7 +11,7 @@ import java.io.*;
 public class NotFineSettings {
 
     public static int minimumFarPlaneDistance;
-    public static float cloudScale;
+    public static double cloudTranslucencyCheck;
 
     private static Configuration settingsFile;
 
@@ -54,18 +54,27 @@ public class NotFineSettings {
         Minecraft mc = Minecraft.getMinecraft();
         switch(setting) {
             case CLOUD_HEIGHT:
-            case CLOUD_SCALE:
+            case MODE_CLOUD_TRANSLUCENCY:
             case MODE_CLOUDS:
             case RENDER_DISTANCE_CLOUDS:
                 if(Settings.MODE_CLOUDS.value != 2f) {
                     minimumFarPlaneDistance = (int)(32f * Settings.RENDER_DISTANCE_CLOUDS.value);
                     minimumFarPlaneDistance += Math.abs(Settings.CLOUD_HEIGHT.value);
-                    cloudScale = Settings.CLOUD_SCALE.value;
-                    cloudScale *= 1f + (Settings.RENDER_DISTANCE_CLOUDS.value - 4) * 0.06f;
                     mc.gameSettings.clouds = true;
                 } else {
                     minimumFarPlaneDistance = 128;
                     mc.gameSettings.clouds = false;
+                }
+                switch((int)Settings.MODE_CLOUD_TRANSLUCENCY.value) {
+                    case -1:
+                        cloudTranslucencyCheck = Settings.CLOUD_HEIGHT.value;
+                        break;
+                    case 0:
+                        cloudTranslucencyCheck = Double.NEGATIVE_INFINITY;
+                        break;
+                    case 1:
+                        cloudTranslucencyCheck = Double.POSITIVE_INFINITY;
+                        break;
                 }
                 break;
             case MODE_LEAVES:
@@ -81,6 +90,8 @@ public class NotFineSettings {
         CLOUD_HEIGHT(true, 128f, 96f, 384f, 16f),
         CLOUD_SCALE(true, 1f, 0.5f, 4f, 0.5f),
         FOG_DEPTH(false,1f, 0f, 1f, 1f),
+        //-1 default, 0 always, 1 never
+        MODE_CLOUD_TRANSLUCENCY(false, -1f,-1f,1f, 1f),
         //-1 default, 0 fancy, 1 fast, 2 off
         MODE_CLOUDS(false,-1f, -1f, 2f, 1f),
         //0 OFF, 1 ON
