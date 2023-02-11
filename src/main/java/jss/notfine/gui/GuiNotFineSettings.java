@@ -52,7 +52,7 @@ public class GuiNotFineSettings extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        //drawDefaultBackground();
+        drawDefaultBackground();
         optionsRowList.drawScreen(mouseX, mouseY, partialTicks);
         drawCenteredString(fontRendererObj, screenTitle, width / 2, 5, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
