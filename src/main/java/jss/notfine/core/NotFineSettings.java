@@ -103,6 +103,7 @@ public class NotFineSettings {
         //0 OFF, 1 ON
         MODE_SKY(false,1f, 0f, 1f, 1f),
         PARTICLES_ENC_TABLE(true,1f, 0f, 16f, 1f),
+        PARTICLES_VOID(false,1f, 0f, 1f, 1f),
         RENDER_DISTANCE_CLOUDS(true, 4f, 4f, 64f, 2f),
         TOTAL_STARS(true, 1500f, 0f, 32000f, 500f);
 

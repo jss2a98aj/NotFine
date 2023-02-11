@@ -18,7 +18,8 @@ public class LoadNotFineMenuButtons {
         NotFineSettings.Settings.MODE_CLOUDS, NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS,
         NotFineSettings.Settings.CLOUD_SCALE, NotFineSettings.Settings.CLOUD_HEIGHT,
         NotFineSettings.Settings.MODE_CLOUD_TRANSLUCENCY, NotFineSettings.Settings.PARTICLES_ENC_TABLE,
-        NotFineSettings.Settings.MODE_GLEAM_WORLD, NotFineSettings.Settings.MODE_GLEAM_INV
+        NotFineSettings.Settings.MODE_GLEAM_WORLD, NotFineSettings.Settings.MODE_GLEAM_INV,
+        NotFineSettings.Settings.PARTICLES_VOID
     };
 
     @SubscribeEvent
