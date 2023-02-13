@@ -1,5 +1,6 @@
 package jss.notfine.core;
 
+import jss.notfine.render.RenderStars;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.launchwrapper.Launch;
@@ -13,27 +14,37 @@ public class NotFineSettings {
     public static int minimumFarPlaneDistance;
     public static double cloudTranslucencyCheck;
 
+    private static Minecraft mc;
     private static Configuration settingsFile;
 
     public static void loadSettings() {
+        if(mc == null) {
+            mc = Minecraft.getMinecraft();
+        }
         if(settingsFile == null) {
             File userSettingsFile = new File(Launch.minecraftHome + File.separator + "optionsGraphics.cfg");
             settingsFile = new Configuration(userSettingsFile);
         }
         for(Settings setting : Settings.values()) {
 
-            setting.setValue(settingsFile.getFloat(
+            setting.value = settingsFile.getFloat(
                 setting.name(),
                 ("Settings"),
                 setting.base,
                 setting.minimum,
                 setting.maximum,
                 ("Increments in steps of " + setting.step)
-            ));
+            );
+
+            if(setting.step > 0f) {
+                setting.value = setting.step * (float)Math.round(setting.value / setting.step);
+            }
         }
         if(settingsFile.hasChanged()) {
             settingsFile.save();
         }
+
+        cloudsUpdated();
     }
 
     public static void saveSettings() {
@@ -51,37 +62,39 @@ public class NotFineSettings {
     }
 
     private static void settingUpdated(Settings setting) {
-        Minecraft mc = Minecraft.getMinecraft();
         switch(setting) {
             case CLOUD_HEIGHT:
             case MODE_CLOUD_TRANSLUCENCY:
             case MODE_CLOUDS:
             case RENDER_DISTANCE_CLOUDS:
-                if(Settings.MODE_CLOUDS.value != 2f) {
-                    minimumFarPlaneDistance = (int)(32f * Settings.RENDER_DISTANCE_CLOUDS.value);
-                    minimumFarPlaneDistance += Math.abs(Settings.CLOUD_HEIGHT.value);
-                    mc.gameSettings.clouds = true;
-                } else {
-                    minimumFarPlaneDistance = 128;
-                    mc.gameSettings.clouds = false;
-                }
-                switch((int)Settings.MODE_CLOUD_TRANSLUCENCY.value) {
-                    case -1:
-                        cloudTranslucencyCheck = Settings.CLOUD_HEIGHT.value;
-                        break;
-                    case 0:
-                        cloudTranslucencyCheck = Double.NEGATIVE_INFINITY;
-                        break;
-                    case 1:
-                        cloudTranslucencyCheck = Double.POSITIVE_INFINITY;
-                        break;
-                }
+                cloudsUpdated();
                 break;
             case MODE_LEAVES:
                 mc.renderGlobal.loadRenderers();
                 break;
             case TOTAL_STARS:
-                //TODO: Reload stars.
+                RenderStars.reloadStarRenderList(mc.renderGlobal);
+        }
+    }
+
+    private static void cloudsUpdated() {
+        if(Settings.MODE_CLOUDS.value != 2f) {
+            minimumFarPlaneDistance = (int)(32f * Settings.RENDER_DISTANCE_CLOUDS.value);
+            minimumFarPlaneDistance += Math.abs(Settings.CLOUD_HEIGHT.value);
+            mc.gameSettings.clouds = true;
+        } else {
+            minimumFarPlaneDistance = 128;
+            mc.gameSettings.clouds = false;
+        }
+        switch((int)Settings.MODE_CLOUD_TRANSLUCENCY.value) {
+            case -1:
+                cloudTranslucencyCheck = Settings.CLOUD_HEIGHT.value;
+                break;
+            case 0:
+                cloudTranslucencyCheck = Double.NEGATIVE_INFINITY;
+                break;
+            case 1:
+                cloudTranslucencyCheck = Double.POSITIVE_INFINITY;
                 break;
         }
     }
