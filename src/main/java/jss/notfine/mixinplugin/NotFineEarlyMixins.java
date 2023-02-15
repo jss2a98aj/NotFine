@@ -3,6 +3,7 @@ package jss.notfine.mixinplugin;
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import jss.notfine.NotFine;
+import net.minecraft.world.WorldProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.particles.MixinBlockEnchantmentTable");
         mixins.add("minecraft.particles.MixinEffectRenderer");
         mixins.add("minecraft.particles.MixinWorldClient");
+        mixins.add("minecraft.particles.MixinWorldProvider");
 
         mixins.add("minecraft.MixinRenderGlobal");
         mixins.add("minecraft.MixinWorldType");

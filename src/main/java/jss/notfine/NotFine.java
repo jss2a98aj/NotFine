@@ -21,7 +21,7 @@ public class NotFine {
     public static final String MODID = "notfine";
     public static final String NAME = "NotFine";
     public static final String VERSION = "GRADLETOKEN_VERSION";
-    public static final Logger logger = LogManager.getLogger(NotFine.MODID);
+    public static final Logger logger = LogManager.getLogger(NAME);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

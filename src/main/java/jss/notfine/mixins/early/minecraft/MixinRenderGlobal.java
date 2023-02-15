@@ -19,7 +19,7 @@ public abstract class MixinRenderGlobal {
 
     /**
      * @author jss2a98aj
-     * @reason Control total stars.
+     * @reason Control star generation.
      */
     @Overwrite
     private void renderStars() {
