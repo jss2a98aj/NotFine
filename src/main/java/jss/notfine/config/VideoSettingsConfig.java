@@ -22,7 +22,7 @@ public class VideoSettingsConfig {
                 setting.base,
                 setting.minimum,
                 setting.maximum,
-                ("Increments in steps of " + setting.step)
+                setting.configComment
             );
 
             if(setting.step > 0f) {
@@ -36,6 +36,7 @@ public class VideoSettingsConfig {
         }
 
         SettingsManager.cloudsUpdated();
+        SettingsManager.leavesUpdated();
     }
 
     public void saveSettings() {
@@ -44,7 +45,7 @@ public class VideoSettingsConfig {
                 ("Settings"),
                 setting.name(),
                 setting.base,
-                ("Increments in steps of " + setting.step),
+                setting.configComment,
                 setting.minimum,
                 setting.maximum
             ).set(setting.getValue());

@@ -21,7 +21,7 @@ public class MixinRender {
         allow = 1
     )
     private boolean notFine$redirectRenderMode(GameSettings settings) {
-        return SettingsManager.shadows;
+        return SettingsManager.shadowsFancy;
     }
 
 }

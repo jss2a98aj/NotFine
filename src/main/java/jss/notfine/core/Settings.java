@@ -6,23 +6,16 @@ import net.minecraft.util.MathHelper;
 public enum Settings {
     CLOUD_HEIGHT(true, 128f, 96f, 384f, 16f),
     CLOUD_SCALE(true, 1f, 0.5f, 4f, 0.5f),
-    FOG_DEPTH(false,1f, 0f, 1f, 1f),
-    //-1 default, 0 always, 1 never
-    MODE_CLOUD_TRANSLUCENCY(false, -1f,-1f,1f, 1f),
-    //-1 default, 0 fancy, 1 fast, 2 off
-    MODE_CLOUDS(false,-1f, -1f, 2f, 1f),
-    //0 OFF, 1 ON
-    MODE_GLEAM_INV(false,1f, 0f, 1f, 1f),
-    //0 OFF, 1 ON
-    MODE_GLEAM_WORLD(false,1f, 0f, 1f, 1f),
-    //-1 default, 0 fancy, 1 fast, 2 smart, 3 fast hybrid, 4 fancy hybrid
-    MODE_LEAVES(false,-1f, -1f, 4f,1f),
-    MODE_SHADOWS(false, -1f,-1f,1f, 1f),
-    //-1 default, 0 fancy, 1 fast, 2 off
-    //0 OFF, 1 ON
-    MODE_SKY(false,1f, 0f, 1f, 1f),
+    FOG_DEPTH(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
+    MODE_CLOUD_TRANSLUCENCY(false, -1f,-1f,1f, 1f, "-1:Default, 0:Always, 1:Never"),
+    MODE_CLOUDS(false,-1f, -1f, 2f, 1f, "-1:Default, 0:Fancy, 1:Fast, 2:Off"),
+    MODE_GLEAM_INV(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
+    MODE_GLEAM_WORLD(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
+    MODE_LEAVES(false,-1f, -1f, 4f,1f,"-1:Default, 0:Fancy, 1:Fast, 2: Smart, 3:Hybrid Fancy, 3:Hybrid Fast"),
+    MODE_SHADOWS(false, -1f,-1f,1f, 1f, "-1:Default, 0:On, 1:Off"),
+    MODE_SKY(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
     PARTICLES_ENC_TABLE(true,1f, 0f, 16f, 1f),
-    PARTICLES_VOID(false,1f, 0f, 1f, 1f),
+    PARTICLES_VOID(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
     RENDER_DISTANCE_CLOUDS(true, 4f, 4f, 64f, 2f),
     TOTAL_STARS(true, 1500f, 0f, 32000f, 500f);
 
@@ -31,15 +24,21 @@ public enum Settings {
     public final float minimum;
     public final float maximum;
     public final float step;
+    public final String configComment;
     private float value;
 
-    Settings(boolean slider, float base, float minimum, float maximum, float step) {
+    Settings(boolean slider, float base, float minimum, float maximum, float step, String configComment) {
         this.slider = slider;
         this.base = base;
         this.minimum = minimum;
         this.maximum = maximum;
         this.step = step;
+        this.configComment = configComment;
         value = base;
+    }
+
+    Settings(boolean slider, float base, float minimum, float maximum, float step) {
+        this(slider, base, minimum, maximum, step, "Increments in steps of " + step);
     }
 
     public void setValue(float value) {
@@ -87,9 +86,9 @@ public enum Settings {
             }
         } else if(step == 1f && minimum == 0f && maximum == 1f) {
             if(value == 0f) {
-                localized += I18n.format("options.off");
-            } else {
                 localized += I18n.format("options.on");
+            } else {
+                localized += I18n.format("options.off");
             }
         } else {
             localized += I18n.format("options." + name().toLowerCase() + '.' + (int)value);

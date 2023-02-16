@@ -1,6 +1,7 @@
 package jss.notfine.mixins.early.minecraft.leaves;
 
 import jss.notfine.core.Settings;
+import jss.notfine.core.SettingsManager;
 import jss.util.DirectionHelper;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLeavesBase;
@@ -16,18 +17,17 @@ public abstract class MixinBlockLeaves extends BlockLeavesBase {
 
     /**
      * @author jss2a98aj
-     * @reason Hopefully temporary kludge.
+     * @reason Control leaf opacity.
      */
     @Overwrite
     public boolean isOpaqueCube() {
-        //TODO: Update original value at runtime rather than using an Overwrite.
-        return Settings.MODE_LEAVES.getValue() == 1;
+        return SettingsManager.leavesOpaque;
     }
 
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
         int renderMode = (int) Settings.MODE_LEAVES.getValue();
         if(renderMode >= 0 && field_150129_M[0] != null) {
-            if(renderMode == 3) {
+            if(renderMode == 4) {
                 renderMode = world.getBlock(
                     x + DirectionHelper.xDirectionalIncrease[side],
                     y + DirectionHelper.yDirectionalIncrease[side],

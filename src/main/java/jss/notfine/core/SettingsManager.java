@@ -3,6 +3,7 @@ package jss.notfine.core;
 import jss.notfine.config.VideoSettingsConfig;
 import jss.notfine.render.RenderStars;
 import net.minecraft.client.Minecraft;
+import net.minecraft.init.Blocks;
 import net.minecraft.launchwrapper.Launch;
 
 import java.io.File;
@@ -17,7 +18,8 @@ public class SettingsManager {
 
     public static int minimumFarPlaneDistance;
     public static double cloudTranslucencyCheck;
-    public static boolean shadows;
+    public static boolean shadowsFancy;
+    public static boolean leavesOpaque;
 
     public static void cloudsUpdated() {
         if(Settings.MODE_CLOUDS.getValue() != 2f) {
@@ -41,6 +43,12 @@ public class SettingsManager {
         }
     }
 
+    public static void leavesUpdated() {
+        leavesOpaque = Settings.MODE_LEAVES.getValue() == 1 || (Settings.MODE_LEAVES.getValue() == -1 && !mc.gameSettings.fancyGraphics);
+        Blocks.leaves.setGraphicsLevel(!leavesOpaque);
+        Blocks.leaves2.setGraphicsLevel(!leavesOpaque);
+    }
+
     public static void settingUpdated(Settings setting) {
         switch(setting) {
             case CLOUD_HEIGHT:
@@ -51,16 +59,17 @@ public class SettingsManager {
                 break;
             case MODE_LEAVES:
                 mc.renderGlobal.loadRenderers();
+                leavesUpdated();
             case MODE_SHADOWS:
                 switch((int)setting.getValue()) {
                     case -1:
-                        shadows = mc.gameSettings.fancyGraphics;
+                        shadowsFancy = mc.gameSettings.fancyGraphics;
                         break;
                     case 0:
-                        shadows = true;
+                        shadowsFancy = true;
                         break;
                     case 1:
-                        shadows = false;
+                        shadowsFancy = false;
                         break;
                 }
                 break;
