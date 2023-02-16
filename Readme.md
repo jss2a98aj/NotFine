@@ -10,6 +10,16 @@ Adding support for new leaf rendering modes to modded leaves.
 
 Shaders will be supported when paired with [Angelica](https://github.com/GTNewHorizons/Angelica) or [Shader Mod](https://github.com/basdxz/ShadersMod/) if all goes well.
 
+# Requirements
+
+One and only one of the following:
+
+[UniMixins](https://github.com/LegacyModdingMC/UniMixins) (highly suggested)
+
+[GTNH Mixins](https://github.com/GTNewHorizons/GTNHMixins) with [MixingASM](https://github.com/makamys/Mixingasm)
+
+[GasStation](https://github.com/FalsePattern/GasStation) with [UniMixins'](https://github.com/makamys/Mixingasm) unimixins-gtnhmixins module.
+
 # Know Conflicts:
 
 Optifine. No, I will not be making them work together, please do not ask.
