@@ -1,4 +1,4 @@
-package jss.notfine.mixins.early.minecraft.gleam;
+package jss.notfine.mixins.early.minecraft.glint;
 
 import jss.notfine.core.Settings;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,7 @@ public abstract class MixinRenderItem {
 	 */
 	@Overwrite
     private void renderGlint(int unused, int posX, int posY, int width, int height) {
-        if(!Settings.MODE_GLEAM_INV.isValueBase()) {
+        if(!Settings.MODE_GLINT_INV.isValueBase()) {
             return;
         }
         final float timeUVSpeed = 0.00390625F;
@@ -71,7 +71,7 @@ public abstract class MixinRenderItem {
         remap = false
     )
     private boolean notFine$toggleGlint(ItemStack stack, int pass) {
-        return Settings.MODE_GLEAM_WORLD.isValueBase() && stack.hasEffect(pass);
+        return Settings.MODE_GLINT_WORLD.isValueBase() && stack.hasEffect(pass);
     }
 
     @Shadow public float zLevel;

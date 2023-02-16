@@ -18,7 +18,7 @@ public class LoadMenuButtons {
         Settings.MODE_CLOUDS, Settings.RENDER_DISTANCE_CLOUDS,
         Settings.CLOUD_SCALE, Settings.CLOUD_HEIGHT,
         Settings.MODE_CLOUD_TRANSLUCENCY, Settings.PARTICLES_ENC_TABLE,
-        Settings.MODE_GLEAM_WORLD, Settings.MODE_GLEAM_INV,
+        Settings.MODE_GLINT_WORLD, Settings.MODE_GLINT_INV,
         Settings.TOTAL_STARS, null,
         Settings.PARTICLES_VOID, Settings.MODE_SHADOWS
     };

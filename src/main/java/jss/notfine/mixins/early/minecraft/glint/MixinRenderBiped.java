@@ -1,4 +1,4 @@
-package jss.notfine.mixins.early.minecraft.gleam;
+package jss.notfine.mixins.early.minecraft.glint;
 
 import jss.notfine.core.Settings;
 import net.minecraft.client.renderer.entity.RenderBiped;
@@ -18,7 +18,7 @@ public abstract class MixinRenderBiped {
         )
     )
     private boolean notFine$toggleGlint(ItemStack stack) {
-        return Settings.MODE_GLEAM_WORLD.isValueBase() && stack.isItemEnchanted();
+        return Settings.MODE_GLINT_WORLD.isValueBase() && stack.isItemEnchanted();
     }
 
 }

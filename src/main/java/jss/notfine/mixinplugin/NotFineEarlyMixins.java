@@ -3,7 +3,6 @@ package jss.notfine.mixinplugin;
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import jss.notfine.NotFine;
-import net.minecraft.world.WorldProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +28,10 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.clouds.MixinGameSettings");
         mixins.add("minecraft.clouds.MixinRenderGlobal");
 
-        mixins.add("minecraft.gleam.MixinItemRenderer");
-        mixins.add("minecraft.gleam.MixinRenderBiped");
-        mixins.add("minecraft.gleam.MixinRenderItem");
-        mixins.add("minecraft.gleam.MixinRenderPlayer");
+        mixins.add("minecraft.glint.MixinItemRenderer");
+        mixins.add("minecraft.glint.MixinRenderBiped");
+        mixins.add("minecraft.glint.MixinRenderItem");
+        mixins.add("minecraft.glint.MixinRenderPlayer");
 
         mixins.add("minecraft.leaves.MixinBlockLeaves");
         mixins.add("minecraft.leaves.MixinBlockLeavesBase");
@@ -46,7 +45,6 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.MixinWorldType");
 
         mixins.add("minecraft.MixinGameSettings");
-        mixins.add("minecraft.MixinOptions");
 
         mixins.add("minecraft.MixinRender");
 
