@@ -10,12 +10,12 @@ import net.minecraft.client.resources.I18n;
 public class GuiNotFineSettings extends GuiScreen {
     private final GuiScreen parentGuiScreen;
     private final String titleUnlocalized;
-    private final Settings[] settings;
+    private final Object[] settings;
     protected String screenTitle = "Detail Settings";
 
     private GuiListExtended optionsRowList;
 
-    public GuiNotFineSettings(GuiScreen parentGuiScreen, String titleUnlocalized, Settings... settings) {
+    public GuiNotFineSettings(GuiScreen parentGuiScreen, String titleUnlocalized, Object... settings) {
         this.parentGuiScreen = parentGuiScreen;
         this.titleUnlocalized = titleUnlocalized;
         this.settings = settings;
@@ -27,7 +27,7 @@ public class GuiNotFineSettings extends GuiScreen {
         buttonList.clear();
         buttonList.add(new GuiButton(200, width / 2 - 100, height - 27, I18n.format("gui.done")));
 
-        optionsRowList = new GuiNotFineSettingsRowList(mc, width, height, 32, height - 32, 25, settings);
+        optionsRowList = new GuiCustomSettingsRowList(mc, width, height, 32, height - 32, 25, settings);
     }
 
     @Override

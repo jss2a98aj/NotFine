@@ -8,37 +8,45 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.settings.GameSettings;
 
 import java.util.List;
 
 @SideOnly(Side.CLIENT)
-public class GuiNotFineSettingsRowList extends GuiListExtended {
-    private final List settingsList = Lists.newArrayList();
+public class GuiCustomSettingsRowList extends GuiListExtended {
+    private final List<Row> settingsList = Lists.newArrayList();
 
-    public GuiNotFineSettingsRowList(Minecraft mc, int width, int height, int top, int bottom, int slotHeight, Settings... settings)  {
+    public GuiCustomSettingsRowList(Minecraft mc, int width, int height, int top, int bottom, int slotHeight, Object... settings)  {
         super(mc, width, height, top, bottom, slotHeight);
         field_148163_i = false;
 
-        for (int i = 0; i < settings.length; i += 2) {
-            Settings settingOne = settings[i];
-            Settings settingTwo = i < settings.length - 1 ? settings[i + 1] : null;
+        for(int i = 0; i < settings.length; i += 2) {
+            Object settingOne = settings[i];
+            Object settingTwo = i < settings.length - 1 ? settings[i + 1] : null;
             GuiButton buttonOne = createButton(width / 2 - 155, 0, settingOne);
             GuiButton buttonTwo = createButton(width / 2 - 155 + 160, 0, settingTwo);
-            settingsList.add(new GuiNotFineSettingsRowList.Row(buttonOne, buttonTwo));
+            settingsList.add(new GuiCustomSettingsRowList.Row(buttonOne, buttonTwo));
         }
     }
 
-    private GuiButton createButton(int xPosition, int yPosition, Settings setting) {
-        if (setting == null) {
-            return null;
-        } else {
-            return setting.slider ? new GuiNotFineSettingSlider(xPosition, yPosition, setting) : new GuiNotFineSettingButton(xPosition, yPosition, setting);
+    private GuiButton createButton(int xPosition, int yPosition, Object setting) {
+        if(setting instanceof Settings) {
+            Settings customSetting = (Settings)setting;
+            return customSetting.slider ?
+                new GuiCustomSettingSlider(xPosition, yPosition, customSetting) :
+                new GuiCustomSettingButton(xPosition, yPosition, customSetting);
+        } else if(setting instanceof GameSettings.Options) {
+            GameSettings.Options vanillaSetting = (GameSettings.Options)setting;
+            return vanillaSetting.getEnumFloat() ?
+                new GuiVanillaSettingSlider(xPosition, yPosition, vanillaSetting) :
+                new GuiVanillaSettingButton(xPosition, yPosition, vanillaSetting);
         }
+        return null;
     }
 
     @Override
-    public GuiNotFineSettingsRowList.Row getListEntry(int index) {
-        return (GuiNotFineSettingsRowList.Row) settingsList.get(index);
+    public GuiCustomSettingsRowList.Row getListEntry(int index) {
+        return settingsList.get(index);
     }
 
     @Override
@@ -64,16 +72,20 @@ public class GuiNotFineSettingsRowList extends GuiListExtended {
         public Row(GuiButton one, GuiButton two) {
             buttonOne = one;
             buttonTwo = two;
+
+            if(one != null && two == null) {
+                one.width += 160;
+            }
         }
 
         @Override
         public void drawEntry(int varU1, int x, int y, int varU2, int varU3, Tessellator tessellator, int mouseX, int mouseY, boolean varU4)  {
-            if (buttonOne != null) {
+            if(buttonOne != null) {
                 buttonOne.yPosition = y;
                 buttonOne.drawButton(mc, mouseX, mouseY);
             }
 
-            if (buttonTwo != null) {
+            if(buttonTwo != null) {
                 buttonTwo.yPosition = y;
                 buttonTwo.drawButton(mc, mouseX, mouseY);
             }
@@ -81,19 +93,9 @@ public class GuiNotFineSettingsRowList extends GuiListExtended {
 
         @Override
         public boolean mousePressed(int index, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-            if(buttonOne.mousePressed(mc, x, y)) {
-                if(buttonOne instanceof GuiNotFineSettingButton) {
-                    Settings setting = ((GuiNotFineSettingButton) buttonOne).setting;
-                    setting.incrementValue();
-                    buttonOne.displayString = setting.getLocalization();
-                }
+            if(buttonOne != null && buttonOne.mousePressed(mc, x, y)) {
                 return true;
             } else if(buttonTwo != null && buttonTwo.mousePressed(mc, x, y)) {
-                if(buttonTwo instanceof GuiNotFineSettingButton) {
-                    Settings setting = ((GuiNotFineSettingButton) buttonTwo).setting;
-                    setting.incrementValue();
-                    buttonTwo.displayString = setting.getLocalization();
-                }
                 return true;
             }
             return false;
@@ -101,11 +103,11 @@ public class GuiNotFineSettingsRowList extends GuiListExtended {
 
         @Override
         public void mouseReleased(int index, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-            if (buttonOne != null) {
+            if(buttonOne != null) {
                 buttonOne.mouseReleased(x, y);
             }
 
-            if (buttonTwo != null) {
+            if(buttonTwo != null) {
                 buttonTwo.mouseReleased(x, y);
             }
         }

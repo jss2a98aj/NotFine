@@ -1,21 +1,24 @@
 package jss.notfine.gui;
 
-import jss.notfine.core.Settings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
-public class GuiNotFineSettingSlider extends GuiButton {
+public class GuiVanillaSettingSlider extends GuiButton {
+
+    private final GameSettings.Options linkedSetting;
     private float value;
     public boolean mousePressed;
-    private final Settings linkedSetting;
 
-    public GuiNotFineSettingSlider(int xPosition, int yPosition, Settings setting) {
-        super(setting.ordinal(), xPosition, yPosition, 150, 20, setting.getLocalization());
+    public GuiVanillaSettingSlider(int xPosition, int yPosition, GameSettings.Options setting) {
+        super(setting.ordinal(), xPosition, yPosition, 150, 20, "");
         linkedSetting = setting;
-        value = setting.getValueNormalized();
-        displayString = setting.getLocalization();
+
+        Minecraft mc = Minecraft.getMinecraft();
+        value = linkedSetting.normalizeValue(Minecraft.getMinecraft().gameSettings.getOptionFloatValue(linkedSetting));
+        displayString = mc.gameSettings.getKeyBinding(setting);
     }
 
     @Override
@@ -27,11 +30,7 @@ public class GuiNotFineSettingSlider extends GuiButton {
     protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
         if(visible) {
             if(mousePressed) {
-                value = (float)(mouseX - (xPosition + 4)) / (float)(width - 8);
-                value = MathHelper.clamp_float(value, 0f, 1f);
-                linkedSetting.setValueNormalized(value);
-
-                displayString = linkedSetting.getLocalization();
+                updateSlider(mc, mouseX);
             }
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             drawTexturedModalRect(xPosition + (int)(value * (float)(width - 8)), yPosition, 0, 66, 4, 20);
@@ -42,11 +41,7 @@ public class GuiNotFineSettingSlider extends GuiButton {
     @Override
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         if(super.mousePressed(mc, mouseX, mouseY)) {
-            value = (float)(mouseX - (xPosition + 4)) / (float)(this.width - 8);
-            value = MathHelper.clamp_float(value, 0f, 1f);
-            linkedSetting.setValueNormalized(value);
-
-            displayString = linkedSetting.getLocalization();
+            updateSlider(mc, mouseX);
             mousePressed = true;
             return true;
         } else {
@@ -57,6 +52,17 @@ public class GuiNotFineSettingSlider extends GuiButton {
     @Override
     public void mouseReleased(int mouseX, int mouseY) {
         mousePressed = false;
+    }
+
+    private void updateSlider(Minecraft mc, int mouseX) {
+        value = (float)(mouseX - (xPosition + 4)) / (float)(width - 8);
+        value = MathHelper.clamp_float(value, 0f, 1f);
+
+        value = linkedSetting.denormalizeValue(value);
+        mc.gameSettings.setOptionFloatValue(linkedSetting, value);
+        value = linkedSetting.normalizeValue(value);
+
+        displayString = mc.gameSettings.getKeyBinding(linkedSetting);
     }
 
 }
