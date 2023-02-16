@@ -1,6 +1,7 @@
 package jss.notfine.gui;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
+import jss.notfine.core.SettingsManager;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.gui.GuiScreen;
@@ -9,12 +10,12 @@ import net.minecraft.client.resources.I18n;
 public class GuiNotFineSettings extends GuiScreen {
     private final GuiScreen parentGuiScreen;
     private final String titleUnlocalized;
-    private final NotFineSettings.Settings[] settings;
+    private final Settings[] settings;
     protected String screenTitle = "Detail Settings";
 
     private GuiListExtended optionsRowList;
 
-    public GuiNotFineSettings(GuiScreen parentGuiScreen, String titleUnlocalized, NotFineSettings.Settings ... settings) {
+    public GuiNotFineSettings(GuiScreen parentGuiScreen, String titleUnlocalized, Settings... settings) {
         this.parentGuiScreen = parentGuiScreen;
         this.titleUnlocalized = titleUnlocalized;
         this.settings = settings;
@@ -32,8 +33,8 @@ public class GuiNotFineSettings extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button.enabled && button.id == 200) {
-            //mc.gameSettings.saveOptions();
-            NotFineSettings.saveSettings();
+            mc.gameSettings.saveOptions();
+            SettingsManager.settingsFile.saveSettings();
             mc.displayGuiScreen(parentGuiScreen);
         }
     }

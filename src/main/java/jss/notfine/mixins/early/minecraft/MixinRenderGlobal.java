@@ -1,6 +1,6 @@
 package jss.notfine.mixins.early.minecraft;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import jss.notfine.render.RenderStars;
 import net.minecraft.client.renderer.RenderGlobal;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +14,7 @@ public abstract class MixinRenderGlobal {
 
     @Inject(method = "renderSky", at = @At("HEAD"), cancellable = true)
     void notFine$toggleSky(CallbackInfo ci) {
-        if(!NotFineSettings.Settings.MODE_SKY.isValueBase()) ci.cancel();
+        if(!Settings.MODE_SKY.isValueBase()) ci.cancel();
     }
 
     /**

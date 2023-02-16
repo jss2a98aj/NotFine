@@ -1,6 +1,6 @@
 package jss.notfine.mixins.early.minecraft.leaves;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import jss.util.DirectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
@@ -19,7 +19,7 @@ public abstract class MixinBlockLeavesBase extends Block {
         if (otherBlock.isOpaqueCube()) {
             return false;
         }
-        switch((int)NotFineSettings.Settings.MODE_LEAVES.getValue()) {
+        switch((int) Settings.MODE_LEAVES.getValue()) {
             case 1:
             case 2:
                 return !(otherBlock instanceof BlockLeavesBase);

@@ -1,6 +1,6 @@
 package jss.notfine.mixins.early.minecraft.clouds;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.SettingsManager;
 import net.minecraft.client.renderer.EntityRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,12 +13,12 @@ public abstract class MixinEntityRenderer {
 
     @ModifyConstant(method = "renderWorld", constant = @Constant(doubleValue = 128.0D), expect = 2)
     double notFine$modifyCloudHeightCheck(double original) {
-        return NotFineSettings.cloudTranslucencyCheck;
+        return SettingsManager.cloudTranslucencyCheck;
     }
 
     @ModifyArg(method = "setupCameraTransform", at = @At(value = "INVOKE", target = "Lorg/lwjgl/util/glu/Project;gluPerspective(FFFF)V", remap = false), index = 3)
     private float notFine$modifyFarPlane(float original) {
-        return Math.max(original, NotFineSettings.minimumFarPlaneDistance);
+        return Math.max(original, SettingsManager.minimumFarPlaneDistance);
     }
 
 }

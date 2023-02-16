@@ -1,6 +1,6 @@
 package jss.notfine.gui;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.MathHelper;
@@ -9,9 +9,9 @@ import org.lwjgl.opengl.GL11;
 public class GuiNotFineSettingSlider extends GuiButton {
     private float value;
     public boolean mousePressed;
-    private final NotFineSettings.Settings linkedSetting;
+    private final Settings linkedSetting;
 
-    public GuiNotFineSettingSlider(int xPosition, int yPosition, NotFineSettings.Settings setting) {
+    public GuiNotFineSettingSlider(int xPosition, int yPosition, Settings setting) {
         super(setting.ordinal(), xPosition, yPosition, 150, 20, setting.getLocalization());
         linkedSetting = setting;
         value = setting.getValueNormalized();

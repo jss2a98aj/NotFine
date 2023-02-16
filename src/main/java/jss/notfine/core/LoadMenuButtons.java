@@ -9,17 +9,18 @@ import net.minecraft.client.gui.GuiVideoSettings;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 
-public class LoadNotFineMenuButtons {
+public class LoadMenuButtons {
 
-    public static final LoadNotFineMenuButtons INSTANCE = new LoadNotFineMenuButtons();
+    public static final LoadMenuButtons INSTANCE = new LoadMenuButtons();
 
-    private final NotFineSettings.Settings[] settings = new NotFineSettings.Settings[] {
-        NotFineSettings.Settings.MODE_SKY, NotFineSettings.Settings.MODE_LEAVES,
-        NotFineSettings.Settings.MODE_CLOUDS, NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS,
-        NotFineSettings.Settings.CLOUD_SCALE, NotFineSettings.Settings.CLOUD_HEIGHT,
-        NotFineSettings.Settings.MODE_CLOUD_TRANSLUCENCY, NotFineSettings.Settings.PARTICLES_ENC_TABLE,
-        NotFineSettings.Settings.MODE_GLEAM_WORLD, NotFineSettings.Settings.MODE_GLEAM_INV,
-        NotFineSettings.Settings.PARTICLES_VOID, NotFineSettings.Settings.TOTAL_STARS
+    private final Settings[] settings = new Settings[] {
+        Settings.MODE_SKY, Settings.MODE_LEAVES,
+        Settings.MODE_CLOUDS, Settings.RENDER_DISTANCE_CLOUDS,
+        Settings.CLOUD_SCALE, Settings.CLOUD_HEIGHT,
+        Settings.MODE_CLOUD_TRANSLUCENCY, Settings.PARTICLES_ENC_TABLE,
+        Settings.MODE_GLEAM_WORLD, Settings.MODE_GLEAM_INV,
+        Settings.PARTICLES_VOID, Settings.TOTAL_STARS,
+        Settings.MODE_SHADOWS
     };
 
     @SubscribeEvent

@@ -1,6 +1,6 @@
 package jss.notfine.mixins.early.minecraft.particles;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +16,7 @@ public class MixinWorldProvider {
      */
     @Overwrite
     public boolean getWorldHasVoidParticles() {
-        return NotFineSettings.Settings.PARTICLES_VOID.isValueBase() && terrainType.hasVoidParticles(hasNoSky);
+        return Settings.PARTICLES_VOID.isValueBase() && terrainType.hasVoidParticles(hasNoSky);
     }
 
     @Shadow public WorldType terrainType;

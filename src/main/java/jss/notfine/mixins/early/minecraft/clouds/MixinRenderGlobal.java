@@ -1,6 +1,6 @@
 package jss.notfine.mixins.early.minecraft.clouds;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -33,7 +33,7 @@ public abstract class MixinRenderGlobal {
             return;
         }
         if(mc.theWorld.provider.isSurfaceWorld()) {
-            int cloudMode = (int)NotFineSettings.Settings.MODE_CLOUDS.getValue();
+            int cloudMode = (int) Settings.MODE_CLOUDS.getValue();
             if(cloudMode == 0 || cloudMode == -1 && mc.gameSettings.fancyGraphics) {
                 renderCloudsFancy(partialTicks);
             } else {
@@ -68,7 +68,7 @@ public abstract class MixinRenderGlobal {
         }
         double cloudTick = ((float)cloudTickCounter + partialTicks);
 
-        float cloudScale = NotFineSettings.Settings.CLOUD_SCALE.getValue();
+        float cloudScale = Settings.CLOUD_SCALE.getValue();
         float cloudInteriorWidth = 12.0F * cloudScale;
         float cloudInteriorHeight = 4.0F * cloudScale;
         float cameraOffsetY = (float)(mc.renderViewEntity.lastTickPosY + (mc.renderViewEntity.posY - mc.renderViewEntity.lastTickPosY) * (double)partialTicks);
@@ -86,7 +86,7 @@ public abstract class MixinRenderGlobal {
         float cloudScrollingZ = (float)MathHelper.floor_double(cameraOffsetZ) * scrollSpeed;
 
         float cloudWidth = 8f;
-        int renderRadius = (int)(NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS.getValue() / (cloudScale * 2f));
+        int renderRadius = (int)(Settings.RENDER_DISTANCE_CLOUDS.getValue() / (cloudScale * 2f));
         float edgeOverlap = 0.0001f;//0.001F;
         GL11.glScalef(cloudInteriorWidth, 1.0F, cloudInteriorWidth);
 
@@ -215,8 +215,8 @@ public abstract class MixinRenderGlobal {
         cameraOffsetX -= MathHelper.floor_double(cameraOffsetX / 2048.0D) * 2048;
         cameraOffsetZ -= MathHelper.floor_double(cameraOffsetZ / 2048.0D) * 2048;
 
-        float renderRadius = 32 * NotFineSettings.Settings.RENDER_DISTANCE_CLOUDS.getValue();
-        double uvScale = 0.0005D / NotFineSettings.Settings.CLOUD_SCALE.getValue();
+        float renderRadius = 32 * Settings.RENDER_DISTANCE_CLOUDS.getValue();
+        double uvScale = 0.0005D / Settings.CLOUD_SCALE.getValue();
 
         float uvShiftX = (float)(cameraOffsetX * uvScale);
         float uvShiftZ = (float)(cameraOffsetZ * uvScale);

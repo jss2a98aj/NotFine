@@ -1,6 +1,6 @@
 package jss.notfine.mixins.early.minecraft;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import net.minecraft.world.WorldType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -14,7 +14,7 @@ public abstract class MixinWorldType {
      */
     @Overwrite(remap = false)
     public float getCloudHeight() {
-        return NotFineSettings.Settings.CLOUD_HEIGHT.getValue();
+        return Settings.CLOUD_HEIGHT.getValue();
     }
 
 }

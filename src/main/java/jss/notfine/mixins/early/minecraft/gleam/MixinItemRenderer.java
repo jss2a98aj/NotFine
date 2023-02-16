@@ -1,6 +1,6 @@
 package jss.notfine.mixins.early.minecraft.gleam;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +19,7 @@ public abstract class MixinItemRenderer {
         remap = false
     )
     private boolean notFine$toggleGlint(ItemStack stack, int pass) {
-        return NotFineSettings.Settings.MODE_GLEAM_WORLD.isValueBase() && stack.hasEffect(pass);
+        return Settings.MODE_GLEAM_WORLD.isValueBase() && stack.hasEffect(pass);
     }
 
 }

@@ -2,7 +2,7 @@ package jss.notfine.mixins.early.minecraft.particles;
 
 import java.util.Random;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -27,7 +27,7 @@ public abstract class MixinBlockEnchantmentTable extends BlockContainer {
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		//Unneeded in vanilla as the super call is empty.
 		//super.randomDisplayTick(world, x, y, z, rand);
-        float particleChance = NotFineSettings.Settings.PARTICLES_ENC_TABLE.getValue();
+        float particleChance = Settings.PARTICLES_ENC_TABLE.getValue();
         if(particleChance <= 0f) {
             return;
         }

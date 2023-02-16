@@ -48,6 +48,8 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.MixinGameSettings");
         mixins.add("minecraft.MixinOptions");
 
+        mixins.add("minecraft.MixinRender");
+
         return mixins;
     }
 

@@ -3,7 +3,7 @@ package jss.notfine.gui;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiListExtended;
@@ -15,20 +15,20 @@ import java.util.List;
 public class GuiNotFineSettingsRowList extends GuiListExtended {
     private final List settingsList = Lists.newArrayList();
 
-    public GuiNotFineSettingsRowList(Minecraft mc, int width, int height, int top, int bottom, int slotHeight, NotFineSettings.Settings ... settings)  {
+    public GuiNotFineSettingsRowList(Minecraft mc, int width, int height, int top, int bottom, int slotHeight, Settings... settings)  {
         super(mc, width, height, top, bottom, slotHeight);
         field_148163_i = false;
 
         for (int i = 0; i < settings.length; i += 2) {
-            NotFineSettings.Settings settingOne = settings[i];
-            NotFineSettings.Settings settingTwo = i < settings.length - 1 ? settings[i + 1] : null;
+            Settings settingOne = settings[i];
+            Settings settingTwo = i < settings.length - 1 ? settings[i + 1] : null;
             GuiButton buttonOne = createButton(width / 2 - 155, 0, settingOne);
             GuiButton buttonTwo = createButton(width / 2 - 155 + 160, 0, settingTwo);
             settingsList.add(new GuiNotFineSettingsRowList.Row(buttonOne, buttonTwo));
         }
     }
 
-    private GuiButton createButton(int xPosition, int yPosition, NotFineSettings.Settings setting) {
+    private GuiButton createButton(int xPosition, int yPosition, Settings setting) {
         if (setting == null) {
             return null;
         } else {
@@ -83,14 +83,14 @@ public class GuiNotFineSettingsRowList extends GuiListExtended {
         public boolean mousePressed(int index, int x, int y, int mouseEvent, int relativeX, int relativeY) {
             if(buttonOne.mousePressed(mc, x, y)) {
                 if(buttonOne instanceof GuiNotFineSettingButton) {
-                    NotFineSettings.Settings setting = ((GuiNotFineSettingButton) buttonOne).setting;
+                    Settings setting = ((GuiNotFineSettingButton) buttonOne).setting;
                     setting.incrementValue();
                     buttonOne.displayString = setting.getLocalization();
                 }
                 return true;
             } else if(buttonTwo != null && buttonTwo.mousePressed(mc, x, y)) {
                 if(buttonTwo instanceof GuiNotFineSettingButton) {
-                    NotFineSettings.Settings setting = ((GuiNotFineSettingButton) buttonTwo).setting;
+                    Settings setting = ((GuiNotFineSettingButton) buttonTwo).setting;
                     setting.incrementValue();
                     buttonTwo.displayString = setting.getLocalization();
                 }

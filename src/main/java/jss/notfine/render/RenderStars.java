@@ -1,12 +1,14 @@
 package jss.notfine.render;
 
-import jss.notfine.core.NotFineSettings;
+import jss.notfine.core.Settings;
 import jss.util.RandomXoshiro256StarStar;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 public class RenderStars {
+
+    //private static final ResourceLocation locationStarsPng = new ResourceLocation("textures/colormap/stars.png");
 
     public static void reloadStarRenderList(RenderGlobal render) {
         GL11.glPushMatrix();
@@ -17,7 +19,7 @@ public class RenderStars {
     }
 
     public static void renderStars() {
-        final int totalStars = (int) NotFineSettings.Settings.TOTAL_STARS.getValue();
+        final int totalStars = (int) Settings.TOTAL_STARS.getValue();
         if(totalStars <= 0) {
             return;
         }

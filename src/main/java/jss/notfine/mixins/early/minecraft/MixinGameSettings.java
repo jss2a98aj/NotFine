@@ -1,7 +1,6 @@
 package jss.notfine.mixins.early.minecraft;
 
 import com.google.gson.Gson;
-import jss.notfine.core.NotFineSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.client.settings.GameSettings;
