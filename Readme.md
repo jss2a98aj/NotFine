@@ -1,14 +1,14 @@
 # NotFine
 
-Extra video settings for Minecraft 1.7.10 implemented with Mixins
+Extra video settings for Minecraft 1.7.10 implemented with Mixins.
 
 # Future Plans
 
-Achieving and exceeding feature parity with Optifine, but not shaders.
+Achieving or exceeding feature parity with Optifine, bar shaders.
 
 Adding support for new leaf rendering modes to modded leaves.
 
-Shaders will be supported when paired with [Angelica](https://github.com/GTNewHorizons/Angelica) or [Shader Mod](https://github.com/basdxz/ShadersMod/) if all goes well.
+Shaders support when paired with [Angelica](https://github.com/GTNewHorizons/Angelica) or [Shader Mod](https://github.com/basdxz/ShadersMod/) if all goes well.
 
 # Requirements
 
@@ -18,10 +18,10 @@ One and only one of the following:
 
 [GTNH Mixins](https://github.com/GTNewHorizons/GTNHMixins) with [Mixingasm](https://github.com/makamys/Mixingasm)
 
-[GasStation](https://github.com/FalsePattern/GasStation) with [UniMixins'](https://github.com/makamys/Mixingasm) unimixins-gtnhmixins module.
+[GasStation](https://github.com/FalsePattern/GasStation) with [UniMixins'](https://github.com/LegacyModdingMC/UniMixins) unimixins-gtnhmixins module.
 
 # Know Conflicts:
 
-Optifine. No, I will not be making them work together, please do not ask.
+Optifine - No, I will not be making them work together, please do not ask.
 
-[Leaf Culling](https://modrinth.com/mod/leafculling) A good mod, just not compatible due to feature overlap.
+[Leaf Culling](https://modrinth.com/mod/leafculling) - A good mod, just not compatible due to feature overlap.
