@@ -23,3 +23,5 @@ One and only one of the following:
 # Know Conflicts:
 
 Optifine. No, I will not be making them work together, please do not ask.
+
+[Leaf Culling](https://modrinth.com/mod/leafculling) A good mod, just not compatible due to feature overlap.
