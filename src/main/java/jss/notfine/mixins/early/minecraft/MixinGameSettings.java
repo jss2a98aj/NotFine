@@ -5,12 +5,16 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.EnumDifficulty;
 import org.lwjgl.opengl.Display;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = GameSettings.class, priority = 990)
 public abstract class MixinGameSettings {
+
+    @Final
+    private static String[] GUISCALES = new String[] {"options.guiScale.auto", "options.guiScale.small", "options.guiScale.normal", "options.guiScale.large", "options.guiScale.massive", "options.guiScale.gargantuan"};
 
     /**
      * @author jss2a98aj
@@ -99,7 +103,7 @@ public abstract class MixinGameSettings {
                 invertMouse = !invertMouse;
                 break;
             case GUI_SCALE:
-                guiScale = guiScale + value & 3;
+                guiScale = (guiScale + value) % 6;
                 break;
             case PARTICLES:
                 particleSetting = (particleSetting + value) % 3;
@@ -185,11 +189,6 @@ public abstract class MixinGameSettings {
         }
         saveOptions();
     }
-
-    /**
-     * @author jss2a98aj
-     * @reason Makes this function not unreasonably slow.
-     */
 
     @Shadow
     public void saveOptions() {
