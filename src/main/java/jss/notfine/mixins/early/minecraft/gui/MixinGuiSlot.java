@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiSlot.class)
-public class MixinGuiSlot {
+public abstract class MixinGuiSlot {
 
     @Inject(method = "drawContainerBackground", at = @At("HEAD"), cancellable = true, remap = false)
     private void notFine$toggleContainerBackground(CallbackInfo ci) {

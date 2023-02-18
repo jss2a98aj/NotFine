@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.libraries.org.objectweb.asm.Opcodes;
 
 @Mixin(value = Render.class)
-public class MixinRender {
+public abstract class MixinRender {
 
     @Redirect(
         method = "doRenderShadowAndFire",

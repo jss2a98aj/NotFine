@@ -1,4 +1,4 @@
-package jss.notfine.mixins.early.minecraft;
+package jss.notfine.mixins.early.minecraft.clouds;
 
 import jss.notfine.core.Settings;
 import net.minecraft.world.WorldType;

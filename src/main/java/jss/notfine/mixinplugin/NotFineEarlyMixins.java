@@ -27,6 +27,7 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.clouds.MixinEntityRenderer");
         mixins.add("minecraft.clouds.MixinGameSettings");
         mixins.add("minecraft.clouds.MixinRenderGlobal");
+        mixins.add("minecraft.clouds.MixinWorldType");
 
         mixins.add("minecraft.glint.MixinItemRenderer");
         mixins.add("minecraft.glint.MixinRenderBiped");
@@ -43,11 +44,8 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.particles.MixinWorldClient");
         mixins.add("minecraft.particles.MixinWorldProvider");
 
-        mixins.add("minecraft.MixinRenderGlobal");
-        mixins.add("minecraft.MixinWorldType");
-
         mixins.add("minecraft.MixinGameSettings");
-
+        mixins.add("minecraft.MixinRenderGlobal");
         mixins.add("minecraft.MixinRender");
 
         return mixins;
