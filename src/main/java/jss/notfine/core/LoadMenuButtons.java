@@ -6,6 +6,7 @@ import jss.notfine.gui.GuiCustomMenuButton;
 import jss.notfine.gui.GuiCustomMenu;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptions;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 
@@ -44,8 +45,8 @@ public class LoadMenuButtons {
                     -1,
                     videoSettings.xPosition, videoSettings.yPosition,
                     videoSettings.width, videoSettings.height,
-                    "NotFine Alpha",
-                    new GuiCustomMenu(event.gui, "NotFine Alpha Settings", settings)
+                    I18n.format("options.video"),
+                    new GuiCustomMenu(event.gui, "Video Settings | NotFine Alpha", settings)
                 )
             );
         }
