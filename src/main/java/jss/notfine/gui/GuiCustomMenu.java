@@ -71,7 +71,7 @@ public class GuiCustomMenu extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if(Keyboard.isKeyDown(Keyboard.KEY_F1)) {
+        if(mc.theWorld != null && Keyboard.isKeyDown(Keyboard.KEY_F1)) {
             return;
         }
         drawDefaultBackground();
