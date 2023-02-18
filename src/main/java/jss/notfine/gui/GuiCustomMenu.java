@@ -6,6 +6,9 @@ import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.I18n;
+import org.lwjgl.input.Keyboard;
+
+import java.awt.event.KeyListener;
 
 public class GuiCustomMenu extends GuiScreen {
     private final GuiScreen parentGuiScreen;
@@ -68,6 +71,9 @@ public class GuiCustomMenu extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if(Keyboard.isKeyDown(Keyboard.KEY_F1)) {
+            return;
+        }
         drawDefaultBackground();
         optionsRowList.drawScreen(mouseX, mouseY, partialTicks);
         drawCenteredString(fontRendererObj, screenTitle, width / 2, 5, 16777215);
@@ -76,7 +82,7 @@ public class GuiCustomMenu extends GuiScreen {
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) {
-        if(keyCode == 1) {
+        if(keyCode == Keyboard.KEY_ESCAPE) {
             saveSettings();
         }
         super.keyTyped(typedChar, keyCode);

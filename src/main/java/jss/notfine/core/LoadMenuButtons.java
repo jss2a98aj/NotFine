@@ -27,9 +27,10 @@ public class LoadMenuButtons {
         Settings.RENDER_DISTANCE_CLOUDS, Settings.CLOUD_HEIGHT,
         Settings.CLOUD_SCALE, Settings.MODE_CLOUD_TRANSLUCENCY,
         Settings.MODE_GLINT_WORLD, Settings.MODE_GLINT_INV,
-        Settings.TOTAL_STARS, null,
+        Settings.TOTAL_STARS, Settings.MODE_GUI_BACKGROUND,
         Settings.MODE_SHADOWS, GameSettings.Options.ANAGLYPH,
-        GameSettings.Options.ANISOTROPIC_FILTERING, GameSettings.Options.MIPMAP_LEVELS
+        GameSettings.Options.ANISOTROPIC_FILTERING, GameSettings.Options.MIPMAP_LEVELS,
+        Settings.GUI_BACKGROUND
     };
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

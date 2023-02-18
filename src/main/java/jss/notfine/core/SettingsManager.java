@@ -1,6 +1,7 @@
 package jss.notfine.core;
 
 import jss.notfine.config.VideoSettingsConfig;
+import jss.notfine.gui.GuiBackgroundManager;
 import jss.notfine.render.RenderStars;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
@@ -51,6 +52,9 @@ public class SettingsManager {
 
     public static void settingUpdated(Settings setting) {
         switch(setting) {
+            case GUI_BACKGROUND:
+                GuiBackgroundManager.setBackground();
+                break;
             case CLOUD_HEIGHT:
             case MODE_CLOUD_TRANSLUCENCY:
             case MODE_CLOUDS:
