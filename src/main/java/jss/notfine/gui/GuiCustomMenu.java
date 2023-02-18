@@ -1,21 +1,21 @@
 package jss.notfine.gui;
 
-import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.I18n;
 
-public class GuiNotFineSettings extends GuiScreen {
+public class GuiCustomMenu extends GuiScreen {
     private final GuiScreen parentGuiScreen;
     private final String titleUnlocalized;
     private final Object[] settings;
-    protected String screenTitle = "Detail Settings";
+    protected String screenTitle;
 
     private GuiListExtended optionsRowList;
 
-    public GuiNotFineSettings(GuiScreen parentGuiScreen, String titleUnlocalized, Object... settings) {
+    public GuiCustomMenu(GuiScreen parentGuiScreen, String titleUnlocalized, Object... settings) {
         this.parentGuiScreen = parentGuiScreen;
         this.titleUnlocalized = titleUnlocalized;
         this.settings = settings;
@@ -32,23 +32,38 @@ public class GuiNotFineSettings extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        if (button.enabled && button.id == 200) {
-            mc.gameSettings.saveOptions();
-            SettingsManager.settingsFile.saveSettings();
+        if(button.enabled && button.id == 200) {
+            if(!(parentGuiScreen instanceof GuiCustomMenu)) {
+                saveSettings();
+            }
             mc.displayGuiScreen(parentGuiScreen);
         }
     }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        int originalScale = mc.gameSettings.guiScale;
+
         super.mouseClicked(mouseX, mouseY, mouseButton);
         optionsRowList.func_148179_a(mouseX, mouseY, mouseButton);
+
+        if(mc.gameSettings.guiScale != originalScale) {
+            ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+            setWorldAndResolution(mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+        }
     }
 
     @Override
     protected void mouseMovedOrUp(int mouseX, int mouseY, int state) {
+        int originalScale = mc.gameSettings.guiScale;
+
         super.mouseMovedOrUp(mouseX, mouseY, state);
         optionsRowList.func_148181_b(mouseX, mouseY, state);
+
+        if(mc.gameSettings.guiScale != originalScale) {
+            ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+            setWorldAndResolution(mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+        }
     }
 
     @Override
@@ -57,6 +72,19 @@ public class GuiNotFineSettings extends GuiScreen {
         optionsRowList.drawScreen(mouseX, mouseY, partialTicks);
         drawCenteredString(fontRendererObj, screenTitle, width / 2, 5, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
+    }
+
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) {
+        if(keyCode == 1) {
+            saveSettings();
+        }
+        super.keyTyped(typedChar, keyCode);
+    }
+
+    private void saveSettings() {
+        mc.gameSettings.saveOptions();
+        SettingsManager.settingsFile.saveSettings();
     }
 
 }

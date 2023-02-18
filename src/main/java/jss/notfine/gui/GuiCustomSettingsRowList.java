@@ -64,6 +64,13 @@ public class GuiCustomSettingsRowList extends GuiListExtended {
         return super.getScrollBarX() + 32;
     }
 
+    @Override
+    protected void drawContainerBackground(Tessellator tessellator) {
+        if(Minecraft.getMinecraft().theWorld == null) {
+            super.drawContainerBackground(tessellator);
+        }
+    }
+
     @SideOnly(Side.CLIENT)
     public static class Row implements GuiListExtended.IGuiListEntry {
         private final Minecraft mc = Minecraft.getMinecraft();

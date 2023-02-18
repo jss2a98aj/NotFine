@@ -33,7 +33,7 @@ public abstract class MixinRenderGlobal {
             return;
         }
         if(mc.theWorld.provider.isSurfaceWorld()) {
-            int cloudMode = (int) Settings.MODE_CLOUDS.getValue();
+            int cloudMode = (int)Settings.MODE_CLOUDS.getValue();
             if(cloudMode == 0 || cloudMode == -1 && mc.gameSettings.fancyGraphics) {
                 renderCloudsFancy(partialTicks);
             } else {
