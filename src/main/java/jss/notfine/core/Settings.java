@@ -1,25 +1,62 @@
 package jss.notfine.core;
 
+import jss.notfine.render.RenderStars;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.MathHelper;
 
 public enum Settings {
-    CLOUD_HEIGHT(true, 128f, 96f, 384f, 16f),
-    CLOUD_SCALE(true, 1f, 0.5f, 4f, 0.5f),
+    CLOUD_HEIGHT(true, 128f, 96f, 384f, 8f) {
+        @Override
+        public void updateSetting() {
+            SettingsManager.cloudsUpdated();
+        }
+    },
+    CLOUD_SCALE(true, 1f, 0.5f, 5f, 0.25f),
     FOG_DEPTH(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
-    GUI_BACKGROUND(false, -1f, -1f, 5f, 1f, "-1:Default, 0:Sand, 1:Mycelium, 2:Stonebrick, 3:Mossy Stonebrick, 4:Oak Planks, 5: Birch Planks"),
-    MODE_CLOUD_TRANSLUCENCY(false, -1f,-1f,1f, 1f, "-1:Default, 0:Always, 1:Never"),
-    MODE_CLOUDS(false,-1f, -1f, 2f, 1f, "-1:Default, 0:Fancy, 1:Fast, 2:Off"),
+    GUI_BACKGROUND(false, -1f, -1f, 5f, 1f, "-1:Default, 0:Sand, 1:Mycelium, 2:Stonebrick, 3:Mossy Stonebrick, 4:Oak Planks, 5: Birch Planks") {
+        @Override
+        public void updateSetting() {
+            SettingsManager.backgroundUpdated();
+        }
+    },
+    MODE_CLOUD_TRANSLUCENCY(false, -1f,-1f,1f, 1f, "-1:Default, 0:Always, 1:Never") {
+        @Override
+        public void updateSetting() {
+            SettingsManager.cloudsUpdated();
+        }
+    },
+    MODE_CLOUDS(false,-1f, -1f, 2f, 1f, "-1:Default, 0:Fancy, 1:Fast, 2:Off") {
+        @Override
+        public void updateSetting() {
+            SettingsManager.cloudsUpdated();
+        }
+    },
     MODE_GLINT_INV(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
     MODE_GLINT_WORLD(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
     MODE_GUI_BACKGROUND(false, 0f, 0f, 1f, 1f, "0:On, 1:Off"),
-    MODE_LEAVES(false,-1f, -1f, 4f,1f,"-1:Default, 0:Fancy, 1:Fast, 2: Smart, 3:Hybrid Fancy, 3:Hybrid Fast"),
+    MODE_LEAVES(false,-1f, -1f, 4f,1f,"-1:Default, 0:Fancy, 1:Fast, 2: Smart, 3:Hybrid Fancy, 3:Hybrid Fast") {
+        @Override
+        public void updateSetting() {
+            SettingsManager.leavesUpdated();
+        }
+    },
     MODE_SHADOWS(false, -1f,-1f,1f, 1f, "-1:Default, 0:On, 1:Off"),
     MODE_SKY(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
     PARTICLES_ENC_TABLE(true,1f, 0f, 16f, 1f),
     PARTICLES_VOID(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
-    RENDER_DISTANCE_CLOUDS(true, 4f, 4f, 64f, 2f),
-    TOTAL_STARS(true, 1500f, 0f, 32000f, 500f);
+    RENDER_DISTANCE_CLOUDS(true, 4f, 4f, 64f, 2f) {
+        @Override
+        public void updateSetting() {
+            SettingsManager.cloudsUpdated();
+        }
+    },
+    TOTAL_STARS(true, 1500f, 0f, 32000f, 500f) {
+        @Override
+        public void updateSetting() {
+            RenderStars.reloadStarRenderList(Minecraft.getMinecraft().renderGlobal);
+        }
+    };
 
     public final boolean slider;
     public final float base;
@@ -50,7 +87,7 @@ public enum Settings {
         }
         if(this.value != value) {
             this.value = value;
-            SettingsManager.settingUpdated(this);
+            updateSetting();
         }
     }
 
@@ -63,7 +100,7 @@ public enum Settings {
         if(value > maximum) {
             value = minimum;
         }
-        SettingsManager.settingUpdated(this);
+        updateSetting();
     }
 
     public float getValue() {
@@ -98,13 +135,8 @@ public enum Settings {
         return localized;
     }
 
-    public static Settings getSettingFromOrdinal(int ordinal) {
-        Settings[] options = values();
-        if(ordinal >= options.length | ordinal < 0) {
-            return null;
-        } else {
-            return options[ordinal];
-        }
+    public void updateSetting() {
+
     }
 
 }

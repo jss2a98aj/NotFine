@@ -1,11 +1,14 @@
 package jss.notfine.core;
 
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.LoaderState;
 import jss.notfine.config.VideoSettingsConfig;
-import jss.notfine.gui.GuiBackgroundManager;
 import jss.notfine.render.RenderStars;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.init.Blocks;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraft.util.ResourceLocation;
 
 import java.io.File;
 
@@ -21,6 +24,25 @@ public class SettingsManager {
     public static double cloudTranslucencyCheck;
     public static boolean shadowsFancy;
     public static boolean leavesOpaque;
+
+    public static ResourceLocation defaultBackground = Gui.optionsBackground;
+    public static ResourceLocation[] extraBackgrounds = new ResourceLocation[] {
+        new ResourceLocation("textures/blocks/sand.png"),
+        new ResourceLocation("textures/blocks/mycelium_top.png"),
+        new ResourceLocation("textures/blocks/stonebrick.png"),
+        new ResourceLocation("textures/blocks/stonebrick_mossy.png"),
+        new ResourceLocation("textures/blocks/planks_oak.png"),
+        new ResourceLocation("textures/blocks/planks_birch.png")
+    };
+
+    public static void backgroundUpdated() {
+        int value = (int)Settings.GUI_BACKGROUND.getValue();
+        if(value < 0 | value >= extraBackgrounds.length) {
+            Gui.optionsBackground = defaultBackground;
+        } else {
+            Gui.optionsBackground = extraBackgrounds[(int)Settings.GUI_BACKGROUND.getValue()];
+        }
+    }
 
     public static void cloudsUpdated() {
         if(Settings.MODE_CLOUDS.getValue() != 2f) {
@@ -45,40 +67,23 @@ public class SettingsManager {
     }
 
     public static void leavesUpdated() {
+        mc.renderGlobal.loadRenderers();
         leavesOpaque = Settings.MODE_LEAVES.getValue() == 1 || (Settings.MODE_LEAVES.getValue() == -1 && !mc.gameSettings.fancyGraphics);
         Blocks.leaves.setGraphicsLevel(!leavesOpaque);
         Blocks.leaves2.setGraphicsLevel(!leavesOpaque);
     }
 
-    public static void settingUpdated(Settings setting) {
-        switch(setting) {
-            case GUI_BACKGROUND:
-                GuiBackgroundManager.setBackground();
+    public static void shadowsUpdated() {
+        switch((int)Settings.MODE_SHADOWS.getValue()) {
+            case -1:
+                shadowsFancy = mc.gameSettings.fancyGraphics;
                 break;
-            case CLOUD_HEIGHT:
-            case MODE_CLOUD_TRANSLUCENCY:
-            case MODE_CLOUDS:
-            case RENDER_DISTANCE_CLOUDS:
-                SettingsManager.cloudsUpdated();
+            case 0:
+                shadowsFancy = true;
                 break;
-            case MODE_LEAVES:
-                mc.renderGlobal.loadRenderers();
-                leavesUpdated();
-            case MODE_SHADOWS:
-                switch((int)setting.getValue()) {
-                    case -1:
-                        shadowsFancy = mc.gameSettings.fancyGraphics;
-                        break;
-                    case 0:
-                        shadowsFancy = true;
-                        break;
-                    case 1:
-                        shadowsFancy = false;
-                        break;
-                }
+            case 1:
+                shadowsFancy = false;
                 break;
-            case TOTAL_STARS:
-                RenderStars.reloadStarRenderList(mc.renderGlobal);
         }
     }
 

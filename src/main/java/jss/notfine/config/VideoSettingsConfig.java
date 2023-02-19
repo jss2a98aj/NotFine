@@ -1,14 +1,12 @@
 package jss.notfine.config;
 
 import jss.notfine.core.Settings;
-import jss.notfine.core.SettingsManager;
-import jss.notfine.gui.GuiBackgroundManager;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
 
 public class VideoSettingsConfig {
-    private Configuration settingsConfig;
+    private final Configuration settingsConfig;
 
     public VideoSettingsConfig(File userSettingsFile) {
         settingsConfig = new Configuration(userSettingsFile);
@@ -35,10 +33,6 @@ public class VideoSettingsConfig {
         if(settingsConfig.hasChanged()) {
             settingsConfig.save();
         }
-
-        SettingsManager.cloudsUpdated();
-        SettingsManager.leavesUpdated();
-        GuiBackgroundManager.setBackground();
     }
 
     public void saveSettings() {

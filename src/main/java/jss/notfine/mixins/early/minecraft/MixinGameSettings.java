@@ -14,7 +14,10 @@ import org.spongepowered.asm.mixin.Shadow;
 public abstract class MixinGameSettings {
 
     @Final
-    private static String[] GUISCALES = new String[] {"options.guiScale.auto", "options.guiScale.small", "options.guiScale.normal", "options.guiScale.large", "options.guiScale.massive", "options.guiScale.gargantuan"};
+    private static String[] GUISCALES = new String[] {
+        "options.guiScale.auto", "options.guiScale.small", "options.guiScale.normal",
+        "options.guiScale.large", "options.guiScale.massive", "options.guiScale.gargantuan"
+    };
 
     /**
      * @author jss2a98aj
