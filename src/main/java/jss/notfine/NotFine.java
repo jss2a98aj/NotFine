@@ -7,6 +7,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import jss.notfine.core.LoadMenuButtons;
 import jss.notfine.core.SettingsManager;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,6 +32,7 @@ public class NotFine {
         if(event.getSide() == Side.CLIENT) {
             FMLCommonHandler.instance().bus().register(LoadMenuButtons.INSTANCE);
             MinecraftForge.EVENT_BUS.register(LoadMenuButtons.INSTANCE);
+            GameSettings.Options.FRAMERATE_LIMIT.valueStep = 1f;
         }
     }
 
