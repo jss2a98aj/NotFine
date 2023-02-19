@@ -57,6 +57,7 @@ public class GuiCustomSettingSlider extends GuiButton {
         value = MathHelper.clamp_float(value, 0f, 1f);
 
         linkedSetting.setValueNormalized(value);
+        value = linkedSetting.getValueNormalized();
 
         displayString = linkedSetting.getLocalization();
     }
