@@ -16,9 +16,11 @@ import java.util.List;
 public class GuiCustomSettingsRowList extends GuiListExtended {
     private final List<Row> settingsList = Lists.newArrayList();
 
-    public GuiCustomSettingsRowList(Minecraft mc, int width, int height, int top, int bottom, int slotHeight, Object... settings)  {
+    public GuiCustomSettingsRowList(Minecraft mc, int width, int height, int top, int bottom, int slotHeight, MenuButtonLists buttonEnum)  {
         super(mc, width, height, top, bottom, slotHeight);
         field_148163_i = false;
+
+        Object[] settings = buttonEnum.entries();
 
         for(int i = 0; i < settings.length; i += 2) {
             Object settingOne = settings[i];
@@ -40,6 +42,9 @@ public class GuiCustomSettingsRowList extends GuiListExtended {
             return vanillaSetting.getEnumFloat() ?
                 new GuiVanillaSettingSlider(xPosition, yPosition, vanillaSetting) :
                 new GuiVanillaSettingButton(xPosition, yPosition, vanillaSetting);
+        } else if(setting instanceof MenuButtonLists) {
+            MenuButtonLists menuType = (MenuButtonLists)setting;
+            return new GuiCustomMenuButton(xPosition, yPosition, menuType);
         }
         return null;
     }

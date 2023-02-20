@@ -12,25 +12,23 @@ import java.awt.event.KeyListener;
 
 public class GuiCustomMenu extends GuiScreen {
     private final GuiScreen parentGuiScreen;
-    private final String titleUnlocalized;
-    private final Object[] settings;
+    private final MenuButtonLists buttonEnum;
     protected String screenTitle;
 
     private GuiListExtended optionsRowList;
 
-    public GuiCustomMenu(GuiScreen parentGuiScreen, String titleUnlocalized, Object... settings) {
+    public GuiCustomMenu(GuiScreen parentGuiScreen, MenuButtonLists buttonEnum) {
         this.parentGuiScreen = parentGuiScreen;
-        this.titleUnlocalized = titleUnlocalized;
-        this.settings = settings;
+        this.screenTitle = buttonEnum.getTitleLabel();
+        this.buttonEnum = buttonEnum;
     }
 
     @Override
     public void initGui() {
-        screenTitle = I18n.format(titleUnlocalized);
         buttonList.clear();
         buttonList.add(new GuiButton(200, width / 2 - 100, height - 27, I18n.format("gui.done")));
 
-        optionsRowList = new GuiCustomSettingsRowList(mc, width, height, 32, height - 32, 25, settings);
+        optionsRowList = new GuiCustomSettingsRowList(mc, width, height, 32, height - 32, 25, buttonEnum);
     }
 
     @Override

@@ -1,3 +1,7 @@
+options.button.detail=Details...
+options.button.other=Other...
+options.button.particle=Particles...
+options.button.sky=Atmosphere...
 options.off=Off
 options.on=On
 options.cloud_height=Cloud Height
@@ -38,4 +42,9 @@ options.mode_sky=Sky
 options.particles_enc_table=Enchantment Particles
 options.particles_void=Void Particles
 options.render_distance_clouds=Cloud Render Distance
+options.title.detail=Detail Settings | NotFine alpha
+options.title.other=Other Settings | NotFine alpha
+options.title.particle=Particle Settings | NotFine alpha
+options.title.sky=Atmosphere Settings | NotFine alpha
+options.title.video=Video Settings | NotFine alpha
 options.total_stars=Star Density
