@@ -1,9 +1,6 @@
 package jss.notfine.core;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.LoaderState;
 import jss.notfine.config.VideoSettingsConfig;
-import jss.notfine.render.RenderStars;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.init.Blocks;
@@ -22,8 +19,9 @@ public class SettingsManager {
 
     public static int minimumFarPlaneDistance;
     public static double cloudTranslucencyCheck;
-    public static boolean shadowsFancy;
+    public static boolean shadows;
     public static boolean leavesOpaque;
+    public static boolean vignette;
 
     public static ResourceLocation defaultBackground = Gui.optionsBackground;
     public static ResourceLocation[] extraBackgrounds = new ResourceLocation[] {
@@ -76,13 +74,27 @@ public class SettingsManager {
     public static void shadowsUpdated() {
         switch((int)Settings.MODE_SHADOWS.getValue()) {
             case -1:
-                shadowsFancy = mc.gameSettings.fancyGraphics;
+                shadows = mc.gameSettings.fancyGraphics;
                 break;
             case 0:
-                shadowsFancy = true;
+                shadows = true;
                 break;
             case 1:
-                shadowsFancy = false;
+                shadows = false;
+                break;
+        }
+    }
+
+    public static void vignetteUpdated() {
+        switch((int)Settings.MODE_VIGNETTE.getValue()) {
+            case -1:
+                vignette = mc.gameSettings.fancyGraphics;
+                break;
+            case 0:
+                vignette = true;
+                break;
+            case 1:
+                vignette = false;
                 break;
         }
     }

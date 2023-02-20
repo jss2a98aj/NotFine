@@ -1,4 +1,4 @@
-package jss.notfine.mixins.early.minecraft;
+package jss.notfine.mixins.early.minecraft.toggle;
 
 import jss.notfine.core.SettingsManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -20,8 +20,8 @@ public abstract class MixinRender {
         ),
         allow = 1
     )
-    private boolean notFine$redirectRenderMode(GameSettings settings) {
-        return SettingsManager.shadowsFancy;
+    private boolean notFine$toggleEntityShadows(GameSettings settings) {
+        return SettingsManager.shadows;
     }
 
 }

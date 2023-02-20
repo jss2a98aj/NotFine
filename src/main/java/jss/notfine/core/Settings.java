@@ -41,8 +41,19 @@ public enum Settings {
             SettingsManager.leavesUpdated();
         }
     },
-    MODE_SHADOWS(false, -1f,-1f,1f, 1f, "-1:Default, 0:On, 1:Off"),
+    MODE_SHADOWS(false, -1f,-1f,1f, 1f, "-1:Default, 0:On, 1:Off") {
+        @Override
+        public void updateSetting() {
+            SettingsManager.shadowsUpdated();
+        }
+    },
     MODE_SKY(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
+    MODE_VIGNETTE(false, -1f,-1f,1f, 1f, "-1:Default, 0:On, 1:Off") {
+        @Override
+        public void updateSetting() {
+            SettingsManager.vignetteUpdated();
+        }
+    },
     PARTICLES_ENC_TABLE(true,1f, 0f, 16f, 1f),
     PARTICLES_VOID(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
     RENDER_DISTANCE_CLOUDS(true, 4f, 4f, 64f, 2f) {
