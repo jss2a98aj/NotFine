@@ -15,8 +15,11 @@ public abstract class MixinGameSettings {
 
     @Final
     private static String[] GUISCALES = new String[] {
-        "options.guiScale.auto", "options.guiScale.small", "options.guiScale.normal",
-        "options.guiScale.large", "options.guiScale.massive", "options.guiScale.gargantuan"
+        "options.guiScale.auto",
+        "options.guiScale.small",
+        "options.guiScale.normal",
+        "options.guiScale.large",
+        "options.guiScale.massive"
     };
 
     /**
@@ -106,7 +109,7 @@ public abstract class MixinGameSettings {
                 invertMouse = !invertMouse;
                 break;
             case GUI_SCALE:
-                guiScale = (guiScale + value) % 6;
+                guiScale = (guiScale + value) % 5;
                 break;
             case PARTICLES:
                 particleSetting = (particleSetting + value) % 3;
