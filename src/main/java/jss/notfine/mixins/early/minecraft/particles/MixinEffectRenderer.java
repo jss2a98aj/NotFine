@@ -47,7 +47,7 @@ public abstract class MixinEffectRenderer {
             final int i = k;
 
             if (!fxLayers[i].isEmpty()) {
-                switch (i) {
+                switch(i) {
                     case 0:
                     default:
                         renderer.bindTexture(particleTextures);

@@ -12,7 +12,7 @@ public enum MenuButtonLists {
     VIDEO("options.video") {
         @Override
         public Object[] entries() {
-            ArrayList<Object> list = new ArrayList();
+            ArrayList<Object> list = new ArrayList<>();
 
             list.add(GameSettings.Options.GRAPHICS); list.add(GameSettings.Options.RENDER_DISTANCE);
             list.add(GameSettings.Options.ENABLE_VSYNC); list.add(GameSettings.Options.USE_FULLSCREEN);
@@ -30,7 +30,7 @@ public enum MenuButtonLists {
     DETAIL("options.button.detail") {
         @Override
         public Object[] entries() {
-            ArrayList<Object> list = new ArrayList();
+            ArrayList<Object> list = new ArrayList<>();
 
             list.add(Settings.MODE_LEAVES); list.add(Settings.MODE_SHADOWS);
             list.add(Settings.MODE_GLINT_WORLD); list.add(Settings.MODE_GLINT_INV);
@@ -41,7 +41,7 @@ public enum MenuButtonLists {
     SKY("options.button.sky") {
         @Override
         public Object[] entries() {
-            ArrayList<Object> list = new ArrayList();
+            ArrayList<Object> list = new ArrayList<>();
 
             list.add(Settings.MODE_SKY); list.add(Settings.MODE_CLOUDS);
             list.add(Settings.RENDER_DISTANCE_CLOUDS); list.add(Settings.CLOUD_HEIGHT);
@@ -54,7 +54,7 @@ public enum MenuButtonLists {
     PARTICLE("options.button.particle") {
         @Override
         public Object[] entries() {
-            ArrayList<Object> list = new ArrayList();
+            ArrayList<Object> list = new ArrayList<>();
 
             list.add(GameSettings.Options.PARTICLES); list.add(Settings.PARTICLES_VOID);
             list.add(Settings.PARTICLES_ENC_TABLE);
@@ -65,7 +65,7 @@ public enum MenuButtonLists {
     OTHER("options.button.other") {
         @Override
         public Object[] entries() {
-            ArrayList<Object> list = new ArrayList();
+            ArrayList<Object> list = new ArrayList<>();
             if(OpenGlHelper.field_153197_d) {
                 list.add(GameSettings.Options.ADVANCED_OPENGL);
             } else {
@@ -86,11 +86,11 @@ public enum MenuButtonLists {
         unlocalizedButton = button;
     }
 
-    public String getButtonLabel() {
+    public final String getButtonLabel() {
         return I18n.format(unlocalizedButton);
     }
 
-    public String getTitleLabel() {
+    public final String getTitleLabel() {
         return I18n.format("options.title." + name().toLowerCase());
     }
 

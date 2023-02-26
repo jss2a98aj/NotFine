@@ -11,7 +11,7 @@ import java.io.File;
 
 public class SettingsManager {
 
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Minecraft.getMinecraft();
 
     public static VideoSettingsConfig settingsFile = new VideoSettingsConfig(
         new File(Launch.minecraftHome + File.separator + "optionsGraphics.cfg")

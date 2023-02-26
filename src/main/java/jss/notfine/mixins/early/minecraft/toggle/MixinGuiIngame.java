@@ -1,7 +1,6 @@
 package jss.notfine.mixins.early.minecraft.toggle;
 
 import jss.notfine.core.SettingsManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraftforge.client.GuiIngameForge;
 import org.spongepowered.asm.mixin.Mixin;
