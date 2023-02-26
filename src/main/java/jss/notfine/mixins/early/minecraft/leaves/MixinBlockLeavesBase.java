@@ -68,7 +68,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                         z -= DirectionHelper.zDirectionalIncrease[side];
                         int nextSide = DirectionHelper.relativeADirections[side];
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.zDirectionalIncrease[nextSide],
+                            x + DirectionHelper.xDirectionalIncrease[nextSide],
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
                             z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
@@ -77,7 +77,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                         }
                         nextSide = DirectionHelper.relativeBDirections[side];
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.zDirectionalIncrease[nextSide],
+                            x + DirectionHelper.xDirectionalIncrease[nextSide],
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
                             z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
@@ -86,7 +86,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                         }
                         nextSide = DirectionHelper.relativeCDirections[side];
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.zDirectionalIncrease[nextSide],
+                            x + DirectionHelper.xDirectionalIncrease[nextSide],
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
                             z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
@@ -95,7 +95,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                         }
                         nextSide = DirectionHelper.relativeDDirections[side];
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.zDirectionalIncrease[nextSide],
+                            x + DirectionHelper.xDirectionalIncrease[nextSide],
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
                             z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
@@ -106,7 +106,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                     return renderSide;
                 }
             default:
-                return !field_150121_P && otherBlock instanceof BlockLeavesBase ? false : true;
+                return field_150121_P || !(otherBlock instanceof BlockLeavesBase);
         }
     }
 
