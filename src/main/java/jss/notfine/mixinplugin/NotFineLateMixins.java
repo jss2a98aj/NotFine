@@ -22,6 +22,11 @@ public class NotFineLateMixins implements ILateMixinLoader {
 
         List<String> mixins = new ArrayList<>();
 
+        if(loadedMods.contains("Thaumcraft")) {
+            NotFine.logger.info("Thaumcraft is loaded.");
+            mixins.add("thaumcraft.leaves.MixinBlockMagicalLeaves");
+        }
+
         return mixins;
     }
 

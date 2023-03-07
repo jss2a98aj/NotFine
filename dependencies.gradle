@@ -21,6 +21,8 @@
  *
  * For more details, see https://docs.gradle.org/7.6/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
-dependencies {
 
+dependencies {
+    api('thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev')
+    runtimeOnly("com.github.GTNewHorizons:Baubles:1.0.1.16:dev")
 }
