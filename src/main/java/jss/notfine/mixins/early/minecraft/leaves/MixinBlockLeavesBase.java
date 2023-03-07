@@ -1,17 +1,17 @@
 package jss.notfine.mixins.early.minecraft.leaves;
 
+import jss.notfine.util.ILeafBlock;
 import jss.notfine.core.Settings;
+import jss.notfine.core.SettingsManager;
 import jss.util.DirectionHelper;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = BlockLeavesBase.class)
-public abstract class MixinBlockLeavesBase extends Block {
+public abstract class MixinBlockLeavesBase extends Block implements ILeafBlock {
 
     @Override
     public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
@@ -22,36 +22,36 @@ public abstract class MixinBlockLeavesBase extends Block {
         switch((int) Settings.MODE_LEAVES.getValue()) {
             case 1:
             case 2:
-                return !(otherBlock instanceof BlockLeavesBase);
+                return !(otherBlock instanceof ILeafBlock);
             case 3:
             case 4:
-                if(otherBlock instanceof BlockLeaves) {
+                if(otherBlock instanceof ILeafBlock) {
                     x -= DirectionHelper.xDirectionalIncrease[side];
                     y -= DirectionHelper.yDirectionalIncrease[side];
                     z -= DirectionHelper.zDirectionalIncrease[side];
                     int renderCheck = 0;
                     otherBlock = world.getBlock(x + 1, y, z);
-                    if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                    if(((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                         renderCheck++;
                     }
                     otherBlock = world.getBlock(x - 1, y, z);
-                    if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                    if(((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                         renderCheck++;
                     }
                     otherBlock = world.getBlock(x, y + 1, z);
-                    if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                    if(((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                         renderCheck++;
                     }
                     otherBlock = world.getBlock(x, y - 1, z);
-                    if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                    if(((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                         renderCheck++;
                     }
                     otherBlock = world.getBlock(x, y, z + 1);
-                    if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                    if(((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                         renderCheck++;
                     }
                     otherBlock = world.getBlock(x, y, z - 1);
-                    if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                    if(((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                         renderCheck++;
                     }
                     boolean renderSide = renderCheck == 6;
@@ -60,7 +60,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                         y += 2 * DirectionHelper.yDirectionalIncrease[side];
                         z += 2 * DirectionHelper.zDirectionalIncrease[side];
                         otherBlock = world.getBlock(x, y, z);
-                        if(((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                        if(((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = false;
                         }
                         x -= DirectionHelper.xDirectionalIncrease[side];
@@ -72,7 +72,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
                             z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
-                        if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                        if(!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
                         nextSide = DirectionHelper.relativeBDirections[side];
@@ -81,7 +81,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
                             z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
-                        if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                        if(!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
                         nextSide = DirectionHelper.relativeCDirections[side];
@@ -90,7 +90,7 @@ public abstract class MixinBlockLeavesBase extends Block {
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
                             z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
-                        if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                        if(!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
                         nextSide = DirectionHelper.relativeDDirections[side];
@@ -99,18 +99,16 @@ public abstract class MixinBlockLeavesBase extends Block {
                             y + DirectionHelper.yDirectionalIncrease[nextSide],
                             z + DirectionHelper.zDirectionalIncrease[nextSide]
                         );
-                        if(!((otherBlock instanceof BlockLeavesBase) || otherBlock.isOpaqueCube())) {
+                        if(!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
                     }
                     return renderSide;
                 }
             default:
-                return field_150121_P || !(otherBlock instanceof BlockLeavesBase);
+                return !SettingsManager.leavesOpaque || !(otherBlock instanceof ILeafBlock);
         }
     }
-
-    @Shadow protected boolean field_150121_P;
 
     protected MixinBlockLeavesBase(Material material) {
         super(material);

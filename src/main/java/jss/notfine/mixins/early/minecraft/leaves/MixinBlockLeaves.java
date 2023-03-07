@@ -2,6 +2,7 @@ package jss.notfine.mixins.early.minecraft.leaves;
 
 import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
+import jss.notfine.util.ILeafBlock;
 import jss.util.DirectionHelper;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLeavesBase;
@@ -32,7 +33,7 @@ public abstract class MixinBlockLeaves extends BlockLeavesBase {
                     x + DirectionHelper.xDirectionalIncrease[side],
                     y + DirectionHelper.yDirectionalIncrease[side],
                     z + DirectionHelper.zDirectionalIncrease[side]
-                ) instanceof BlockLeavesBase ? 1 : 0;
+                ) instanceof ILeafBlock ? 1 : 0;
             }
             renderMode = renderMode > 1 ? 0 : renderMode;
             int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
