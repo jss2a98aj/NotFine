@@ -22,7 +22,7 @@ One and only one of the following:
 
 # Know Issues:
 
-Always translucent and default (vanilla) cloud translucency can cause clouds to render on top of liqueds.
+Always translucent and default (vanilla) cloud translucency can cause clouds to render on top of liquids.
 
 # Know Conflicts:
 
