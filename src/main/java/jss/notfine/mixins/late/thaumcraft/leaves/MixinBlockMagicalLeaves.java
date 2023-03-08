@@ -18,22 +18,24 @@ public abstract class MixinBlockMagicalLeaves extends Block implements ILeafBloc
 
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
         int renderMode = (int) Settings.MODE_LEAVES.getValue();
-        if(renderMode >= 0) {
-            if(renderMode == 4) {
+        int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
+        switch(renderMode) {
+            case -1:
+                renderMode = SettingsManager.leavesOpaque ? 1 : 0;
+                break;
+            case 4:
                 renderMode = world.getBlock(
                     x + DirectionHelper.xDirectionalIncrease[side],
                     y + DirectionHelper.yDirectionalIncrease[side],
                     z + DirectionHelper.zDirectionalIncrease[side]
                 ) instanceof ILeafBlock ? 1 : 0;
-            }
-            renderMode = renderMode > 1 ? 0 : renderMode;
-            int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
-            maskedMeta = maskedMeta >= 2 ? 0 : maskedMeta;
-            return icon[renderMode + maskedMeta * 2];
-        } else {
-            //Default fallback.
-            return getIcon(side, world.getBlockMetadata(x, y, z));
+                break;
+            default:
+                renderMode = renderMode > 1 ? 0 : renderMode;
+                break;
         }
+        maskedMeta = maskedMeta > 1 ? 0 : maskedMeta;
+        return icon[renderMode + maskedMeta * 2];
     }
 
     /**

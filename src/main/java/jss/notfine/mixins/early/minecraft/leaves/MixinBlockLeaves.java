@@ -26,23 +26,29 @@ public abstract class MixinBlockLeaves extends BlockLeavesBase {
     }
 
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
+        if(field_150129_M[0] == null) {
+            //A mod dev had no idea what they were doing.
+            return getIcon(side, world.getBlockMetadata(x, y, z));
+        }
         int renderMode = (int) Settings.MODE_LEAVES.getValue();
-        if(renderMode >= 0 && field_150129_M[0] != null) {
-            if(renderMode == 4) {
+        int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
+        switch(renderMode) {
+            case -1:
+                renderMode = SettingsManager.leavesOpaque ? 1 : 0;
+                break;
+            case 4:
                 renderMode = world.getBlock(
                     x + DirectionHelper.xDirectionalIncrease[side],
                     y + DirectionHelper.yDirectionalIncrease[side],
                     z + DirectionHelper.zDirectionalIncrease[side]
                 ) instanceof ILeafBlock ? 1 : 0;
-            }
-            renderMode = renderMode > 1 ? 0 : renderMode;
-            int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
-            maskedMeta = maskedMeta >= field_150129_M[renderMode].length ? 0 : maskedMeta;
-            return field_150129_M[renderMode][maskedMeta];
-        } else {
-            //Default fallback or a mod dev had no idea what they were doing.
-            return getIcon(side, world.getBlockMetadata(x, y, z));
+                break;
+            default:
+                renderMode = renderMode > 1 ? 0 : renderMode;
+                break;
         }
+        maskedMeta = maskedMeta > 1 ? 0 : maskedMeta;
+        return field_150129_M[renderMode][maskedMeta];
     }
 
     @Shadow protected IIcon[][] field_150129_M;
