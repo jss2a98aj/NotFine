@@ -33,3 +33,5 @@ Optifine - No, I will not be making them work together, please do not ask.
 # Mods With New Leaf Rendering Mode Support:
 
 Thaumcraft
+
+Witchery

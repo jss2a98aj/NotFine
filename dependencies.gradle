@@ -22,7 +22,17 @@
  * For more details, see https://docs.gradle.org/7.6/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 
+ def deobfCurse(String mavenDep) {
+    def repoURL = "https://cursemaven.com/"
+    String[] parts = ("curse.maven:" + mavenDep).split(":")
+    parts[0] = parts[0].replace('.', '/')
+    def jarURL = repoURL + parts[0] + "/" + parts[1] + "/" + parts[2] + "/" + parts[1] + "-" + parts[2] + ".jar"
+    return deobf(jarURL)
+}
+
 dependencies {
-    api('thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev')
+    api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
+    compile deobfCurse("witchery-69673:2234410")
+
     runtimeOnly("com.github.GTNewHorizons:Baubles:1.0.1.16:dev")
 }
