@@ -99,4 +99,10 @@ public class SettingsManager {
         }
     }
 
+    public static void graphicsUpdated() {
+        leavesUpdated();
+        shadowsUpdated();
+        vignetteUpdated();
+    }
+
 }

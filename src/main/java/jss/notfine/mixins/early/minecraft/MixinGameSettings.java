@@ -1,5 +1,6 @@
 package jss.notfine.mixins.early.minecraft;
 
+import jss.notfine.core.SettingsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
@@ -62,14 +63,14 @@ public abstract class MixinGameSettings {
                 mc.ingameGUI.getChatGUI().refreshChat();
                 break;
             case ANISOTROPIC_FILTERING:
-                if (anisotropicFiltering != (int) value) {
+                if(anisotropicFiltering != (int) value) {
                     anisotropicFiltering = (int) value;
                     mc.getTextureMapBlocks().setAnisotropicFiltering(this.anisotropicFiltering);
                     mc.scheduleResourcesRefresh();
                 }
                 break;
             case MIPMAP_LEVELS:
-                if (mipmapLevels != (int) value) {
+                if(mipmapLevels != (int) value) {
                     mipmapLevels = (int) value;
                     mc.getTextureMapBlocks().setMipmapLevels(this.mipmapLevels);
                     mc.scheduleResourcesRefresh();
@@ -140,6 +141,7 @@ public abstract class MixinGameSettings {
                 break;
             case GRAPHICS:
                 fancyGraphics = !fancyGraphics;
+                SettingsManager.graphicsUpdated();
                 mc.renderGlobal.loadRenderers();
                 break;
             case AMBIENT_OCCLUSION:
