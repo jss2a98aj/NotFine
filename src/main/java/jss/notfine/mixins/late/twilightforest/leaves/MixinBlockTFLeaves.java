@@ -1,33 +1,22 @@
-package jss.notfine.mixins.late.witchery.leaves;
+package jss.notfine.mixins.late.twilightforest.leaves;
 
-import com.emoniph.witchery.blocks.BlockWitchLeaves;
 import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
 import jss.notfine.util.ILeafBlock;
 import jss.util.DirectionHelper;
-import net.minecraft.block.BlockLeavesBase;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import twilightforest.block.BlockTFLeaves;
 
-@Mixin(value = BlockWitchLeaves.class)
-public abstract class MixinBlockWitchLeaves extends BlockLeavesBase {
-
-    /**
-     * @author jss2a98aj
-     * @reason Support new leaf rendering modes on Witchery leaves.
-     */
-    @Overwrite
-    public boolean isOpaqueCube() {
-        return SettingsManager.leavesOpaque;
-    }
+@Mixin(value = BlockTFLeaves.class)
+public abstract class MixinBlockTFLeaves extends BlockLeaves {
 
     @Override
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-        int renderMode = (int) Settings.MODE_LEAVES.getValue();
+        int renderMode = (int)Settings.MODE_LEAVES.getValue();
         int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
         switch(renderMode) {
             case -1:
@@ -45,14 +34,7 @@ public abstract class MixinBlockWitchLeaves extends BlockLeavesBase {
                 break;
         }
         maskedMeta = maskedMeta > 1 ? 0 : maskedMeta;
-        return iconsForModes[renderMode][maskedMeta];
-    }
-
-    @Shadow(remap = false)
-    private IIcon[][] iconsForModes;
-
-    protected MixinBlockWitchLeaves(Material material, boolean unused) {
-        super(material, unused);
+        return Blocks.leaves.field_150129_M[renderMode][maskedMeta];
     }
 
 }

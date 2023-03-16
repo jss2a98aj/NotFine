@@ -31,8 +31,11 @@
 }
 
 dependencies {
-    api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
-    compile deobfCurse("witchery-69673:2234410")
+    implementation("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
+    implementation deobfCurse("witchery-69673:2234410")
+    implementation("com.github.GTNewHorizons:twilightforest:2.3.8.18:dev") {
+        transitive = false
+    }
 
     runtimeOnly("com.github.GTNewHorizons:Baubles:1.0.1.16:dev")
 }

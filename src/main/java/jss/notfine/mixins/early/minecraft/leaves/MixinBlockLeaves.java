@@ -30,7 +30,7 @@ public abstract class MixinBlockLeaves extends BlockLeavesBase {
             //A mod dev had no idea what they were doing.
             return getIcon(side, world.getBlockMetadata(x, y, z));
         }
-        int renderMode = (int) Settings.MODE_LEAVES.getValue();
+        int renderMode = (int)Settings.MODE_LEAVES.getValue();
         int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
         switch(renderMode) {
             case -1:
@@ -47,7 +47,7 @@ public abstract class MixinBlockLeaves extends BlockLeavesBase {
                 renderMode = renderMode > 1 ? 0 : renderMode;
                 break;
         }
-        maskedMeta = maskedMeta > 1 ? 0 : maskedMeta;
+        maskedMeta = maskedMeta >= field_150129_M[renderMode].length ? 0 : maskedMeta;
         return field_150129_M[renderMode][maskedMeta];
     }
 
