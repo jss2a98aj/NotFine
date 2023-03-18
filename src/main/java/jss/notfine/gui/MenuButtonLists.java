@@ -1,5 +1,6 @@
 package jss.notfine.gui;
 
+import jss.notfine.config.NotFineConfig;
 import jss.notfine.core.Settings;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.resources.I18n;
@@ -66,7 +67,7 @@ public enum MenuButtonLists {
         @Override
         public Object[] entries() {
             ArrayList<Object> list = new ArrayList<>();
-            if(OpenGlHelper.field_153197_d) {
+            if(OpenGlHelper.field_153197_d && NotFineConfig.allowAdvancedOpenGL) {
                 list.add(GameSettings.Options.ADVANCED_OPENGL);
             } else {
                 list.add(null);

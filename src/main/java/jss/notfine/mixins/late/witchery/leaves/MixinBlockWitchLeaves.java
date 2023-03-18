@@ -1,10 +1,10 @@
-package jss.notfine.mixins.early.minecraft.leaves;
+package jss.notfine.mixins.late.witchery.leaves;
 
+import com.emoniph.witchery.blocks.BlockWitchLeaves;
 import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
 import jss.notfine.util.ILeafBlock;
 import jss.util.DirectionHelper;
-import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
@@ -13,24 +13,21 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(value = BlockLeaves.class)
-public abstract class MixinBlockLeaves extends BlockLeavesBase {
+@Mixin(value = BlockWitchLeaves.class)
+public abstract class MixinBlockWitchLeaves extends BlockLeavesBase {
 
     /**
      * @author jss2a98aj
-     * @reason Control leaf opacity.
+     * @reason Support new leaf rendering modes on Witchery leaves.
      */
     @Overwrite
     public boolean isOpaqueCube() {
         return SettingsManager.leavesOpaque;
     }
 
+    @Override
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-        if(field_150129_M[0] == null) {
-            //A mod dev had no idea what they were doing.
-            return getIcon(side, world.getBlockMetadata(x, y, z));
-        }
-        int renderMode = (int)Settings.MODE_LEAVES.getValue();
+        int renderMode = (int) Settings.MODE_LEAVES.getValue();
         int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
         switch(renderMode) {
             case -1:
@@ -47,14 +44,15 @@ public abstract class MixinBlockLeaves extends BlockLeavesBase {
                 renderMode = renderMode > 1 ? 0 : renderMode;
                 break;
         }
-        maskedMeta = maskedMeta >= field_150129_M[renderMode].length ? 0 : maskedMeta;
-        return field_150129_M[renderMode][maskedMeta];
+        maskedMeta = maskedMeta > 1 ? 0 : maskedMeta;
+        return iconsForModes[renderMode][maskedMeta];
     }
 
-    @Shadow protected IIcon[][] field_150129_M;
+    @Shadow(remap = false)
+    private IIcon[][] iconsForModes;
 
-    protected MixinBlockLeaves(Material material, boolean overridden) {
-        super(material, overridden);
+    protected MixinBlockWitchLeaves(Material material, boolean unused) {
+        super(material, unused);
     }
 
 }

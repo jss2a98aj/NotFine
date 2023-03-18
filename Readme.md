@@ -4,24 +4,25 @@ Extra video settings for Minecraft 1.7.10 implemented with Mixins.
 
 # Future Plans
 
-Achieving or exceeding feature parity with Optifine, bar shaders.
-
-Adding support for new leaf rendering modes to modded leaves.
-
-Shaders support when paired with [Angelica](https://github.com/GTNewHorizons/Angelica) or [Shader Mod](https://github.com/basdxz/ShadersMod/) if all goes well.
+- Adding several same or similar features as compaired to Optifine.
+- More mod support for new leaf rendering modes.
+- Shader support when paired with [Angelica](https://github.com/GTNewHorizons/Angelica) and/or [Shader Mod](https://github.com/basdxz/ShadersMod/).
 
 # Requirements
 
-One and only one of the following:
+- [UniMixins](https://github.com/LegacyModdingMC/UniMixins)
 
-[UniMixins](https://github.com/LegacyModdingMC/UniMixins) (highly suggested)
+# Know Issues
 
-[GTNH Mixins](https://github.com/GTNewHorizons/GTNHMixins) with [Mixingasm](https://github.com/makamys/Mixingasm)
+- Always Translucent and Default(vanilla) cloud translucency will cause clouds to render over liquids.
 
-[GasStation](https://github.com/FalsePattern/GasStation) with [UniMixins'](https://github.com/LegacyModdingMC/UniMixins) unimixins-gtnhmixins module.
+# Know Conflicts
 
-# Know Conflicts:
+- [Leaf Culling](https://modrinth.com/mod/leafculling) | Incompatible due to overlap. Suggested if you just want "Smart" leaf rendering.
+- Optifine | Cannot be made compatible.
 
-Optifine - No, I will not be making them work together, please do not ask.
+# New Leaf Rendering Mode Mod Compatibility
 
-[Leaf Culling](https://modrinth.com/mod/leafculling) - A good mod, just not compatible due to feature overlap.
+- Thaumcraft
+- Twilight Forest
+- Witchery

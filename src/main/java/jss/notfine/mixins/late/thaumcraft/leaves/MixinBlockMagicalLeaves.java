@@ -1,36 +1,25 @@
-package jss.notfine.mixins.early.minecraft.leaves;
+package jss.notfine.mixins.late.thaumcraft.leaves;
 
+import jss.notfine.util.ILeafBlock;
 import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
-import jss.notfine.util.ILeafBlock;
+import jss.notfine.util.LeafRenderUtil;
 import jss.util.DirectionHelper;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockLeavesBase;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import thaumcraft.common.blocks.BlockMagicalLeaves;
 
-@Mixin(value = BlockLeaves.class)
-public abstract class MixinBlockLeaves extends BlockLeavesBase {
+@Mixin(value = BlockMagicalLeaves.class)
+public abstract class MixinBlockMagicalLeaves extends Block implements ILeafBlock {
 
-    /**
-     * @author jss2a98aj
-     * @reason Control leaf opacity.
-     */
-    @Overwrite
-    public boolean isOpaqueCube() {
-        return SettingsManager.leavesOpaque;
-    }
-
+    @Override
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-        if(field_150129_M[0] == null) {
-            //A mod dev had no idea what they were doing.
-            return getIcon(side, world.getBlockMetadata(x, y, z));
-        }
-        int renderMode = (int)Settings.MODE_LEAVES.getValue();
+        int renderMode = (int) Settings.MODE_LEAVES.getValue();
         int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
         switch(renderMode) {
             case -1:
@@ -47,14 +36,24 @@ public abstract class MixinBlockLeaves extends BlockLeavesBase {
                 renderMode = renderMode > 1 ? 0 : renderMode;
                 break;
         }
-        maskedMeta = maskedMeta >= field_150129_M[renderMode].length ? 0 : maskedMeta;
-        return field_150129_M[renderMode][maskedMeta];
+        maskedMeta = maskedMeta > 1 ? 0 : maskedMeta;
+        return icon[renderMode + maskedMeta * 2];
     }
 
-    @Shadow protected IIcon[][] field_150129_M;
-
-    protected MixinBlockLeaves(Material material, boolean overridden) {
-        super(material, overridden);
+    /**
+     * @author jss2a98aj
+     * @reason Support new leaf rendering modes on Thaumcraft leaves.
+     */
+    @Overwrite
+    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+        return LeafRenderUtil.shouldSideBeRendered(world, x, y, z, side);
     }
+
+    protected MixinBlockMagicalLeaves(Material material) {
+        super(material);
+    }
+
+    @Shadow(remap = false)
+    public IIcon[] icon;
 
 }
