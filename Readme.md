@@ -4,7 +4,7 @@ Extra video settings for Minecraft 1.7.10 implemented with Mixins.
 
 # Future Plans
 
-- Adding several same or similar features as compaired to Optifine.
+- Adding several same or similar features as compared to Optifine.
 - More mod support for new leaf rendering modes.
 - Shader support when paired with [Angelica](https://github.com/GTNewHorizons/Angelica) and/or [Shader Mod](https://github.com/basdxz/ShadersMod/).
 
