@@ -74,7 +74,7 @@ public enum MenuButtonLists {
             }
             list.add(GameSettings.Options.ANAGLYPH);
             list.add(Settings.MODE_GUI_BACKGROUND); list.add(GameSettings.Options.SHOW_CAPE);
-            list.add(null); list.add(Settings.MODE_VIGNETTE);
+            list.add(GameSettings.Options.FBO_ENABLE); list.add(Settings.MODE_VIGNETTE);
             list.add(Settings.GUI_BACKGROUND);
 
             return list.toArray();
