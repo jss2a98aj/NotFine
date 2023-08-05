@@ -32,6 +32,12 @@ public enum Settings {
             SettingsManager.cloudsUpdated();
         }
     },
+    MODE_DROPPED_ITEMS(false, -1f,-1f,1f, 1f, "-1:Default, 0:On, 1:Off") {
+        @Override
+        public void updateSetting() {
+            SettingsManager.droppedItemDetailUpdated();
+        }
+    },
     MODE_GLINT_INV(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
     MODE_GLINT_WORLD(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
     MODE_GUI_BACKGROUND(false, 0f, 0f, 1f, 1f, "0:On, 1:Off"),

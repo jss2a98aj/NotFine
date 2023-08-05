@@ -20,6 +20,7 @@ public class SettingsManager {
     public static int minimumFarPlaneDistance;
     public static double cloudTranslucencyCheck;
     public static boolean shadows;
+    public static boolean droppedItemDetail;
     public static boolean leavesOpaque;
     public static boolean vignette;
 
@@ -85,6 +86,20 @@ public class SettingsManager {
         }
     }
 
+    public static void droppedItemDetailUpdated() {
+        switch((int)Settings.MODE_DROPPED_ITEMS.getValue()) {
+            case -1:
+                droppedItemDetail = mc.gameSettings.fancyGraphics;
+                break;
+            case 0:
+                droppedItemDetail = true;
+                break;
+            case 1:
+                droppedItemDetail = false;
+                break;
+        }
+    }
+
     public static void vignetteUpdated() {
         switch((int)Settings.MODE_VIGNETTE.getValue()) {
             case -1:
@@ -102,6 +117,7 @@ public class SettingsManager {
     public static void graphicsUpdated() {
         leavesUpdated();
         shadowsUpdated();
+        droppedItemDetailUpdated();
         vignetteUpdated();
     }
 
