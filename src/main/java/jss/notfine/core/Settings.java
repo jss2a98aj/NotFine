@@ -54,6 +54,12 @@ public enum Settings {
         }
     },
     MODE_SKY(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
+    MODE_WATER(false, -1f,-1f,1f, 1f, "-1:Default, 0:Fancy, 1:Fast") {
+        @Override
+        public void updateSetting() {
+            SettingsManager.waterDetailUpdated();
+        }
+    },
     MODE_VIGNETTE(false, -1f,-1f,1f, 1f, "-1:Default, 0:On, 1:Off") {
         @Override
         public void updateSetting() {

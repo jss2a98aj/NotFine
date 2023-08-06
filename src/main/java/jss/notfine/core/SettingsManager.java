@@ -22,6 +22,7 @@ public class SettingsManager {
     public static boolean shadows;
     public static boolean droppedItemDetail;
     public static boolean leavesOpaque;
+    public static boolean waterDetail;
     public static boolean vignette;
 
     public static ResourceLocation defaultBackground = Gui.optionsBackground;
@@ -100,6 +101,20 @@ public class SettingsManager {
         }
     }
 
+    public static void waterDetailUpdated() {
+        switch((int)Settings.MODE_DROPPED_ITEMS.getValue()) {
+            case -1:
+                waterDetail = mc.gameSettings.fancyGraphics;
+                break;
+            case 0:
+                waterDetail = true;
+                break;
+            case 1:
+                waterDetail = false;
+                break;
+        }
+    }
+
     public static void vignetteUpdated() {
         switch((int)Settings.MODE_VIGNETTE.getValue()) {
             case -1:
@@ -118,6 +133,7 @@ public class SettingsManager {
         leavesUpdated();
         shadowsUpdated();
         droppedItemDetailUpdated();
+        waterDetailUpdated();
         vignetteUpdated();
     }
 
