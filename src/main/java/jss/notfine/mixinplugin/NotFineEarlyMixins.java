@@ -29,6 +29,8 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.clouds.MixinRenderGlobal");
         mixins.add("minecraft.clouds.MixinWorldType");
 
+        mixins.add("minecraft.fix.MixinRenderGlobal");
+
         mixins.add("minecraft.glint.MixinItemRenderer");
         mixins.add("minecraft.glint.MixinRenderBiped");
         mixins.add("minecraft.glint.MixinRenderItem");
