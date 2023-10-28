@@ -34,9 +34,9 @@ public enum MenuButtonLists {
             ArrayList<Object> list = new ArrayList<>();
 
             list.add(Settings.MODE_LEAVES); list.add(Settings.MODE_WATER);
-            list.add(Settings.MODE_SHADOWS); list.add(Settings.MODE_VIGNETTE);
-            list.add(Settings.MODE_DROPPED_ITEMS); list.add(Settings.MODE_GLINT_WORLD);
-            list.add(Settings.MODE_GLINT_INV);
+            list.add(Settings.DOWNFALL_DISTANCE); list.add(Settings.MODE_VIGNETTE);
+            list.add(Settings.MODE_SHADOWS); list.add(Settings.MODE_DROPPED_ITEMS);
+            list.add(Settings.MODE_GLINT_WORLD); list.add(Settings.MODE_GLINT_INV);
 
             return list.toArray();
         }

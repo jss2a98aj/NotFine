@@ -13,6 +13,12 @@ public enum Settings {
         }
     },
     CLOUD_SCALE(true, 1f, 0.5f, 5f, 0.25f),
+    DOWNFALL_DISTANCE(false, -1f, -1f, 3f, 1f, "-1:Default, 0:Fancy, 1:Fast, 2:Ultra, 2:Off") {
+        @Override
+        public void updateSetting() {
+            SettingsManager.downfallDistanceUpdated();
+        }
+    },
     FOG_DEPTH(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
     GUI_BACKGROUND(false, -1f, -1f, 5f, 1f, "-1:Default, 0:Sand, 1:Mycelium, 2:Stonebrick, 3:Mossy Stonebrick, 4:Oak Planks, 5: Birch Planks") {
         @Override
@@ -108,10 +114,8 @@ public enum Settings {
         if(step > 0f) {
             value = step * (float)Math.round(value / step);
         }
-        if(this.value != value) {
-            this.value = value;
-            updateSetting();
-        }
+        this.value = value;
+        updateSetting();
     }
 
     public void setValueNormalized(float value) {
