@@ -3,9 +3,9 @@ package jss.notfine.mixins.late.twilightforest.leaves;
 import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
 import jss.notfine.util.ILeafBlock;
-import jss.util.DirectionHelper;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,9 +23,9 @@ public abstract class MixinBlockTFLeaves3 extends BlockLeaves {
                 break;
             case 4:
                 renderMode = world.getBlock(
-                    x + DirectionHelper.xDirectionalIncrease[side],
-                    y + DirectionHelper.yDirectionalIncrease[side],
-                    z + DirectionHelper.zDirectionalIncrease[side]
+                    x + Facing.offsetsXForSide[side],
+                    y + Facing.offsetsYForSide[side],
+                    z + Facing.offsetsZForSide[side]
                 ) instanceof ILeafBlock ? 1 : 0;
                 break;
             default:

@@ -4,6 +4,7 @@ import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
 import jss.util.DirectionHelper;
 import net.minecraft.block.Block;
+import net.minecraft.util.Facing;
 import net.minecraft.world.IBlockAccess;
 
 public class LeafRenderUtil {
@@ -20,9 +21,9 @@ public class LeafRenderUtil {
             case 3:
             case 4:
                 if(otherBlock instanceof ILeafBlock) {
-                    x -= DirectionHelper.xDirectionalIncrease[side];
-                    y -= DirectionHelper.yDirectionalIncrease[side];
-                    z -= DirectionHelper.zDirectionalIncrease[side];
+                    x -= Facing.offsetsXForSide[side];
+                    y -= Facing.offsetsYForSide[side];
+                    z -= Facing.offsetsZForSide[side];
                     int renderCheck = 0;
                     otherBlock = world.getBlock(x + 1, y, z);
                     if(((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
@@ -50,48 +51,48 @@ public class LeafRenderUtil {
                     }
                     boolean renderSide = renderCheck == 6;
                     if(renderSide) {
-                        x += 2 * DirectionHelper.xDirectionalIncrease[side];
-                        y += 2 * DirectionHelper.yDirectionalIncrease[side];
-                        z += 2 * DirectionHelper.zDirectionalIncrease[side];
+                        x += 2 * Facing.offsetsXForSide[side];
+                        y += 2 * Facing.offsetsYForSide[side];
+                        z += 2 * Facing.offsetsZForSide[side];
                         otherBlock = world.getBlock(x, y, z);
                         if(((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = false;
                         }
-                        x -= DirectionHelper.xDirectionalIncrease[side];
-                        y -= DirectionHelper.yDirectionalIncrease[side];
-                        z -= DirectionHelper.zDirectionalIncrease[side];
+                        x -= Facing.offsetsXForSide[side];
+                        y -= Facing.offsetsYForSide[side];
+                        z -= Facing.offsetsZForSide[side];
                         int nextSide = DirectionHelper.relativeADirections[side];
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.xDirectionalIncrease[nextSide],
-                            y + DirectionHelper.yDirectionalIncrease[nextSide],
-                            z + DirectionHelper.zDirectionalIncrease[nextSide]
+                            x + Facing.offsetsXForSide[nextSide],
+                            y + Facing.offsetsYForSide[nextSide],
+                            z + Facing.offsetsZForSide[nextSide]
                         );
                         if(!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
                         nextSide = DirectionHelper.relativeBDirections[side];
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.xDirectionalIncrease[nextSide],
-                            y + DirectionHelper.yDirectionalIncrease[nextSide],
-                            z + DirectionHelper.zDirectionalIncrease[nextSide]
+                            x + Facing.offsetsXForSide[nextSide],
+                            y + Facing.offsetsYForSide[nextSide],
+                            z + Facing.offsetsZForSide[nextSide]
                         );
                         if(!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
                         nextSide = DirectionHelper.relativeCDirections[side];
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.xDirectionalIncrease[nextSide],
-                            y + DirectionHelper.yDirectionalIncrease[nextSide],
-                            z + DirectionHelper.zDirectionalIncrease[nextSide]
+                            x + Facing.offsetsXForSide[nextSide],
+                            y + Facing.offsetsYForSide[nextSide],
+                            z + Facing.offsetsZForSide[nextSide]
                         );
                         if(!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = true;
                         }
                         nextSide = DirectionHelper.relativeDDirections[side];
                         otherBlock = world.getBlock(
-                            x + DirectionHelper.xDirectionalIncrease[nextSide],
-                            y + DirectionHelper.yDirectionalIncrease[nextSide],
-                            z + DirectionHelper.zDirectionalIncrease[nextSide]
+                            x + Facing.offsetsXForSide[nextSide],
+                            y + Facing.offsetsYForSide[nextSide],
+                            z + Facing.offsetsZForSide[nextSide]
                         );
                         if(!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
                             renderSide = true;

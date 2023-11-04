@@ -4,9 +4,9 @@ import jss.notfine.util.ILeafBlock;
 import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
 import jss.notfine.util.LeafRenderUtil;
-import jss.util.DirectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,9 +27,9 @@ public abstract class MixinBlockMagicalLeaves extends Block implements ILeafBloc
                 break;
             case 4:
                 renderMode = world.getBlock(
-                    x + DirectionHelper.xDirectionalIncrease[side],
-                    y + DirectionHelper.yDirectionalIncrease[side],
-                    z + DirectionHelper.zDirectionalIncrease[side]
+                    x + Facing.offsetsXForSide[side],
+                    y + Facing.offsetsYForSide[side],
+                    z + Facing.offsetsZForSide[side]
                 ) instanceof ILeafBlock ? 1 : 0;
                 break;
             default:
