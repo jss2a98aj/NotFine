@@ -17,30 +17,21 @@ public abstract class MixinBlockTFMagicLeaves extends BlockLeaves {
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
         int renderMode = (int) Settings.MODE_LEAVES.getValue();
         int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
-        switch(renderMode) {
-            case -1:
-                renderMode = SettingsManager.leavesOpaque ? 1 : 0;
-                break;
-            case 4:
-                renderMode = world.getBlock(
-                    x + Facing.offsetsXForSide[side],
-                    y + Facing.offsetsYForSide[side],
-                    z + Facing.offsetsZForSide[side]
-                ) instanceof ILeafBlock ? 1 : 0;
-                break;
-            default:
-                renderMode = renderMode > 1 ? 0 : renderMode;
-                break;
-        }
+        renderMode = switch (renderMode) {
+            case -1 -> SettingsManager.leavesOpaque ? 1 : 0;
+            case 4 -> world.getBlock(
+                x + Facing.offsetsXForSide[side],
+                y + Facing.offsetsYForSide[side],
+                z + Facing.offsetsZForSide[side]
+            ) instanceof ILeafBlock ? 1 : 0;
+            default -> renderMode > 1 ? 0 : renderMode;
+        };
         maskedMeta = maskedMeta > 1 ? 0 : maskedMeta;
-        switch(maskedMeta) {
-            default:
-                return renderMode == 1 ? SPR_TIMELEAVES_OPAQUE : SPR_TIMELEAVES;
-            case 1:
-                return renderMode == 1 ? SPR_TRANSLEAVES_OPAQUE : SPR_TRANSLEAVES;
-            case 3:
-                return renderMode == 1 ? SPR_SORTLEAVES_OPAQUE : SPR_SORTLEAVES;
-        }
+        return switch (maskedMeta) {
+            case 1 -> renderMode == 1 ? SPR_TRANSLEAVES_OPAQUE : SPR_TRANSLEAVES;
+            case 3 -> renderMode == 1 ? SPR_SORTLEAVES_OPAQUE : SPR_SORTLEAVES;
+            default -> renderMode == 1 ? SPR_TIMELEAVES_OPAQUE : SPR_TIMELEAVES;
+        };
     }
 
     @Shadow(remap = false)

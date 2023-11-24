@@ -32,21 +32,15 @@ public abstract class MixinBlockLeaves extends BlockLeavesBase {
         }
         int renderMode = (int)Settings.MODE_LEAVES.getValue();
         int maskedMeta = world.getBlockMetadata(x, y, z) & 3;
-        switch(renderMode) {
-            case -1:
-                renderMode = SettingsManager.leavesOpaque ? 1 : 0;
-                break;
-            case 4:
-                renderMode = world.getBlock(
-                    x + Facing.offsetsXForSide[side],
-                    y + Facing.offsetsYForSide[side],
-                    z + Facing.offsetsZForSide[side]
-                ) instanceof ILeafBlock ? 1 : 0;
-                break;
-            default:
-                renderMode = renderMode > 1 ? 0 : renderMode;
-                break;
-        }
+        renderMode = switch (renderMode) {
+            case -1 -> SettingsManager.leavesOpaque ? 1 : 0;
+            case 4 -> world.getBlock(
+                x + Facing.offsetsXForSide[side],
+                y + Facing.offsetsYForSide[side],
+                z + Facing.offsetsZForSide[side]
+            ) instanceof ILeafBlock ? 1 : 0;
+            default -> renderMode > 1 ? 0 : renderMode;
+        };
         maskedMeta = maskedMeta >= field_150129_M[renderMode].length ? 0 : maskedMeta;
         return field_150129_M[renderMode][maskedMeta];
     }
