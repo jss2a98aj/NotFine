@@ -32,7 +32,7 @@ public enum Settings {
             SettingsManager.cloudsUpdated();
         }
     },
-    MODE_CLOUDS(false,-1f, -1f, 2f, 1f, "-1:Default, 0:Fancy, 1:Fast, 2:Off") {
+    MODE_CLOUDS(false, -1f, -1f, 2f, 1f, "-1:Default, 0:Fancy, 1:Fast, 2:Off") {
         @Override
         public void updateSetting() {
             SettingsManager.cloudsUpdated();
@@ -44,8 +44,8 @@ public enum Settings {
             SettingsManager.droppedItemDetailUpdated();
         }
     },
-    MODE_GLINT_INV(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
-    MODE_GLINT_WORLD(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
+    MODE_GLINT_INV(false, 0f, 0f, 1f, 1f, "0:On, 1:Off"),
+    MODE_GLINT_WORLD(false, 0f, 0f, 1f, 1f, "0:On, 1:Off"),
     MODE_GUI_BACKGROUND(false, 0f, 0f, 1f, 1f, "0:On, 1:Off"),
     MODE_LEAVES(false,-1f, -1f, 4f,1f,"-1:Default, 0:Fancy, 1:Fast, 2:Smart, 3:Hybrid Fancy, 4:Hybrid Fast") {
         @Override
@@ -72,8 +72,8 @@ public enum Settings {
             SettingsManager.vignetteUpdated();
         }
     },
-    PARTICLES_ENC_TABLE(true,1f, 0f, 16f, 1f),
-    PARTICLES_VOID(false,0f, 0f, 1f, 1f, "0:On, 1:Off"),
+    PARTICLES_ENC_TABLE(true, 1f, 0f, 16f, 1f),
+    PARTICLES_VOID(false, 0f, 0f, 1f, 1f, "0:On, 1:Off"),
     RENDER_DISTANCE_CLOUDS(true, 4f, 4f, 64f, 2f) {
         @Override
         public void updateSetting() {

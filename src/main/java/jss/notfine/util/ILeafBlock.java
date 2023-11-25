@@ -12,27 +12,30 @@ public interface ILeafBlock extends IFaceObstructionCheckHelper {
         if((int) Settings.MODE_LEAVES.getValue() == 4) {
             Block otherBlock;
             otherBlock = worldIn.getBlock(x + 1, y, z);
-            if(!otherBlock.isOpaqueCube() && !(otherBlock instanceof ILeafBlock)) {
+            if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
                 return true;
             }
             otherBlock = worldIn.getBlock(x - 1, y, z);
-            if(!otherBlock.isOpaqueCube() && !(otherBlock instanceof ILeafBlock)) {
+            if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
                 return true;
             }
             otherBlock = worldIn.getBlock(x, y + 1, z);
-            if(!otherBlock.isOpaqueCube() && !(otherBlock instanceof ILeafBlock)) {
+            if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
                 return true;
             }
             otherBlock = worldIn.getBlock(x, y - 1, z);
-            if(!otherBlock.isOpaqueCube() && !(otherBlock instanceof ILeafBlock)) {
+            if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
                 return true;
             }
             otherBlock = worldIn.getBlock(x, y, z + 1);
-            if(!otherBlock.isOpaqueCube() && !(otherBlock instanceof ILeafBlock)) {
+            if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
                 return true;
             }
             otherBlock = worldIn.getBlock(x, y, z - 1);
-            return !otherBlock.isOpaqueCube() && !(otherBlock instanceof ILeafBlock);
+            if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
+                return true;
+            }
+            return false;
         } else {
             return !SettingsManager.leavesOpaque;
         }

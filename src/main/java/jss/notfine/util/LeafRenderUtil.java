@@ -40,27 +40,27 @@ public class LeafRenderUtil {
                     z -= Facing.offsetsZForSide[side];
                     int renderCheck = 0;
                     otherBlock = worldIn.getBlock(x + 1, y, z);
-                    if (((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                    if(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube()) {
                         renderCheck++;
                     }
                     otherBlock = worldIn.getBlock(x - 1, y, z);
-                    if (((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                    if(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube()) {
                         renderCheck++;
                     }
                     otherBlock = worldIn.getBlock(x, y + 1, z);
-                    if (((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                    if(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube()) {
                         renderCheck++;
                     }
                     otherBlock = worldIn.getBlock(x, y - 1, z);
-                    if (((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                    if(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube()) {
                         renderCheck++;
                     }
                     otherBlock = worldIn.getBlock(x, y, z + 1);
-                    if (((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                    if(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube()) {
                         renderCheck++;
                     }
                     otherBlock = worldIn.getBlock(x, y, z - 1);
-                    if (((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                    if(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube()) {
                         renderCheck++;
                     }
                     boolean renderSide = renderCheck == 6;
@@ -69,7 +69,7 @@ public class LeafRenderUtil {
                         y += 2 * Facing.offsetsYForSide[side];
                         z += 2 * Facing.offsetsZForSide[side];
                         otherBlock = worldIn.getBlock(x, y, z);
-                        if (((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                        if(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube()) {
                             renderSide = false;
                         }
                         x -= Facing.offsetsXForSide[side];
@@ -81,7 +81,7 @@ public class LeafRenderUtil {
                             y + Facing.offsetsYForSide[nextSide],
                             z + Facing.offsetsZForSide[nextSide]
                         );
-                        if (!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                        if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
                             return true;
                         }
                         nextSide = relativeBDirections[side];
@@ -90,7 +90,7 @@ public class LeafRenderUtil {
                             y + Facing.offsetsYForSide[nextSide],
                             z + Facing.offsetsZForSide[nextSide]
                         );
-                        if (!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                        if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
                             return true;
                         }
                         nextSide = relativeCDirections[side];
@@ -99,7 +99,7 @@ public class LeafRenderUtil {
                             y + Facing.offsetsYForSide[nextSide],
                             z + Facing.offsetsZForSide[nextSide]
                         );
-                        if (!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                        if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
                             return true;
                         }
                         nextSide = relativeDDirections[side];
@@ -108,7 +108,7 @@ public class LeafRenderUtil {
                             y + Facing.offsetsYForSide[nextSide],
                             z + Facing.offsetsZForSide[nextSide]
                         );
-                        if (!((otherBlock instanceof ILeafBlock) || otherBlock.isOpaqueCube())) {
+                        if(!(otherBlock instanceof ILeafBlock || otherBlock.isOpaqueCube())) {
                             return true;
                         }
                     }
