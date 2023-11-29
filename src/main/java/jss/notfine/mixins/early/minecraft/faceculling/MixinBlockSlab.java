@@ -1,5 +1,6 @@
 package jss.notfine.mixins.early.minecraft.faceculling;
 
+import cpw.mods.fml.relauncher.SideOnly;
 import jss.notfine.util.IFaceObstructionCheckHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;

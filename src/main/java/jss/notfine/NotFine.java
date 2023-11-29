@@ -7,6 +7,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import jss.notfine.config.NotFineConfig;
 import jss.notfine.core.LoadMenuButtons;
+import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
@@ -38,6 +39,10 @@ public class NotFine {
 
         if(!NotFineConfig.allowAdvancedOpenGL) {
             Minecraft.getMinecraft().gameSettings.advancedOpengl = false;
+        }
+
+        for(Settings setting : Settings.values()) {
+            setting.ready();
         }
     }
 
