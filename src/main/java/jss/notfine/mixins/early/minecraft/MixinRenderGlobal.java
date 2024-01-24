@@ -20,9 +20,7 @@ import com.llamalad7.mixinextras.injector.WrapWithCondition;
 @Mixin(value = RenderGlobal.class)
 public abstract class MixinRenderGlobal {
 
-    @Shadow private int glSkyList;
     @Shadow private int starGLCallList;
-    @Shadow private int glSkyList2;
 
     @Inject(method = "renderSky", at = @At("HEAD"), cancellable = true)
     void notFine$toggleSky(CallbackInfo ci) {
