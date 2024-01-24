@@ -12,11 +12,11 @@ Extra video settings and performance improvements for Minecraft 1.7.10, implemen
 
 - [UniMixins](https://github.com/LegacyModdingMC/UniMixins)
 
-# Know Issues
+# Known Issues
 
 - Always Translucent and Default(vanilla) cloud translucency will cause clouds to render over liquids.
 
-# Know Conflicts
+# Known Conflicts
 
 - [Angelica](https://github.com/GTNewHorizons/Angelica) | Incompatible because Angelica includes NotFine.
 - [Leaf Culling](https://modrinth.com/mod/leafculling) | Incompatible due to overlap. Suggested if you just want "Smart" leaf rendering.
@@ -26,7 +26,7 @@ Extra video settings and performance improvements for Minecraft 1.7.10, implemen
 
 ## Mods that properly implement leaf blocks and do not need patched
 
-- [Et Futurum Requium](https://modrinth.com/mod/etfuturum)
+- [Et Futurum Requiem](https://modrinth.com/mod/etfuturum)
 
 ## Mods with leaf blocks that have been patched
 
@@ -35,7 +35,7 @@ Extra video settings and performance improvements for Minecraft 1.7.10, implemen
 - [Witchery](https://www.curseforge.com/minecraft/mc-mods/witchery)
 
 # Mod Suggestions
-- [Thumcraft 4 Tweaks](https://modrinth.com/mod/tc4tweaks) when using Thaumcraft
+- [Thaumcraft 4 Tweaks](https://modrinth.com/mod/tc4tweaks) when using Thaumcraft
 - [WitcheryExtras](https://github.com/GTNewHorizons/WitcheryExtras) when using Witchery
 
 # Credits
@@ -47,3 +47,6 @@ Extra video settings and performance improvements for Minecraft 1.7.10, implemen
   * JellySquid and the CaffeineMC team
 * Additional localizations
   * Darkbum, Radk6, and fireorice5
+* Includes MCPatcherForge:
+  * Original [MCPatcher](https://bitbucket.org/prupe/mcpatcher/src/master/): Paul Rupe
+  * Mixin port: [MCPatcherForge](https://github.com/mist475/MCPatcherForge): Mist475, textures by Darkbum under CC-BY-SA
