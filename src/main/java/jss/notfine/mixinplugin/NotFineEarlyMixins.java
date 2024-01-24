@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import jss.notfine.NotFine;
 import mist475.mcpatcherforge.asm.AsmTransformers;
 import mist475.mcpatcherforge.asm.mappings.Namer;
+import mist475.mcpatcherforge.config.MCPatcherForgeConfig;
 import mist475.mcpatcherforge.mixins.Mixins;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,9 +47,13 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.faceculling.MixinBlockStairs");
         mixins.add("minecraft.faceculling.MixinRenderBlocks");
 
-        mixins.add("minecraft.glint.MixinItemRenderer");
+        mixins.add("minecraft.fix.MixinRenderItem");
+
+        if(!MCPatcherForgeConfig.instance().customItemTexturesEnabled) {
+            mixins.add("minecraft.glint.MixinItemRenderer");
+            mixins.add("minecraft.glint.MixinRenderItem");
+        }
         mixins.add("minecraft.glint.MixinRenderBiped");
-        mixins.add("minecraft.glint.MixinRenderItem");
         mixins.add("minecraft.glint.MixinRenderPlayer");
 
         mixins.add("minecraft.gui.MixinGuiSlot");

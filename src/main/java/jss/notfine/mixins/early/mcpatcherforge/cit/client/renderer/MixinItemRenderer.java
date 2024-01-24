@@ -1,5 +1,6 @@
 package jss.notfine.mixins.early.mcpatcherforge.cit.client.renderer;
 
+import jss.notfine.core.Settings;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -30,6 +31,6 @@ public abstract class MixinItemRenderer {
         remap = false)
     private boolean modifyRenderItem3(ItemStack item, int pass, EntityLivingBase entity, ItemStack itemStack,
         int renderPass) {
-        return !CITUtils.renderEnchantmentHeld(item, renderPass) && item.hasEffect(pass);
+        return !CITUtils.renderEnchantmentHeld(item, renderPass) && item.hasEffect(pass) && (boolean) Settings.MODE_GLINT_WORLD.option.getStore();
     }
 }

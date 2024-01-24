@@ -1,5 +1,6 @@
 package jss.notfine.mixins.early.mcpatcherforge.cit.client.renderer.entity;
 
+import jss.notfine.core.Settings;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.Render;
@@ -51,7 +52,7 @@ public abstract class MixinRenderItem extends Render {
         at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;hasEffect(I)Z", remap = false),
         remap = false)
     private boolean modifyRenderDroppedItem(ItemStack instance, int pass) {
-        return !CITUtils.renderEnchantmentDropped(instance) && instance.hasEffect(pass);
+        return !CITUtils.renderEnchantmentDropped(instance) && instance.hasEffect(pass) && (boolean) Settings.MODE_GLINT_WORLD.option.getStore();
     }
 
     @Inject(
