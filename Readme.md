@@ -12,11 +12,11 @@ Extra video settings and performance improvements for Minecraft 1.7.10, implemen
 
 - [UniMixins](https://github.com/LegacyModdingMC/UniMixins)
 
-# Know Issues
+# Known Issues
 
 - Always Translucent and Default(vanilla) cloud translucency will cause clouds to render over liquids.
 
-# Know Conflicts
+# Known Conflicts
 
 - [Angelica](https://github.com/GTNewHorizons/Angelica) | Incompatible because Angelica includes NotFine.
 - [Leaf Culling](https://modrinth.com/mod/leafculling) | Incompatible due to overlap. Suggested if you just want "Smart" leaf rendering.
