@@ -152,6 +152,9 @@ public class NotFineGameOptionPages {
         List<OptionGroup> groups = new ArrayList<>();
         groups.add(OptionGroup.createBuilder()
             .add(Settings.MODE_SKY.option)
+            .add(Settings.MODE_SUN_MOON.option)
+            .add(Settings.MODE_STARS.option)
+            .add(Settings.MODE_SKY.option)
             .add(Settings.MODE_CLOUDS.option)
             .add(Settings.RENDER_DISTANCE_CLOUDS.option)
             .add(Settings.CLOUD_HEIGHT.option)
