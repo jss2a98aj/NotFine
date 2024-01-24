@@ -47,3 +47,6 @@ Extra video settings and performance improvements for Minecraft 1.7.10, implemen
   * JellySquid and the CaffeineMC team
 * Additional localizations
   * Darkbum, Radk6, and fireorice5
+* Includes MCPatcherForge:
+  * Original [MCPatcher](https://bitbucket.org/prupe/mcpatcher/src/master/): Paul Rupe
+  * Mixin port: [MCPatcherForge](https://github.com/mist475/MCPatcherForge): Mist475, textures by Darkbum under CC-BY-SA
