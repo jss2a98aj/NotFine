@@ -119,7 +119,16 @@ public enum Mixins {
         .setApplyIf(() -> MCPatcherForgeConfig.instance().extendedHDEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
         .addMixinClasses(
-            addPrefix("mcpatcherforge.hd.", "MixinFontRenderer", "MixinTextureClock", "MixinTextureCompass", "MixinTextureManager"))),
+            addPrefix("mcpatcherforge.hd.",
+                "MixinTextureClock",
+                "MixinTextureCompass",
+                "MixinTextureManager"))),
+
+    HD_FONT(new Builder("HD Font").setSide(Side.CLIENT)
+        .setPhase(Phase.EARLY)
+        .setApplyIf(() -> (MCPatcherForgeConfig.instance().extendedHDEnabled && MCPatcherForgeConfig.instance().hdFont))
+        .addTargetedMod(TargetedMod.VANILLA)
+        .addMixinClasses("mcpatcherforge.hd.MixinFontRenderer")),
 
     RANDOM_MOBS(new Builder("Random Mobs").setSide(Side.CLIENT)
         .setPhase(Phase.EARLY)

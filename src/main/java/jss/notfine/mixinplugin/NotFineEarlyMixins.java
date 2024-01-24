@@ -74,6 +74,10 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.MixinGameSettings");
         mixins.add("minecraft.MixinRenderGlobal");
 
+        if(loadedCoreMods.contains("cofh.asm.LoadingPlugin")) {
+            MCPatcherForgeConfig.instance().hdFont = false;
+        }
+
         final List<String> notLoading = new ArrayList<>();
         for (Mixins mixin : Mixins.values()) {
             if (mixin.phase == Mixins.Phase.EARLY) {
