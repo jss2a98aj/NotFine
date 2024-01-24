@@ -23,7 +23,7 @@ public abstract class MixinBlockEnchantmentTable extends BlockContainer {
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		//Unneeded in vanilla as the super call is empty.
 		//super.randomDisplayTick(world, x, y, z, rand);
-		float particleChance = Settings.PARTICLES_ENC_TABLE.getValue();
+		float particleChance = (int)Settings.PARTICLES_ENC_TABLE.option.getStore();
 		if(particleChance <= 0f) {
 			return;
 		}

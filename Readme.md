@@ -37,3 +37,13 @@ Extra video settings and performance improvements for Minecraft 1.7.10, implemen
 # Mod Suggestions
 - [Thumcraft 4 Tweaks](https://modrinth.com/mod/tc4tweaks) when using Thaumcraft
 - [WitcheryExtras](https://github.com/GTNewHorizons/WitcheryExtras) when using Witchery
+
+# Credits
+
+* Improvements brought over from Angelica (LGPL 3)
+  * mitchej123, Omni, Makamys, Embeddedt, NanoLive, Caedis, Cardinalstar, Alexdoru, Eigenraven, mist475, Clepto
+  * Everyone else mentioned in [Angelica's credits](https://github.com/GTNewHorizons/Angelica/tree/master?tab=readme-ov-file#credits)
+* Some Sodium menu code that came with Angelica improvements (LGPL 3)
+  * JellySquid and the CaffeineMC team
+* Additional localizations
+  * Darkbum, Radk6, and fireorice5

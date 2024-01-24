@@ -3,7 +3,7 @@ package jss.notfine.core;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import jss.notfine.gui.GuiCustomMenuButton;
-import jss.notfine.gui.MenuButtonLists;
+import jss.notfine.gui.NotFineGameOptionPages;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptions;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
@@ -25,7 +25,9 @@ public class LoadMenuButtons {
                 new GuiCustomMenuButton(
                     videoSettings.xPosition, videoSettings.yPosition,
                     videoSettings.width, videoSettings.height,
-                    MenuButtonLists.VIDEO
+                    NotFineGameOptionPages.general(),
+                    NotFineGameOptionPages.detail(), NotFineGameOptionPages.atmosphere(),
+                    NotFineGameOptionPages.particles(), NotFineGameOptionPages.other()
                 )
             );
         }
