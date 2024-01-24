@@ -20,7 +20,6 @@ import me.jellysquid.mods.sodium.client.gui.options.storage.MinecraftOptionsStor
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.Display;
 
 import java.util.ArrayList;
@@ -132,7 +131,6 @@ public class NotFineGameOptionPages {
         return new OptionPage(I18n.format("options.video"), ImmutableList.copyOf(groups));
     }
 
-
     public static OptionPage detail() {
         List<OptionGroup> groups = new ArrayList<>();
         groups.add(OptionGroup.createBuilder()
@@ -154,7 +152,6 @@ public class NotFineGameOptionPages {
             .add(Settings.MODE_SKY.option)
             .add(Settings.MODE_SUN_MOON.option)
             .add(Settings.MODE_STARS.option)
-            .add(Settings.MODE_SKY.option)
             .add(Settings.MODE_CLOUDS.option)
             .add(Settings.RENDER_DISTANCE_CLOUDS.option)
             .add(Settings.CLOUD_HEIGHT.option)
