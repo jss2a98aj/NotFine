@@ -29,12 +29,12 @@ public class NotFineLateMixins implements ILateMixinLoader {
         List<String> mixins = new ArrayList<>();
 
         if(loadedMods.contains("Thaumcraft")) {
-            mixins.add("thaumcraft.leaves.MixinBlockMagicalLeaves");
+            mixins.add("leaves.thaumcraft.MixinBlockMagicalLeaves");
         }
 
         if(loadedMods.contains("TwilightForest")) {
-            mixins.add("twilightforest.leaves.MixinBlockTFLeaves");
-            mixins.add("twilightforest.leaves.MixinBlockTFLeaves3");
+            mixins.add("leaves.twilightforest.MixinBlockTFLeaves");
+            mixins.add("leaves.twilightforest.MixinBlockTFLeaves3");
 
             //Non-GTNH Twilight Forest builds will break horribly with this mixin.
             boolean modernBuild = false;
@@ -45,12 +45,12 @@ public class NotFineLateMixins implements ILateMixinLoader {
             } catch (InvalidVersionSpecificationException ignored) {
             }
             if(modernBuild) {
-                mixins.add("twilightforest.leaves.MixinBlockTFMagicLeaves");
+                mixins.add("leaves.twilightforest.MixinBlockTFMagicLeaves");
             }
         }
 
         if(loadedMods.contains("witchery")) {
-            mixins.add("witchery.leaves.MixinBlockWitchLeaves");
+            mixins.add("leaves.witchery.MixinBlockWitchLeaves");
         }
 
         return mixins;
