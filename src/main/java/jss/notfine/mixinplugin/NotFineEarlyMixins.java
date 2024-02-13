@@ -71,7 +71,6 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.toggle.MixinRender");
         mixins.add("minecraft.toggle.MixinRenderItem");
 
-        mixins.add("minecraft.MixinGameSettings");
         mixins.add("minecraft.MixinRenderGlobal");
 
         if(loadedCoreMods.contains("cofh.asm.LoadingPlugin")) {
