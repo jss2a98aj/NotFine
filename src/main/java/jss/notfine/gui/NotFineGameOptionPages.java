@@ -3,6 +3,7 @@ package jss.notfine.gui;
 import com.google.common.collect.ImmutableList;
 import jss.notfine.config.NotFineConfig;
 import jss.notfine.core.Settings;
+import jss.notfine.core.SettingsManager;
 import jss.notfine.gui.options.control.NotFineControlValueFormatter;
 import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
 import me.jellysquid.mods.sodium.client.gui.options.OptionGroup;
@@ -37,7 +38,8 @@ public class NotFineGameOptionPages {
                 .setTooltip(I18n.format("sodium.options.graphics_quality.tooltip"))
                 .setControl(option -> new CyclingControl<>(option, GraphicsMode.class))
                 .setBinding(
-                    (opts, value) -> opts.fancyGraphics = value.isFancy(),
+                    (opts, value) -> { opts.fancyGraphics = value.isFancy();
+                        SettingsManager.graphicsUpdated(); },
                     opts -> GraphicsMode.fromBoolean(opts.fancyGraphics))
                 .setImpact(OptionImpact.HIGH)
                 .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
