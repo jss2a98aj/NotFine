@@ -103,7 +103,7 @@ public enum Settings {
             SettingsManager.cloudsUpdated();
         }
     },
-    TOTAL_STARS(new NotFineOptionSlider(1500, 0, 32000, 500, OptionImpact.LOW)) {
+    TOTAL_STARS(new NotFineOptionSlider(1500, 500, 32000, 500, OptionImpact.LOW)) {
         @Override
         public void applyChanges() {
             RenderStars.reloadStarRenderList(Minecraft.getMinecraft().renderGlobal);
