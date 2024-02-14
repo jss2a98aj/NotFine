@@ -66,6 +66,8 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.particles.MixinWorldClient");
         mixins.add("minecraft.particles.MixinWorldProvider");
 
+        mixins.add("minecraft.renderer.MixinRenderGlobal");
+
         mixins.add("minecraft.toggle.MixinGuiIngame");
 
         boolean dynamicSurroundingsPresent = loadedCoreMods.contains("org.blockartistry.mod.DynSurround.mixinplugin.DynamicSurroundingsEarlyMixins")
@@ -78,8 +80,6 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.toggle.MixinEntityRenderer");
         mixins.add("minecraft.toggle.MixinRender");
         mixins.add("minecraft.toggle.MixinRenderItem");
-
-        mixins.add("minecraft.MixinRenderGlobal");
 
         if(loadedCoreMods.contains("cofh.asm.LoadingPlugin")) {
             MCPatcherForgeConfig.instance().hdFont = false;

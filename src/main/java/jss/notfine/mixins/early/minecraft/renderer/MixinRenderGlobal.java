@@ -1,4 +1,4 @@
-package jss.notfine.mixins.early.minecraft;
+package jss.notfine.mixins.early.minecraft.renderer;
 
 import jss.notfine.core.Settings;
 import jss.notfine.render.RenderStars;
@@ -22,17 +22,12 @@ public abstract class MixinRenderGlobal {
 
     @Shadow private int starGLCallList;
 
-    @Inject(method = "renderSky", at = @At("HEAD"), cancellable = true)
-    void notFine$toggleSky(CallbackInfo ci) {
-        if(!(boolean)Settings.MODE_SKY.option.getStore()) ci.cancel();
-    }
-
     @WrapWithCondition(
         method = "renderSky(F)V",
         at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glCallList(I)V", remap = false))
     private boolean conditionalCallList(int i) {
         if(i == starGLCallList) {
-            return (boolean)Settings.MODE_STARS.option.getStore();
+            return (int)Settings.TOTAL_STARS.option.getStore() > 0;
         } else {
             return (boolean)Settings.MODE_SKY.option.getStore();
         }

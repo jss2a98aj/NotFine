@@ -1,5 +1,7 @@
 package jss.notfine.core;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import jss.notfine.gui.options.control.NotFineControlValueFormatter;
 import jss.notfine.gui.options.named.AlwaysNever;
 import jss.notfine.gui.options.named.BackgroundSelect;
@@ -27,6 +29,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 
+@SideOnly(Side.CLIENT)
 public enum Settings {
     CLOUD_HEIGHT(new NotFineOptionSlider(128, 96, 384, 8,  null)) {
         @Override
@@ -81,7 +84,6 @@ public enum Settings {
         }
     },
     MODE_SKY(new NotFineOptionTickBox(true, OptionImpact.LOW)),
-    MODE_STARS(new NotFineOptionTickBox(true, OptionImpact.LOW)),
     MODE_SUN_MOON(new NotFineOptionTickBox(true, OptionImpact.LOW)),
     MODE_WATER(new NotFineOptionCycling<>(GraphicsQuality.DEFAULT, OptionImpact.LOW)) {
         @Override
@@ -103,7 +105,7 @@ public enum Settings {
             SettingsManager.cloudsUpdated();
         }
     },
-    TOTAL_STARS(new NotFineOptionSlider(1500, 500, 32000, 500, OptionImpact.LOW)) {
+    TOTAL_STARS(new NotFineOptionSlider(1500, 0, 32000, 500, OptionImpact.LOW)) {
         @Override
         public void applyChanges() {
             RenderStars.reloadStarRenderList(Minecraft.getMinecraft().renderGlobal);
@@ -192,7 +194,6 @@ public enum Settings {
         }
 
     }
-
 
     public static abstract class NotFineOption<T> implements Option<T> {
         private static final NotFineMinecraftOptionsStorage optionStorage = new NotFineMinecraftOptionsStorage();
