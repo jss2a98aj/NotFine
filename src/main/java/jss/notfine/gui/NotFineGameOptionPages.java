@@ -82,6 +82,17 @@ public class NotFineGameOptionPages {
                 .setControl(option -> new SliderControl(option, 5, 260, 1, ControlValueFormatter.fpsLimit()))
                 .setBinding((opts, value) -> opts.limitFramerate = value, opts -> opts.limitFramerate)
                 .build())
+            .add(OptionImpl.createBuilder(int.class, vanillaOpts)
+                .setName(I18n.format("options.anisotropicFiltering"))
+                .setTooltip(I18n.format("sodium.options.anisotropic_filtering.tooltip"))
+                .setControl(option -> new SliderControl(option, 0, 4, 1, NotFineControlValueFormatter.powerOfTwo()))
+                .setBinding(
+                    //mc.getTextureMapBlocks().setAnisotropicFiltering(this.anisotropicFiltering); ?
+                    (opts, value) -> opts.anisotropicFiltering = value == 0 ? 1 : (int)Math.pow(2, value),
+                    (opts) -> opts.anisotropicFiltering == 1 ? 0 : (int)(Math.log(opts.anisotropicFiltering) / Math.log(2)))
+                .setImpact(OptionImpact.MEDIUM)
+                .setFlags(OptionFlag.REQUIRES_ASSET_RELOAD)
+                .build())
             .build());
 
         groups.add(OptionGroup.createBuilder()
@@ -97,6 +108,7 @@ public class NotFineGameOptionPages {
                 .setControl(TickBoxControl::new)
                 .setBinding((opts, value) -> opts.viewBobbing = value, opts -> opts.viewBobbing)
                 .build())
+            .add(Settings.DYNAMIC_FOV.option)
             .add(OptionImpl.createBuilder(LightingQuality.class, vanillaOpts)
                 .setName(I18n.format("options.ao"))
                 .setTooltip(I18n.format("sodium.options.smooth_lighting.tooltip"))
@@ -117,17 +129,6 @@ public class NotFineGameOptionPages {
                 .setControl(option -> new SliderControl(option, 0, 4, 1, ControlValueFormatter.multiplier()))
                 //mc.getTextureMapBlocks().setMipmapLevels(this.mipmapLevels); ?
                 .setBinding((opts, value) -> opts.mipmapLevels = value, opts -> opts.mipmapLevels)
-                .setImpact(OptionImpact.MEDIUM)
-                .setFlags(OptionFlag.REQUIRES_ASSET_RELOAD)
-                .build())
-            .add(OptionImpl.createBuilder(int.class, vanillaOpts)
-                .setName(I18n.format("options.anisotropicFiltering"))
-                .setTooltip(I18n.format("sodium.options.anisotropic_filtering.tooltip"))
-                .setControl(option -> new SliderControl(option, 0, 4, 1, NotFineControlValueFormatter.powerOfTwo()))
-                .setBinding(
-                    //mc.getTextureMapBlocks().setAnisotropicFiltering(this.anisotropicFiltering); ?
-                    (opts, value) -> opts.anisotropicFiltering = value == 0 ? 1 : (int)Math.pow(2, value),
-                    (opts) -> opts.anisotropicFiltering == 1 ? 0 : (int)(Math.log(opts.anisotropicFiltering) / Math.log(2)))
                 .setImpact(OptionImpact.MEDIUM)
                 .setFlags(OptionFlag.REQUIRES_ASSET_RELOAD)
                 .build())
