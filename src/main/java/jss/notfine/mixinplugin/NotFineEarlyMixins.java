@@ -42,6 +42,7 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.clouds.MixinWorldType");
 
         mixins.add("minecraft.faceculling.MixinBlock");
+        mixins.add("minecraft.faceculling.MixinBlockCarpet");
         mixins.add("minecraft.faceculling.MixinBlockSlab");
         mixins.add("minecraft.faceculling.MixinBlockSnow");
         mixins.add("minecraft.faceculling.MixinBlockStairs");
