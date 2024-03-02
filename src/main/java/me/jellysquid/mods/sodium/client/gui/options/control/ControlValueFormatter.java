@@ -3,8 +3,17 @@ package me.jellysquid.mods.sodium.client.gui.options.control;
 import net.minecraft.client.resources.I18n;
 
 public interface ControlValueFormatter {
+
+    String[] GUISCALES = new String[] {
+        "options.guiScale.auto",
+        "options.guiScale.small",
+        "options.guiScale.normal",
+        "options.guiScale.large",
+        "options.guiScale.massive"
+    };
+
     static ControlValueFormatter guiScale() {
-        return (v) -> (v == 0) ? I18n.format("options.guiScale.auto") : I18n.format(v + "x");
+        return (v) -> (v < GUISCALES.length) ? I18n.format(GUISCALES[v]) : I18n.format(v + "x");
     }
 
     static ControlValueFormatter fpsLimit() {
