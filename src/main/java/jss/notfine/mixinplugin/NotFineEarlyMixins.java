@@ -62,6 +62,8 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
         mixins.add("minecraft.leaves.MixinBlockLeaves");
         mixins.add("minecraft.leaves.MixinBlockLeavesBase");
 
+        mixins.add("minecraft.optimization.MixinRenderItemFrame");
+
         mixins.add("minecraft.particles.MixinBlockEnchantmentTable");
         mixins.add("minecraft.particles.MixinEffectRenderer");
         mixins.add("minecraft.particles.MixinWorldClient");
