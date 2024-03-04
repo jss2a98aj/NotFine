@@ -30,6 +30,9 @@ public class NotFineLateMixins implements ILateMixinLoader {
 
         if(loadedMods.contains("Thaumcraft")) {
             mixins.add("leaves.thaumcraft.MixinBlockMagicalLeaves");
+            mixins.add("faceculling.thaumcraft.MixinBlockWoodenDevice");
+            mixins.add("faceculling.thaumcraft.MixinBlockStoneDevice");
+            mixins.add("faceculling.thaumcraft.MixinBlockTable");
         }
 
         if(loadedMods.contains("TwilightForest")) {
