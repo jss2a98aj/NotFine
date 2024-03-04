@@ -24,6 +24,7 @@ options.mode_glint_inv=GUI Enchant VFX
 options.mode_glint_world=World Enchant VFX
 options.mode_gui_background=Menu Backgrounds
 options.mode_leaves=Foliage
+options.mode_light_flicker=Light Flicker
 options.mode_shadows=Entity Shadows
 options.mode_sky=Sky
 options.mode_sun_moon=Sun & Moon
