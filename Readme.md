@@ -27,6 +27,7 @@ Extra video settings and performance improvements for Minecraft 1.7.10, implemen
 ## Mods that properly implement leaf blocks and do not need patched
 
 - [Et Futurum Requiem](https://modrinth.com/mod/etfuturum)
+- [ExtrabiomesXL](https://github.com/jss2a98aj/ExtrabiomesXL) 3.16.7 or later
 
 ## Mods with leaf blocks that have been patched
 
