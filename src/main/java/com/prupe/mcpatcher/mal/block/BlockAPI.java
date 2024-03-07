@@ -50,14 +50,6 @@ public class BlockAPI {
         }
     }
 
-    public static Block getFixedBlock(String name) {
-        Block block = GameData.getBlockRegistry().getObject(name);
-        if (block == null) {
-            new IllegalArgumentException("unknown block " + name).printStackTrace();
-        }
-        return block;
-    }
-
     public static String getBlockName(Block block) {
         return block == null ? "(null)" : block.getUnlocalizedName();
     }

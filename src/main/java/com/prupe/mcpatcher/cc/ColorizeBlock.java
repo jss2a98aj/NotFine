@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 
@@ -136,8 +137,8 @@ public class ColorizeBlock {
     }
 
     static void reset() {
-        waterBlock = BlockAPI.getFixedBlock("minecraft:flowing_water");
-        staticWaterBlock = BlockAPI.getFixedBlock("minecraft:water");
+        waterBlock = Blocks.flowing_water;
+        staticWaterBlock = Blocks.water;
 
         blockColorMaps.clear();
         waterColorMap = null;
@@ -194,8 +195,8 @@ public class ColorizeBlock {
     private static void reloadWaterColors(PropertiesFile properties) {
         waterColorMap = registerColorMap(WATERCOLOR, "minecraft:flowing_water minecraft:water");
         if (waterColorMap == null) {
-            waterColorMap = new ColorMap.Water();
-            registerColorMap(waterColorMap, null, "minecraft:flowing_water minecraft:water");
+            //waterColorMap = new ColorMap.Water();
+            //registerColorMap(waterColorMap, null, "minecraft:flowing_water minecraft:water");
         }
     }
 
