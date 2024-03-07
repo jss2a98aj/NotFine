@@ -130,7 +130,7 @@ class MobRuleList {
                 }
             } else {
                 skins = MCPatcherUtils.parseIntegerList(skinList, 1, limit);
-                if (skins.length <= 0) {
+                if (skins.length == 0) {
                     return null;
                 }
                 for (int i = 0; i < skins.length; i++) {
@@ -164,13 +164,13 @@ class MobRuleList {
             this.height = height;
         }
 
-        boolean match(int i, int j, int k, Integer biome) {
+        boolean match(int x, int y, int z, Integer biome) {
             if (biomes != null) {
                 if (biome == null || !biomes.get(biome)) {
                     return false;
                 }
             }
-            return height == null || height.get(j);
+            return height == null || height.get(y);
         }
 
         @Override

@@ -53,7 +53,7 @@ public class CTMUtils {
             Class.forName(MCPatcherUtils.RENDER_PASS_CLASS)
                 .getMethod("finish")
                 .invoke(null);
-        } catch (Throwable e) {}
+        } catch (Throwable ignore) {}
 
         TexturePackChangeHandler.register(new TexturePackChangeHandler(MCPatcherUtils.CONNECTED_TEXTURES, 3) {
 

@@ -340,7 +340,7 @@ public class CustomAnimation implements Comparable<CustomAnimation> {
             if (value != null && value.matches("^\\d+$")) {
                 return Integer.parseInt(value);
             }
-        } catch (NumberFormatException e) {}
+        } catch (NumberFormatException ignore) {}
         return null;
     }
 

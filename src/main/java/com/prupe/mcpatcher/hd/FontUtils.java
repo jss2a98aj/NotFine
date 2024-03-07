@@ -267,7 +267,7 @@ public class FontUtils {
                         charWidthf[ch] = width;
                         isOverride[ch] = true;
                     }
-                } catch (NumberFormatException e) {}
+                } catch (NumberFormatException ignore) {}
             }
         }
     }
