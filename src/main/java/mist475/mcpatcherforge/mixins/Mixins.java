@@ -104,9 +104,12 @@ public enum Mixins {
                 "client.renderer.entity.MixinRenderPlayer",
                 "client.renderer.entity.MixinRenderSnowball",
                 "client.renderer.MixinItemRenderer",
+                "client.renderer.MixinRenderGlobal",
+                "entity.MixinEntityLivingBase",
                 "item.MixinItem",
                 "nbt.MixinNBTTagCompound",
-                "nbt.MixinNBTTagList"))),
+                "nbt.MixinNBTTagList",
+                "world.MixinWorld"))),
 
     CONNECTED_TEXTURES(new Builder("Connected Textures").setSide(Side.CLIENT)
         .setPhase(Phase.EARLY)
