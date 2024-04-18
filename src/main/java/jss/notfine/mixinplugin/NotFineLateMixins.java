@@ -34,7 +34,7 @@ public class NotFineLateMixins implements ILateMixinLoader {
         final List<String> notLoading = new ArrayList<>();
         for (Mixins mixin : Mixins.values()) {
             if (mixin.phase == Mixins.Phase.LATE) {
-                if (mixin.shouldLoad(loadedMods, Collections.emptySet())) {
+                if (mixin.shouldLoad(Collections.emptySet(), loadedMods)) {
                     mixins.addAll(mixin.mixinClasses);
                 } else {
                     notLoading.addAll(mixin.mixinClasses);
