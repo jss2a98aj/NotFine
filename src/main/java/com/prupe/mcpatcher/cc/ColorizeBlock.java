@@ -194,10 +194,6 @@ public class ColorizeBlock {
 
     private static void reloadWaterColors(PropertiesFile properties) {
         waterColorMap = registerColorMap(WATERCOLOR, "minecraft:flowing_water minecraft:water");
-        if (waterColorMap == null) {
-            //waterColorMap = new ColorMap.Water();
-            //registerColorMap(waterColorMap, null, "minecraft:flowing_water minecraft:water");
-        }
     }
 
     private static void reloadSwampColors(PropertiesFile properties) {
