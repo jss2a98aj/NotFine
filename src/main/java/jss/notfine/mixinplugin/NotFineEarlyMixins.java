@@ -1,12 +1,13 @@
 package jss.notfine.mixinplugin;
 
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import jss.notfine.NotFine;
+import jss.notfine.config.NotFineConfig;
 import mist475.mcpatcherforge.asm.AsmTransformers;
 import mist475.mcpatcherforge.asm.mappings.Namer;
 import mist475.mcpatcherforge.config.MCPatcherForgeConfig;
-import mist475.mcpatcherforge.mixins.Mixins;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,58 +33,13 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
 
     @Override
     public List<String> getMixins(Set<String> loadedCoreMods) {
-        NotFine.logger.info("Kicking off NotFine early mixins.");
-
         List<String> mixins = new ArrayList<>();
-
-        mixins.add("minecraft.clouds.MixinEntityRenderer");
-        mixins.add("minecraft.clouds.MixinGameSettings");
-        mixins.add("minecraft.clouds.MixinRenderGlobal");
-        mixins.add("minecraft.clouds.MixinWorldType");
-
-        mixins.add("minecraft.faceculling.MixinBlock");
-        mixins.add("minecraft.faceculling.MixinBlockCarpet");
-        mixins.add("minecraft.faceculling.MixinBlockSlab");
-        mixins.add("minecraft.faceculling.MixinBlockSnow");
-        mixins.add("minecraft.faceculling.MixinBlockStairs");
-        mixins.add("minecraft.faceculling.MixinRenderBlocks");
-
-        mixins.add("minecraft.fix.MixinRenderItem");
-
-        if(!MCPatcherForgeConfig.instance().customItemTexturesEnabled) {
-            mixins.add("minecraft.glint.MixinItemRenderer");
-            mixins.add("minecraft.glint.MixinRenderItem");
+        if(!FMLLaunchHandler.side().isClient()) {
+            return mixins;
         }
-        mixins.add("minecraft.glint.MixinRenderBiped");
-        mixins.add("minecraft.glint.MixinRenderPlayer");
+        NotFineConfig.loadSettings();
 
-        mixins.add("minecraft.gui.MixinGuiSlot");
-
-        mixins.add("minecraft.leaves.MixinBlockLeaves");
-        mixins.add("minecraft.leaves.MixinBlockLeavesBase");
-
-        mixins.add("minecraft.optimization.MixinRenderItemFrame");
-
-        mixins.add("minecraft.particles.MixinBlockEnchantmentTable");
-        mixins.add("minecraft.particles.MixinEffectRenderer");
-        mixins.add("minecraft.particles.MixinWorldClient");
-        mixins.add("minecraft.particles.MixinWorldProvider");
-
-        mixins.add("minecraft.renderer.MixinRenderGlobal");
-
-        mixins.add("minecraft.toggle.MixinGuiIngame");
-
-        boolean dynamicSurroundingsPresent = loadedCoreMods.contains("org.blockartistry.mod.DynSurround.mixinplugin.DynamicSurroundingsEarlyMixins")
-            || loadedCoreMods.contains("org.blockartistry.mod.DynSurround.asm.TransformLoader");
-
-        if (!dynamicSurroundingsPresent) {
-            mixins.add("minecraft.toggle.MixinEntityRenderer$RenderRainSnow");
-        }
-
-        mixins.add("minecraft.toggle.MixinEntityRenderer");
-        mixins.add("minecraft.toggle.MixinRender");
-        mixins.add("minecraft.toggle.MixinRenderItem");
-
+        //This may be possible to handle differently.
         if(loadedCoreMods.contains("cofh.asm.LoadingPlugin")) {
             MCPatcherForgeConfig.instance().hdFont = false;
         }
@@ -98,7 +54,7 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
                 }
             }
         }
-        mcpfLogger.info("Not loading the following EARLY mixins: {}", notLoading.toString());
+        NotFine.logger.info("Not loading the following EARLY mixins: {}", notLoading.toString());
 
         return mixins;
     }

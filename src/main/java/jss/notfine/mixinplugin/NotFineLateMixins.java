@@ -8,9 +8,11 @@ import cpw.mods.fml.common.versioning.ArtifactVersion;
 import cpw.mods.fml.common.versioning.DefaultArtifactVersion;
 import cpw.mods.fml.common.versioning.InvalidVersionSpecificationException;
 import cpw.mods.fml.common.versioning.VersionRange;
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import jss.notfine.NotFine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -24,17 +26,24 @@ public class NotFineLateMixins implements ILateMixinLoader {
 
     @Override
     public List<String> getMixins(Set<String> loadedMods) {
-        NotFine.logger.info("Kicking off NotFine late mixins.");
-
         List<String> mixins = new ArrayList<>();
-
-        if(loadedMods.contains("Thaumcraft")) {
-            mixins.add("leaves.thaumcraft.MixinBlockMagicalLeaves");
-            mixins.add("faceculling.thaumcraft.MixinBlockWoodenDevice");
-            mixins.add("faceculling.thaumcraft.MixinBlockStoneDevice");
-            mixins.add("faceculling.thaumcraft.MixinBlockTable");
+        if(!FMLLaunchHandler.side().isClient()) {
+            return mixins;
         }
 
+        final List<String> notLoading = new ArrayList<>();
+        for (Mixins mixin : Mixins.values()) {
+            if (mixin.phase == Mixins.Phase.LATE) {
+                if (mixin.shouldLoad(loadedMods, Collections.emptySet())) {
+                    mixins.addAll(mixin.mixinClasses);
+                } else {
+                    notLoading.addAll(mixin.mixinClasses);
+                }
+            }
+        }
+        NotFine.logger.info("Not loading the following LATE mixins: {}", notLoading.toString());
+
+        //TODO: Add better support for version checking?
         if(loadedMods.contains("TwilightForest")) {
             mixins.add("leaves.twilightforest.MixinBlockTFLeaves");
             mixins.add("leaves.twilightforest.MixinBlockTFLeaves3");
@@ -50,10 +59,6 @@ public class NotFineLateMixins implements ILateMixinLoader {
             if(modernBuild) {
                 mixins.add("leaves.twilightforest.MixinBlockTFMagicLeaves");
             }
-        }
-
-        if(loadedMods.contains("witchery")) {
-            mixins.add("leaves.witchery.MixinBlockWitchLeaves");
         }
 
         return mixins;

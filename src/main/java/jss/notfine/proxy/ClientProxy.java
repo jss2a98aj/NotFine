@@ -18,9 +18,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        NotFineConfig config = new NotFineConfig();
-        config.loadSettings();
-
         if(!NotFineConfig.allowAdvancedOpenGL) {
             Minecraft.getMinecraft().gameSettings.advancedOpengl = false;
         }
