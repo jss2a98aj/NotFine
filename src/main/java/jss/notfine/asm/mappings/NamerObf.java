@@ -1,4 +1,4 @@
-package mist475.mcpatcherforge.asm.mappings;
+package jss.notfine.asm.mappings;
 
 public class NamerObf extends Namer {
 

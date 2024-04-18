@@ -5,9 +5,9 @@ import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import jss.notfine.NotFine;
 import jss.notfine.config.NotFineConfig;
-import mist475.mcpatcherforge.asm.AsmTransformers;
-import mist475.mcpatcherforge.asm.mappings.Namer;
-import mist475.mcpatcherforge.config.MCPatcherForgeConfig;
+import jss.notfine.asm.AsmTransformers;
+import jss.notfine.asm.mappings.Namer;
+import jss.notfine.config.MCPatcherForgeConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,4 +1,4 @@
-package mist475.mcpatcherforge.asm;
+package jss.notfine.asm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import jss.notfine.mixinplugin.NotFineEarlyMixins;
-import mist475.mcpatcherforge.config.MCPatcherForgeConfig;
+import jss.notfine.config.MCPatcherForgeConfig;
 
 /**
  * Adapted from Hodgepodge
@@ -15,9 +15,9 @@ import mist475.mcpatcherforge.config.MCPatcherForgeConfig;
 public enum AsmTransformers {
 
     RENDERBLOCKS("RenderBlocks transformer", () -> MCPatcherForgeConfig.instance().customColorsEnabled, Side.CLIENT,
-        "mist475.mcpatcherforge.asm.RenderBlocksTransformer"),
+        "jss.notfine.asm.RenderBlocksTransformer"),
     WORLDRENDERER("WorldRenderer transformer", () -> true, Side.CLIENT,
-        "mist475.mcpatcherforge.asm.WorldRendererTransformer");
+        "jss.notfine.asm.WorldRendererTransformer");
 
     private final Supplier<Boolean> applyIf;
     private final Side side;

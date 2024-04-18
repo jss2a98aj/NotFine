@@ -1,13 +1,13 @@
-package mist475.mcpatcherforge.asm.mappings;
+package jss.notfine.asm.mappings;
 
 import java.util.ArrayList;
 
 import jss.notfine.mixinplugin.NotFineEarlyMixins;
 import net.minecraft.launchwrapper.Launch;
 
-import mist475.mcpatcherforge.asm.mappings.Names.Clas;
-import mist475.mcpatcherforge.asm.mappings.Names.Fiel;
-import mist475.mcpatcherforge.asm.mappings.Names.Meth;
+import jss.notfine.asm.mappings.Names.Clas;
+import jss.notfine.asm.mappings.Names.Fiel;
+import jss.notfine.asm.mappings.Names.Meth;
 
 /**
  * This class und inherited classes are adapted from

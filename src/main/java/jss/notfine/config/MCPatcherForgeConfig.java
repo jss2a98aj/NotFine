@@ -1,4 +1,4 @@
-package mist475.mcpatcherforge.config;
+package jss.notfine.config;
 
 import java.io.File;
 import java.util.logging.Level;

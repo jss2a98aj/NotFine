@@ -1,4 +1,4 @@
-package mist475.mcpatcherforge.asm;
+package jss.notfine.asm;
 
 import java.util.Objects;
 

@@ -1,6 +1,6 @@
-package mist475.mcpatcherforge.asm;
+package jss.notfine.asm;
 
-import static mist475.mcpatcherforge.asm.ASMUtils.matchesNodeSequence;
+import static jss.notfine.asm.ASMUtils.matchesNodeSequence;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 
@@ -24,7 +24,7 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-import mist475.mcpatcherforge.asm.mappings.Names;
+import jss.notfine.asm.mappings.Names;
 
 public class RenderBlocksTransformer implements IClassTransformer {
 

@@ -1,4 +1,4 @@
-package mist475.mcpatcherforge.asm.mappings;
+package jss.notfine.asm.mappings;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jss.notfine.mixinplugin.NotFineEarlyMixins;
-import mist475.mcpatcherforge.asm.mappings.Names.Clas;
-import mist475.mcpatcherforge.asm.mappings.Names.Fiel;
-import mist475.mcpatcherforge.asm.mappings.Names.Meth;
+import jss.notfine.asm.mappings.Names.Clas;
+import jss.notfine.asm.mappings.Names.Fiel;
+import jss.notfine.asm.mappings.Names.Meth;
 
 public class NamerMcp extends NamerSrg {
 

@@ -1,4 +1,4 @@
-package mist475.mcpatcherforge;
+package jss.notfine;
 
 import cpw.mods.fml.common.Mod;
 
