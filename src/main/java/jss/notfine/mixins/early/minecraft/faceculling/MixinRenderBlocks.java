@@ -2,11 +2,15 @@ package jss.notfine.mixins.early.minecraft.faceculling;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
+import net.minecraft.block.BlockWall;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.IBlockAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = RenderBlocks.class)
 public abstract class MixinRenderBlocks {
@@ -63,6 +67,22 @@ public abstract class MixinRenderBlocks {
         field_152631_f = false;
         fence.setBlockBoundsBasedOnState(blockAccess, x, y, z);
         return true;
+    }
+
+    /**
+     * @author jss2a98aj
+     * @reason Fix modded wall detection
+     */
+    @Redirect(
+        method = "renderBlockFenceGate(Lnet/minecraft/block/BlockFenceGate;III)Z",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/IBlockAccess;getBlock(III)Lnet/minecraft/block/Block;"
+        ),
+        expect = 4
+    )
+    Block detectModdedWalls(IBlockAccess world, int x, int y, int z) {
+        return world.getBlock(x, y, z) instanceof BlockWall ? Blocks.cobblestone_wall : null;
     }
 
     @Shadow public IBlockAccess blockAccess;
