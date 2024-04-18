@@ -11,18 +11,15 @@ public class NotFineConfig {
     public static final String CATEGORY_GENERAL = "general";
     public static final String CATEGORY_TOGGLE = "toggle";
 
-    public static boolean allowAdvancedOpenGL = true;
+    public static boolean allowAdvancedOpenGL;
 
-    public static boolean betterBlockFaceCulling = true;
-
-    public NotFineConfig() {
-    }
+    public static boolean betterBlockFaceCulling;
 
     public static void loadSettings() {
         File configFile = new File(Launch.minecraftHome + File.separator + "config" + File.separator + NotFine.MODID + File.separator + "notfine.cfg");
         Configuration notFineConfig = new Configuration(configFile);
 
-        allowAdvancedOpenGL = notFineConfig.getBoolean("allowAdvancedOpenGL", CATEGORY_GENERAL, true,
+        allowAdvancedOpenGL = notFineConfig.getBoolean("allowAdvancedOpenGL", CATEGORY_GENERAL, false,
             "Allow or always disable Advanced OpenGL");
 
         notFineConfig.setCategoryComment(CATEGORY_TOGGLE, "Enable or disable various mod features.");
