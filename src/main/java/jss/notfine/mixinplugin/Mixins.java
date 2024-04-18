@@ -54,7 +54,9 @@ public enum Mixins {
         .addTargetedMod(TargetedMod.VANILLA)
         .addMixinClasses(addPrefix("minecraft.faceculling.",
             "MixinBlock",
+            "MixinBlockCactus",
             "MixinBlockCarpet",
+            "MixinBlockFarmland",
             "MixinBlockSlab",
             "MixinBlockSnow",
             "MixinBlockStairs",
@@ -64,6 +66,7 @@ public enum Mixins {
     NO_DYNAMIC_SURROUNDINGS(new Builder("No Dynamic Surroundings")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> true)
+        .addTargetedMod(TargetedMod.VANILLA)
         .addExcludedMod(TargetedMod.DYNAMIC_SURROUNDINGS_MIST)
         .addExcludedMod(TargetedMod.DYNAMIC_SURROUNDINGS_ORIGINAL)
         .addMixinClasses("minecraft.toggle.MixinEntityRenderer$RenderRainSnow")

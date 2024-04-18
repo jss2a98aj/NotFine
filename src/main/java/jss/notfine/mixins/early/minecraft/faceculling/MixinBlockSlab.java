@@ -62,7 +62,9 @@ public abstract class MixinBlockSlab extends Block implements IFaceObstructionCh
         };
     }
 
-    MixinBlockSlab(Material material) { super(material); }
+    MixinBlockSlab(Material material) {
+        super(material);
+    }
 
     @Shadow @Final protected boolean field_150004_a;
 }
