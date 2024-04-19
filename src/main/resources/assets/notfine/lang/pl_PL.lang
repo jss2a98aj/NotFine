@@ -14,7 +14,6 @@ options.gui_background.2=Kamienne cegły
 options.gui_background.3=Zamszone kamienne cegły
 options.gui_background.4=Dębowe deski
 options.gui_background.5=Brzozowe deski
-options.guiScale.massive=Massive
 options.downfall_distance=Efekty pogody
 options.downfall_distance.-1=Domyślne
 options.downfall_distance.0=Szybkie

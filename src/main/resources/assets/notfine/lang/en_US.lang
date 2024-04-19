@@ -13,7 +13,6 @@ options.on=On
 options.cloud_height=Cloud Height
 options.cloud_scale=Cloud Scale
 options.gui_background=Background
-options.guiScale.massive=Massive
 options.downfall_distance=Weather Effects
 options.dynamic_fov=Dynamic FOV
 options.dynamic_fov.tooltip=If enabled, the game's field of view will change based on the player's speed.
