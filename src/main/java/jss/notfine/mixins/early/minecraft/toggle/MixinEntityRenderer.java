@@ -1,10 +1,13 @@
 package jss.notfine.mixins.early.minecraft.toggle;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
 
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.world.WorldProvider;
 import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,6 +30,21 @@ abstract public class MixinEntityRenderer {
         return SettingsManager.waterDetail;
     }
 
+    /**
+     * @author Caedis
+     * @reason Void fog toggle
+     */
+    @WrapOperation(
+        method = "setupFog",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/WorldProvider;getWorldHasVoidParticles()Z"
+        )
+    )
+    private boolean notFine$toggleVoidFog(WorldProvider provider, Operation<Boolean> original){
+        return ((boolean)Settings.VOID_FOG.option.getStore()) ? original.call(provider) : false;
+    }
+
     @Redirect(
         method = "updateRenderer()V",
         at = @At(
@@ -34,7 +52,7 @@ abstract public class MixinEntityRenderer {
             target = "Lnet/minecraft/client/renderer/EntityRenderer;updateTorchFlicker()V"
         )
     )
-    private void toggleTorchFlicker(EntityRenderer instance) {
+    private void notFine$toggleTorchFlicker(EntityRenderer instance) {
         if((boolean)Settings.MODE_LIGHT_FLICKER.option.getStore()) {
             updateTorchFlicker();
         } else {

@@ -38,7 +38,6 @@ public enum Mixins {
             "particles.MixinBlockEnchantmentTable",
             "particles.MixinEffectRenderer",
             "particles.MixinWorldClient",
-            "particles.MixinWorldProvider",
 
             "renderer.MixinRenderGlobal",
 
