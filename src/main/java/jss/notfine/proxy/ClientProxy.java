@@ -21,6 +21,12 @@ public class ClientProxy extends CommonProxy {
         if(!NotFineConfig.allowAdvancedOpenGL) {
             Minecraft.getMinecraft().gameSettings.advancedOpengl = false;
         }
+        if(!NotFineConfig.allowToggle3DAnaglyph) {
+            Minecraft.getMinecraft().gameSettings.anaglyph = false;
+        }
+        if(!NotFineConfig.allowToggleFBO) {
+            Minecraft.getMinecraft().gameSettings.fboEnable = true;
+        }
 
         for(Settings setting : Settings.values()) {
             setting.ready();

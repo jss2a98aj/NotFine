@@ -13,9 +13,9 @@ import jss.notfine.config.MCPatcherForgeConfig;
 // Adapted from Hodgepodge
 public enum Mixins {
 
-    NOTFINE(new Builder("NotFine")
+    NOTFINE_CORE(new Builder("NotFine")
         .setPhase(Phase.EARLY)
-        .setApplyIf(() -> NotFineConfig.betterBlockFaceCulling)
+        .setApplyIf(() -> true)
         .addTargetedMod(TargetedMod.VANILLA)
         .addMixinClasses(addPrefix("minecraft.",
             "clouds.MixinEntityRenderer",
@@ -70,6 +70,15 @@ public enum Mixins {
         .addExcludedMod(TargetedMod.DYNAMIC_SURROUNDINGS_ORIGINAL)
         .addMixinClasses("minecraft.toggle.MixinEntityRenderer$RenderRainSnow")
     ),
+    NO_CUSTOM_ITEM_TEXTURES(new Builder("No Custom Item Textures")
+        .setPhase(Phase.EARLY)
+        .setApplyIf(() -> !MCPatcherForgeConfig.instance().customItemTexturesEnabled)
+        .addTargetedMod(TargetedMod.VANILLA)
+        .addMixinClasses(addPrefix("minecraft.glint.",
+            "MixinItemRenderer",
+            "MixinRenderItem"
+        ))
+    ),
     THAUMCRAFT(new Builder("Thaumcraft compat")
         .setPhase(Phase.LATE)
         .setApplyIf(() -> true)
@@ -92,7 +101,7 @@ public enum Mixins {
         .addTargetedMod(TargetedMod.WITCHERY)
         .addMixinClasses("leaves.witchery.MixinBlockWitchLeaves")
     ),
-    MCPATCHER_FORGE(new Builder("MCPatcher Forge base mixins")
+    MCPATCHER_FORGE(new Builder("MCPatcher Forge")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> true)
         .addTargetedMod(TargetedMod.VANILLA)
@@ -113,7 +122,7 @@ public enum Mixins {
               "renderpass.MixinWorldRenderer"
         ))
     ),
-    CUSTOM_COLORS(new Builder("Custom colors")
+    MCPATCHER_FORGE_CUSTOM_COLORS(new Builder("MCP:F Custom Colors")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().customColorsEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
@@ -169,16 +178,7 @@ public enum Mixins {
             "world.MixinWorldProviderHell"
         ))
     ),
-    NO_CUSTOM_ITEM_TEXTURES(new Builder("Custom Item Textures")
-        .setPhase(Phase.EARLY)
-        .setApplyIf(() -> !MCPatcherForgeConfig.instance().customItemTexturesEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("minecraft.glint.",
-            "MixinItemRenderer",
-            "MixinRenderItem"
-        ))
-    ),
-    CUSTOM_ITEM_TEXTURES(new Builder("Custom Item Textures")
+    MCPATCHER_FORGE_CUSTOM_ITEM_TEXTURES(new Builder("MCP:F Custom Item Textures")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().customItemTexturesEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
@@ -197,13 +197,13 @@ public enum Mixins {
             "world.MixinWorld"
         ))
     ),
-    CONNECTED_TEXTURES(new Builder("Connected Textures")
+    MCPATCHER_FORGE_CONNECTED_TEXTURES(new Builder("MCP:F Connected Textures")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().connectedTexturesEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
         .addMixinClasses("mcpatcherforge.ctm.MixinRenderBlocks")
     ),
-    EXTENDED_HD(new Builder("Extended hd")
+    MCPATCHER_FORGE_EXTENDED_HD(new Builder("MCP:F Extended hd")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().extendedHDEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
@@ -213,14 +213,14 @@ public enum Mixins {
             "MixinTextureManager"
         ))
     ),
-    HD_FONT(new Builder("HD Font")
+    MCPATCHER_FORGE_EXTENDED_HD_FONT(new Builder("MCP:F Extended HD Font")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> (MCPatcherForgeConfig.instance().extendedHDEnabled && MCPatcherForgeConfig.instance().hdFont))
         .addTargetedMod(TargetedMod.VANILLA)
-        .addExcludedMod(TargetedMod.COFH_CORE)
+        .addExcludedMod(TargetedMod.COFHCORE)
         .addMixinClasses("mcpatcherforge.hd.MixinFontRenderer")
     ),
-    RANDOM_MOBS(new Builder("Random Mobs")
+    MCPATCHER_FORGE_RANDOM_MOBS(new Builder("MCP:F Random Mobs")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().randomMobsEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
@@ -237,7 +237,7 @@ public enum Mixins {
             "MixinEntityLivingBase"
         ))
     ),
-    SKY(new Builder("Sky")
+    MCPATCHER_FORGE_SKY(new Builder("MCP:F Sky")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().betterSkiesEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
@@ -246,34 +246,30 @@ public enum Mixins {
             "MixinRenderGlobal"
         ))
     ),
-    CC_NO_CTM(new Builder("Custom colors, no connected textures")
+    MCPATCHER_FORGE_CC_NO_CTM(new Builder("MCP:F Custom Colors, no Connected Textures")
         .setPhase(Phase.EARLY)
-        .setApplyIf(
-            () -> !MCPatcherForgeConfig.instance().connectedTexturesEnabled
+        .setApplyIf(() -> !MCPatcherForgeConfig.instance().connectedTexturesEnabled
                 && MCPatcherForgeConfig.instance().customColorsEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
         .addMixinClasses("mcpatcherforge.cc_ctm.MixinRenderBlocksNoCTM")
     ),
-    CTM_AND_CC(new Builder("Connected textures and Custom Colors enabled")
+    MCPATCHER_FORGE_CTM_NO_CC(new Builder("MCP:F Connected Textures, no Custom Colours")
         .setPhase(Phase.EARLY)
-        .setApplyIf(
-            () -> MCPatcherForgeConfig.instance().connectedTexturesEnabled
-                && MCPatcherForgeConfig.instance().customColorsEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses("mcpatcherforge.ctm_cc.MixinRenderBlocks")
-    ),
-    CTM_NO_CC(new Builder("Connected textures, no custom colours")
-        .setPhase(Phase.EARLY)
-        .setApplyIf(
-            () -> MCPatcherForgeConfig.instance().connectedTexturesEnabled
+        .setApplyIf(() -> MCPatcherForgeConfig.instance().connectedTexturesEnabled
                 && !MCPatcherForgeConfig.instance().customColorsEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
         .addMixinClasses("mcpatcherforge.ctm_cc.MixinRenderBlocksNoCC")
     ),
-    CTM_OR_CC(new Builder("Connected textures or Custom Colors enabled")
+    MCPATCHER_FORGE_CTM_AND_CC(new Builder("MCP:F Connected Textures and Custom Colors")
         .setPhase(Phase.EARLY)
-        .setApplyIf(
-            () -> MCPatcherForgeConfig.instance().connectedTexturesEnabled
+        .setApplyIf(() -> MCPatcherForgeConfig.instance().connectedTexturesEnabled
+            && MCPatcherForgeConfig.instance().customColorsEnabled)
+        .addTargetedMod(TargetedMod.VANILLA)
+        .addMixinClasses("mcpatcherforge.ctm_cc.MixinRenderBlocks")
+    ),
+    MCPATCHER_FORGE_CTM_OR_CC(new Builder("MCP:F Connected Textures or Custom Colors")
+        .setPhase(Phase.EARLY)
+        .setApplyIf(() -> MCPatcherForgeConfig.instance().connectedTexturesEnabled
                 || MCPatcherForgeConfig.instance().customColorsEnabled)
         .addTargetedMod(TargetedMod.VANILLA)
         .addMixinClasses("mcpatcherforge.ctm_cc.MixinTextureMap")

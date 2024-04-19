@@ -87,11 +87,12 @@ public class NotFineGameOptionPages {
                 .build())
             .build());
 
+        int maxGuiScale = Math.max(3, Math.min(Minecraft.getMinecraft().displayWidth / 320, Minecraft.getMinecraft().displayHeight / 240));
         groups.add(OptionGroup.createBuilder()
             .add(OptionImpl.createBuilder(int.class, vanillaOpts)
                 .setName(I18n.format("options.guiScale"))
                 .setTooltip(I18n.format("sodium.options.gui_scale.tooltip"))
-                .setControl(option -> new SliderControl(option, 0, 4, 1, ControlValueFormatter.guiScale()))
+                .setControl(option -> new SliderControl(option, 0, maxGuiScale, 1, ControlValueFormatter.guiScale()))
                 .setBinding((opts, value) -> opts.guiScale = value, opts -> opts.guiScale)
                 .build())
             .add(OptionImpl.createBuilder(boolean.class, vanillaOpts)
@@ -205,6 +206,7 @@ public class NotFineGameOptionPages {
                 .setTooltip(I18n.format("sodium.options.fbo.tooltip"))
                 .setControl(TickBoxControl::new)
                 .setBinding((opts, value) -> opts.fboEnable = value, opts -> opts.fboEnable)
+                .setEnabled(NotFineConfig.allowToggleFBO)
                 .build())
             .add(OptionImpl.createBuilder(boolean.class, vanillaOpts)
                 .setName(I18n.format("options.anaglyph"))
@@ -213,6 +215,7 @@ public class NotFineGameOptionPages {
                 .setBinding((opts, value) -> opts.anaglyph = value, opts -> opts.anaglyph)
                 .setImpact(OptionImpact.HIGH)
                 .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
+                .setEnabled(NotFineConfig.allowAdvancedOpenGL)
                 .build())
             .add(OptionImpl.createBuilder(boolean.class, vanillaOpts)
                 .setName(I18n.format("options.showCape"))

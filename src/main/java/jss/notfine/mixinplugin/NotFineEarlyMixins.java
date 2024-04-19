@@ -38,8 +38,7 @@ public class NotFineEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader 
             return mixins;
         }
         NotFineConfig.loadSettings();
-
-        //This may be possible to handle differently.
+        //This may be possible to handle differently or fix.
         if(loadedCoreMods.contains("cofh.asm.LoadingPlugin")) {
             MCPatcherForgeConfig.instance().hdFont = false;
         }

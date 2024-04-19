@@ -3,7 +3,7 @@ package jss.notfine.mixinplugin;
 // Adapted from hodgepodge
 public enum TargetedMod {
 
-    COFH_CORE("CoFHCore", "cofh.asm.LoadingPlugin", "CoFHCore"),
+    COFHCORE("CoFHCore", "cofh.asm.LoadingPlugin", "CoFHCore"),
     DYNAMIC_SURROUNDINGS_MIST("Dynamic Surroundings", "org.blockartistry.mod.DynSurround.mixinplugin.DynamicSurroundingsEarlyMixins", "dsurround"),
     DYNAMIC_SURROUNDINGS_ORIGINAL("Dynamic Surroundings", "org.blockartistry.mod.DynSurround.asm.TransformLoader", "dsurround"),
     THAUMCRAFT("Thaumcraft", null, "Thaumcraft"),

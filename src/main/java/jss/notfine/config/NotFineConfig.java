@@ -12,6 +12,9 @@ public class NotFineConfig {
     public static final String CATEGORY_TOGGLE = "toggle";
 
     public static boolean allowAdvancedOpenGL;
+    public static boolean allowToggle3DAnaglyph;
+    public static boolean allowToggleFBO;
+
 
     public static boolean betterBlockFaceCulling;
 
@@ -20,7 +23,11 @@ public class NotFineConfig {
         Configuration notFineConfig = new Configuration(configFile);
 
         allowAdvancedOpenGL = notFineConfig.getBoolean("allowAdvancedOpenGL", CATEGORY_GENERAL, false,
-            "Allow or always disable Advanced OpenGL");
+            "Allow Advanced OpenGL to be enabled when it might be supported.");
+        allowToggle3DAnaglyph = notFineConfig.getBoolean("allowToggle3DAnaglyph", CATEGORY_GENERAL, true,
+            "Allow 3D Anaglyph to be enabled.");
+        allowToggleFBO = notFineConfig.getBoolean("allowToggleFBO", CATEGORY_GENERAL, false,
+            "Allow FBOs to be disabled.");
 
         notFineConfig.setCategoryComment(CATEGORY_TOGGLE, "Enable or disable various mod features.");
         betterBlockFaceCulling = notFineConfig.getBoolean("betterBlockFaceCulling", CATEGORY_TOGGLE, true,
