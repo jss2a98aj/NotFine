@@ -130,7 +130,7 @@ class MobRuleList {
                 }
             } else {
                 skins = MCPatcherUtils.parseIntegerList(skinList, 1, limit);
-                if (skins.length == 0) {
+                if (skins.length <= 0) {
                     return null;
                 }
                 for (int i = 0; i < skins.length; i++) {

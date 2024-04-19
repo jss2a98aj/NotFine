@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
+
 import com.prupe.mcpatcher.cc.ColorizeBlock;
 
 // Only loaded when both cc and ctm are enabled

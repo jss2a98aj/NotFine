@@ -78,4 +78,5 @@ public abstract class MixinRenderGlobal implements IWorldAccess {
     private void modifyRenderAllRenderLists(EntityRenderer instance, double partialTick) {
         RenderPass.enableDisableLightmap(instance, partialTick);
     }
+
 }

@@ -185,7 +185,6 @@ public class MCLogger {
         RANDOM_MOBS(MCPatcherUtils.RANDOM_MOBS),
         BETTER_SKIES(MCPatcherUtils.BETTER_SKIES),
         TEXTURE_PACK("Texture Pack"),
-
         TILESHEET("Tilesheet"),
         BETTER_GLASS(MCPatcherUtils.BETTER_GLASS),
 
@@ -196,6 +195,5 @@ public class MCLogger {
         Category(String name) {
             this.name = name;
         }
-
     }
 }

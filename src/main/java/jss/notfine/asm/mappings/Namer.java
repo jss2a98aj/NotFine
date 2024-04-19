@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import jss.notfine.mixinplugin.NotFineEarlyMixins;
 import net.minecraft.launchwrapper.Launch;
 
-import jss.notfine.asm.mappings.Names.Clas;
-import jss.notfine.asm.mappings.Names.Fiel;
-import jss.notfine.asm.mappings.Names.Meth;
-
 /**
  * This class und inherited classes are adapted from
  * <a href=
@@ -16,36 +12,36 @@ import jss.notfine.asm.mappings.Names.Meth;
  */
 public class Namer {
 
-    ArrayList<Clas> ac = new ArrayList<>();
-    ArrayList<Fiel> af = new ArrayList<>();
-    ArrayList<Meth> am = new ArrayList<>();
+    ArrayList<Names.Clas> ac = new ArrayList<>();
+    ArrayList<Names.Fiel> af = new ArrayList<>();
+    ArrayList<Names.Meth> am = new ArrayList<>();
 
-    Clas c(String name) {
-        Clas x = new Clas(name);
+    Names.Clas c(String name) {
+        Names.Clas x = new Names.Clas(name);
         if (ac != null) ac.add(x);
         return x;
     }
 
-    Fiel f(Clas clas, String name, String desc) {
-        Fiel x = new Fiel(clas, name, desc);
+    Names.Fiel f(Names.Clas clas, String name, String desc) {
+        Names.Fiel x = new Names.Fiel(clas, name, desc);
         if (af != null) af.add(x);
         return x;
     }
 
-    Fiel f(Clas clas, Fiel fiel) {
-        Fiel x = new Fiel(clas, fiel.name, fiel.desc);
+    Names.Fiel f(Names.Clas clas, Names.Fiel fiel) {
+        Names.Fiel x = new Names.Fiel(clas, fiel.name, fiel.desc);
         if (af != null) af.add(x);
         return x;
     }
 
-    Meth m(Clas clas, String name, String desc) {
-        Meth x = new Meth(clas, name, desc);
+    Names.Meth m(Names.Clas clas, String name, String desc) {
+        Names.Meth x = new Names.Meth(clas, name, desc);
         if (am != null) am.add(x);
         return x;
     }
 
-    Meth m(Clas clas, Meth meth) {
-        Meth x = new Meth(clas, meth.name, meth.desc);
+    Names.Meth m(Names.Clas clas, Names.Meth meth) {
+        Names.Meth x = new Names.Meth(clas, meth.name, meth.desc);
         if (am != null) am.add(x);
         return x;
     }
