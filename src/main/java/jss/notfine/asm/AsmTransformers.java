@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
+import jss.notfine.config.NotFineConfig;
 import jss.notfine.mixinplugin.NotFineEarlyMixins;
 import jss.notfine.config.MCPatcherForgeConfig;
 
@@ -16,7 +17,7 @@ public enum AsmTransformers {
 
     RENDERBLOCKS("RenderBlocks transformer", () -> MCPatcherForgeConfig.instance().customColorsEnabled, Side.CLIENT,
         "jss.notfine.asm.RenderBlocksTransformer"),
-    WORLDRENDERER("WorldRenderer transformer", () -> true, Side.CLIENT,
+    WORLDRENDERER("WorldRenderer transformer", () -> NotFineConfig.renderPass, Side.CLIENT,
         "jss.notfine.asm.WorldRendererTransformer");
 
     private final Supplier<Boolean> applyIf;
