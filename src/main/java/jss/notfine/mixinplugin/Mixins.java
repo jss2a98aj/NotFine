@@ -83,7 +83,10 @@ public enum Mixins {
         .setPhase(Phase.LATE)
         .setApplyIf(() -> true)
         .addTargetedMod(TargetedMod.NATURA)
-        .addMixinClasses("leaves.natura.MixinBerryBush")
+        .addMixinClasses(addPrefix("leaves.natura.",
+            "MixinBerryBush",
+            "MixinNetherBerryBush"
+        ))
     ),
     THAUMCRAFT(new Builder("Thaumcraft compat")
         .setPhase(Phase.LATE)
