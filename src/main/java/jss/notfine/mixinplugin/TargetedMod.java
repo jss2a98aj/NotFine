@@ -6,7 +6,9 @@ public enum TargetedMod {
     COFHCORE("CoFHCore", "cofh.asm.LoadingPlugin", "CoFHCore"),
     DYNAMIC_SURROUNDINGS_MIST("Dynamic Surroundings", "org.blockartistry.mod.DynSurround.mixinplugin.DynamicSurroundingsEarlyMixins", "dsurround"),
     DYNAMIC_SURROUNDINGS_ORIGINAL("Dynamic Surroundings", "org.blockartistry.mod.DynSurround.asm.TransformLoader", "dsurround"),
+    NATURA("Natura", null, "Natura"),
     THAUMCRAFT("Thaumcraft", null, "Thaumcraft"),
+    TINKERS_CONSTRUCT("Tinker's Construct", null, "TConstruct"),
     TWILIGHT_FOREST("TwilightForest", null, "TwilightForest"),
     VANILLA("Minecraft", null),
     WITCHERY("Witchery", null, "witchery");
