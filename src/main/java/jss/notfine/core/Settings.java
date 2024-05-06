@@ -114,7 +114,8 @@ public enum Settings {
             RenderStars.reloadStarRenderList(Minecraft.getMinecraft().renderGlobal);
         }
     },
-    VOID_FOG(new NotFineOptionTickBox(false, OptionImpact.LOW));
+    VOID_FOG(new NotFineOptionTickBox(false, OptionImpact.LOW)),
+    FOG_NEAR(new NotFineOptionSliderPercentage(75, 0, 100, 1, OptionImpact.LOW));
 
     public final NotFineOption option;
 
@@ -177,6 +178,19 @@ public enum Settings {
             value = store;
             modifiedValue = store;
         }
+    }
+
+    public static class NotFineOptionSliderPercentage extends NotFineOptionSlider {
+
+        protected NotFineOptionSliderPercentage(int base, int min, int max, int step,  OptionImpact impact, OptionFlag... optionFlags) {
+            super(base, min, max, step, impact, optionFlags);
+        }
+        
+        @Override
+        public Control<Integer> getControl() {
+            return new SliderControl(this, min, max, step, NotFineControlValueFormatter.percentage());
+        }
+
     }
 
     public static class NotFineOptionTickBox extends NotFineOption<Boolean> {
