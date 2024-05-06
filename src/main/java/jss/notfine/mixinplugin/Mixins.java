@@ -79,6 +79,15 @@ public enum Mixins {
             "MixinRenderItem"
         ))
     ),
+    NATURA(new Builder("Natura compat")
+        .setPhase(Phase.LATE)
+        .setApplyIf(() -> true)
+        .addTargetedMod(TargetedMod.NATURA)
+        .addMixinClasses(addPrefix("leaves.natura.",
+            "MixinBerryBush",
+            "MixinNetherBerryBush"
+        ))
+    ),
     THAUMCRAFT(new Builder("Thaumcraft compat")
         .setPhase(Phase.LATE)
         .setApplyIf(() -> true)
@@ -94,6 +103,12 @@ public enum Mixins {
             "MixinBlockStoneDevice",
             "MixinBlockTable"
         ))
+    ),
+    TINKERS_CONSTRUCT(new Builder("Tinker's Construct compat")
+        .setPhase(Phase.LATE)
+        .setApplyIf(() -> true)
+        .addTargetedMod(TargetedMod.TINKERS_CONSTRUCT)
+        .addMixinClasses("leaves.tconstruct.MixinOreberryBush")
     ),
     WITCHERY(new Builder("Witchery compat")
         .setPhase(Phase.LATE)
