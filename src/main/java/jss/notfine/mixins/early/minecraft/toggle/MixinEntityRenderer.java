@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import org.lwjgl.opengl.GL11;
+
 @Mixin(EntityRenderer.class)
 abstract public class MixinEntityRenderer {
 
@@ -46,6 +48,18 @@ abstract public class MixinEntityRenderer {
     }
 
     @Redirect(
+        method = "setupFog",
+        at = @At(
+            value = "INVOKE",
+            target = "Lorg/lwjgl/opengl/GL11;glFogf(IF)V",
+            ordinal = 14
+        )
+    )
+    private void notFineGlFogF(int mode, float value) {
+        GL11.glFogf(mode, farPlaneDistance * (int)Settings.FOG_NEAR.option.getStore() * 0.01F - 1F);
+    }
+
+    @Redirect(
         method = "updateRenderer()V",
         at = @At(
             value = "INVOKE",
@@ -63,6 +77,10 @@ abstract public class MixinEntityRenderer {
     @Shadow
     abstract void updateTorchFlicker();
 
-    @Shadow private boolean lightmapUpdateNeeded;
+    @Shadow
+    private boolean lightmapUpdateNeeded;
+
+    @Shadow
+    private float farPlaneDistance;
 
 }
