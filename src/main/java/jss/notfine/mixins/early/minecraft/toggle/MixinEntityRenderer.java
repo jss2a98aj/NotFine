@@ -55,8 +55,8 @@ abstract public class MixinEntityRenderer {
             ordinal = 14
         )
     )
-    private void notFineGlFogF(int mode, float value) {
-        GL11.glFogf(mode, farPlaneDistance * (int)Settings.FOG_NEAR.option.getStore() * 0.01F - 1F);
+    private void notFine$nearFogDistance(int mode, float value) {
+        GL11.glFogf(mode, farPlaneDistance * (int)Settings.FOG_NEAR_DISTANCE.option.getStore() * 0.01F - 1F);
     }
 
     @Redirect(

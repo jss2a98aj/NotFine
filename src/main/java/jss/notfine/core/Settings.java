@@ -45,6 +45,7 @@ public enum Settings {
         }
     },
     DYNAMIC_FOV(new NotFineOptionTickBox(true, null)),
+    FOG_NEAR_DISTANCE(new NotFineOptionSliderPercentage(75, 1, 100, 1, OptionImpact.LOW)),
     GUI_BACKGROUND(new NotFineOptionCycling<>(BackgroundSelect.DEFAULT, null)) {
         @Override
         public void applyChanges() {
@@ -114,8 +115,7 @@ public enum Settings {
             RenderStars.reloadStarRenderList(Minecraft.getMinecraft().renderGlobal);
         }
     },
-    VOID_FOG(new NotFineOptionTickBox(false, OptionImpact.LOW)),
-    FOG_NEAR(new NotFineOptionSliderPercentage(75, 0, 100, 1, OptionImpact.LOW));
+    VOID_FOG(new NotFineOptionTickBox(false, OptionImpact.LOW));
 
     public final NotFineOption option;
 
@@ -185,7 +185,7 @@ public enum Settings {
         protected NotFineOptionSliderPercentage(int base, int min, int max, int step,  OptionImpact impact, OptionFlag... optionFlags) {
             super(base, min, max, step, impact, optionFlags);
         }
-        
+
         @Override
         public Control<Integer> getControl() {
             return new SliderControl(this, min, max, step, NotFineControlValueFormatter.percentage());
