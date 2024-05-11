@@ -29,13 +29,14 @@ For shader support see [Angelica](https://github.com/GTNewHorizons/Angelica) (WI
 ## Mods that properly implement leaf blocks and do not need patched
 
 - [Et Futurum Requiem](https://modrinth.com/mod/etfuturum)
-- [ExtrabiomesXL (jss2a98aj's fork)](https://github.com/jss2a98aj/ExtrabiomesXL) 3.16.7 or later
+- ExtrabiomesXL [(jss2a98aj's fork)](https://github.com/jss2a98aj/ExtrabiomesXL) 3.16.7 or later
 
 ## Mods with leaf blocks that have been patched
 
+- Natura [(GTNH fork)](https://github.com/GTNewHorizons/Natura) 2.6.3 or later
 - [Thaumcraft 4](https://www.curseforge.com/minecraft/mc-mods/thaumcraft/files/2227552)
-- [Tinker's Construct (GTNH fork)](https://github.com/GTNewHorizons/TinkersConstruct) 1.12.0-GTNH or later for full support
-- [Twilight Forest](https://www.curseforge.com/minecraft/mc-mods/the-twilight-forest) 2.4 or later for full support
+- Tinker's Construct [(GTNH fork)](https://github.com/GTNewHorizons/TinkersConstruct) 1.12.0-GTNH or later
+- [Twilight Forest](https://www.curseforge.com/minecraft/mc-mods/the-twilight-forest) 2.4 or later
 - [Witchery](https://www.curseforge.com/minecraft/mc-mods/witchery)
 
 # Mod Suggestions
