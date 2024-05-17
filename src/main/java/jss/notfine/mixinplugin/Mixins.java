@@ -55,6 +55,7 @@ public enum Mixins {
             "MixinBlock",
             "MixinBlockCactus",
             "MixinBlockCarpet",
+            "MixinBlockEnchantmentTable",
             "MixinBlockFarmland",
             "MixinBlockSlab",
             "MixinBlockSnow",
