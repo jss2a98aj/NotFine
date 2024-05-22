@@ -362,9 +362,9 @@ class TileOverrideImpl {
             if (face < 0) {
                 face = 0;
             }
-            int i = renderBlockState.getI();
-            int j = renderBlockState.getJ();
-            int k = renderBlockState.getK();
+            int i = renderBlockState.getX();
+            int j = renderBlockState.getY();
+            int k = renderBlockState.getZ();
             if (linked && renderBlockState.setCoordOffsetsForRenderType()) {
                 i += renderBlockState.getDI();
                 j += renderBlockState.getDJ();
@@ -424,9 +424,9 @@ class TileOverrideImpl {
                 face = 0;
             }
             face &= symmetry;
-            int i = renderBlockState.getI();
-            int j = renderBlockState.getJ();
-            int k = renderBlockState.getK();
+            int i = renderBlockState.getX();
+            int j = renderBlockState.getY();
+            int k = renderBlockState.getZ();
             int[] xOffset = renderBlockState.getOffset(face, REL_R);
             int[] yOffset = renderBlockState.getOffset(face, REL_D);
             int x = i * xOffset[0] + j * xOffset[1] + k * xOffset[2];
