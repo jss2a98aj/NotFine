@@ -36,7 +36,7 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 			IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(completeResourceLocation(new ResourceLocation(textureName), 0));
 			if (resource instanceof SimpleResource) {
 				//This returns IMetadataSections, which seems to already remove unused mcmeta fields in 1.7.10
-				//I'm just running this to poplate the mcmetaJson field more easily; this does it for us
+				//I'm just running this to populate the mcmetaJson field more easily; this does it for us
 				if (resource.getMetadata("animation") != null) {
 					JsonObject mcmetaJson = ((SimpleResource) resource).mcmetaJson;
 					if (mcmetaJson.getAsJsonObject("animation").getAsJsonPrimitive("interpolate").getAsBoolean()) {
@@ -46,6 +46,6 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 					}
 				}
 			}
-		} catch (Exception ignored) {/*Should quietly fail, no need to failhard*/}
+		} catch (Exception ignored) {/*Should quietly fail, no need to fail hard*/}
 	}
 }

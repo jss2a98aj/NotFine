@@ -362,15 +362,15 @@ class TileOverrideImpl {
             if (face < 0) {
                 face = 0;
             }
-            int i = renderBlockState.getX();
-            int j = renderBlockState.getY();
-            int k = renderBlockState.getZ();
+            int x = renderBlockState.getX();
+            int y = renderBlockState.getY();
+            int z = renderBlockState.getZ();
             if (linked && renderBlockState.setCoordOffsetsForRenderType()) {
-                i += renderBlockState.getDI();
-                j += renderBlockState.getDJ();
-                k += renderBlockState.getDK();
+                x += renderBlockState.getDX();
+                y += renderBlockState.getDY();
+                z += renderBlockState.getDZ();
             }
-            long hash = WeightedIndex.hash128To64(i, j, k, face / symmetry);
+            long hash = WeightedIndex.hash128To64(x, y, z, face / symmetry);
             int index = chooser.choose(hash);
             return icons[index];
         }

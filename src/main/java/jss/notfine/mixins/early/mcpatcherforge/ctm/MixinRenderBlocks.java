@@ -65,8 +65,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSideAndMetadata(Lnet/minecraft/block/Block;II)Lnet/minecraft/util/IIcon;"))
     private IIcon modifyRenderBlockMinecartTrack(RenderBlocks instance, Block block, int side, int meta,
         BlockRailBase specializedBlock, int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSideAndMetadata(block, side, meta)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
     @Redirect(
@@ -83,8 +82,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSide(Lnet/minecraft/block/Block;I)Lnet/minecraft/util/IIcon;"))
     private IIcon redirectGetBlockIconFromSide(RenderBlocks instance, Block block, int side, Block specializedBlock,
         int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSide(block, side)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
     @Redirect(
@@ -94,8 +92,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSideAndMetadata(Lnet/minecraft/block/Block;II)Lnet/minecraft/util/IIcon;"))
     private IIcon modifyRenderBlockBrewingStand(RenderBlocks instance, Block block, int side, int meta,
         BlockBrewingStand specializedBlock, int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSideAndMetadata(block, side, meta)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
     @Redirect(
@@ -105,8 +102,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSide(Lnet/minecraft/block/Block;I)Lnet/minecraft/util/IIcon;"))
     private IIcon modifyRenderBlockFlowerpot(RenderBlocks instance, Block block, int side,
         BlockFlowerPot specializedBlock, int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSide(block, side)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
     @Redirect(
@@ -116,8 +112,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSideAndMetadata(Lnet/minecraft/block/Block;II)Lnet/minecraft/util/IIcon;"))
     private IIcon modifyRenderBlockAnvilRotate(RenderBlocks instance, Block block, int side, int meta,
         BlockAnvil specializedBlock, int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSideAndMetadata(block, side, meta)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
     @Redirect(
@@ -127,8 +122,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSideAndMetadata(Lnet/minecraft/block/Block;II)Lnet/minecraft/util/IIcon;"))
     private IIcon modifyRenderRedstoneDiodeMetadata(RenderBlocks instance, Block block, int side, int meta,
         BlockRedstoneDiode specializedBlock, int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSideAndMetadata(block, side, meta)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
 
@@ -145,6 +139,7 @@ public abstract class MixinRenderBlocks {
      * @author mist475
      * @author roadhog360
      */
+    @SuppressWarnings("UnreachableCode")
     @Inject(method = "renderBlockPane", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockPane;shouldSideBeRendered(Lnet/minecraft/world/IBlockAccess;IIII)Z", ordinal = 1, shift = At.Shift.BY, by = 2), cancellable = true)
     private void tweakPaneRenderer(BlockPane block, int x, int y, int z, CallbackInfoReturnable<Boolean> cir,
                                    @Local(name = "iicon") IIcon iicon, @Local(name = "l") int l,
@@ -514,6 +509,7 @@ public abstract class MixinRenderBlocks {
      * @author mist475
      * @author roadhog360
      */
+    @SuppressWarnings("UnreachableCode")
     @Inject(method = "renderBlockStainedGlassPane", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, shift = At.Shift.BY, by = 2), cancellable = true)
     private void tweakStainedPaneRenderer(Block block, int x, int y, int z, CallbackInfoReturnable<Boolean> cir,
                                            @Local(name = "iicon") IIcon iicon,
@@ -849,8 +845,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSideAndMetadata(Lnet/minecraft/block/Block;II)Lnet/minecraft/util/IIcon;"))
     private IIcon redirectGetBlockIconFromSideAndMetadata(RenderBlocks instance, Block block, int side, int meta,
         Block specializedBlock, int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSideAndMetadata(block, side, meta)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
     @Redirect(
@@ -862,9 +857,8 @@ public abstract class MixinRenderBlocks {
         BlockDoublePlant specializedBlock, int x, int y, int z) {
         return CTMUtils.getBlockIcon(
             block.func_149888_a(top, meta),
-            (RenderBlocks) (Object) this,
             block,
-            this.blockAccess,
+            blockAccess,
             x,
             y,
             z,
@@ -882,9 +876,8 @@ public abstract class MixinRenderBlocks {
     private IIcon redirectGrassSideOverLay1(Block block, int x, int y, int z, float red, float green, float blue) {
         return CTMUtils.getBlockIcon(
             BlockGrass.getIconSideOverlay(),
-            (RenderBlocks) (Object) this,
             block,
-            this.blockAccess,
+            blockAccess,
             x,
             y,
             z,
@@ -902,9 +895,8 @@ public abstract class MixinRenderBlocks {
     private IIcon redirectGrassSideOverLay2(Block block, int x, int y, int z, float red, float green, float blue) {
         return CTMUtils.getBlockIcon(
             BlockGrass.getIconSideOverlay(),
-            (RenderBlocks) (Object) this,
             block,
-            this.blockAccess,
+            blockAccess,
             x,
             y,
             z,
@@ -922,9 +914,8 @@ public abstract class MixinRenderBlocks {
     private IIcon redirectGrassSideOverLay3(Block block, int x, int y, int z, float red, float green, float blue) {
         return CTMUtils.getBlockIcon(
             BlockGrass.getIconSideOverlay(),
-            (RenderBlocks) (Object) this,
             block,
-            this.blockAccess,
+            blockAccess,
             x,
             y,
             z,
@@ -942,9 +933,8 @@ public abstract class MixinRenderBlocks {
     private IIcon redirectGrassSideOverLay4(Block block, int x, int y, int z, float red, float green, float blue) {
         return CTMUtils.getBlockIcon(
             BlockGrass.getIconSideOverlay(),
-            (RenderBlocks) (Object) this,
             block,
-            this.blockAccess,
+            blockAccess,
             x,
             y,
             z,
@@ -958,8 +948,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSideAndMetadata(Lnet/minecraft/block/Block;II)Lnet/minecraft/util/IIcon;"))
     private IIcon modifyRenderBlockHopperMetadata(RenderBlocks instance, Block block, int side, int meta,
         BlockHopper specializedBlock, int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSideAndMetadata(block, side, meta)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
     @Redirect(
@@ -971,7 +960,6 @@ public abstract class MixinRenderBlocks {
         int y, int z, int side) {
         return CTMUtils.getBlockIcon(
             this.getIconSafe(block.getIcon(blockAccess, x, y, z, side)),
-            (RenderBlocks) (Object) this,
             block,
             blockAccess,
             x,
@@ -988,7 +976,7 @@ public abstract class MixinRenderBlocks {
     private IIcon modifyGetBlockIconFromSideAndMetadata(RenderBlocks instance, IIcon texture, Block block, int side,
         int meta) {
         return CTMUtils
-            .getBlockIcon(this.getIconSafe(block.getIcon(side, meta)), (RenderBlocks) (Object) this, block, side, meta);
+            .getBlockIcon(this.getIconSafe(block.getIcon(side, meta)), block, side, meta);
     }
 
     @Redirect(
@@ -998,8 +986,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getIconSafe(Lnet/minecraft/util/IIcon;)Lnet/minecraft/util/IIcon;"))
     private IIcon modifyGetBlockIconFromSide(RenderBlocks instance, IIcon texture, Block block, int side) {
         return CTMUtils.getBlockIcon(
-            this.getIconSafe(this.getIconSafe(block.getBlockTextureFromSide(side))),
-            (RenderBlocks) (Object) this,
+            getIconSafe(getIconSafe(block.getBlockTextureFromSide(side))),
             block,
             side);
     }
@@ -1012,8 +999,7 @@ public abstract class MixinRenderBlocks {
             ordinal = 1))
     private IIcon mcpatcherforge$redirectToGetBlockIcon(RenderBlocks instance, Block block, int side, int meta,
         Block specializedBlock, int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSideAndMetadata(block, side, meta)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
     @Redirect(
@@ -1023,7 +1009,7 @@ public abstract class MixinRenderBlocks {
             target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSide(Lnet/minecraft/block/Block;I)Lnet/minecraft/util/IIcon;"))
     private IIcon mcpatcherforge$redirectToGetBlockIcon(RenderBlocks instance, Block block, int side,
         Block specializedBlock, int x, int y, int z) {
-        return (this.blockAccess == null) ? this.getBlockIconFromSide(block, side)
-            : this.getBlockIcon(block, this.blockAccess, x, y, z, side);
+        return getBlockIcon(block, blockAccess, x, y, z, side);
     }
+
 }
