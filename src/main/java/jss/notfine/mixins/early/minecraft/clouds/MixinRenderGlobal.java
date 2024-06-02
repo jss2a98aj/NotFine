@@ -119,114 +119,106 @@ public abstract class MixinRenderGlobal {
                 GL11.glColorMask(true, true, true, true);
             }
 
-            //Render top and bottom as one quad with UV wrap (very fast) :D
-            {
-                final float start = (-renderRadius + 1f) * segmentWidth;
-                final float end = (renderRadius + 1f) * segmentWidth;
-                final float startX = start - cameraRelativeX;
-                final float startZ = start - cameraRelativeZ;
-                final float endX = end - cameraRelativeX;
-                final float endZ = end - cameraRelativeZ;
+            final float min = (-renderRadius + 1f) * segmentWidth;
+            final float max = (renderRadius + 1f) * segmentWidth;
 
-                final float UVWindStartX = start * windSpeed + windX;
-                final float UVWindEndX = end * windSpeed + windX;
-                final float UVWindStartZ = start * windSpeed + windZ;
-                final float UVWindEndZ = end * windSpeed + windZ;
+            final float minX = min - cameraRelativeX;
+            final float maxX = max - cameraRelativeX;
+            final float minZ = min - cameraRelativeZ;
+            final float maxZ = max - cameraRelativeZ;
 
-                //Bottom
-                if (!fancy || cloudElevation > -cloudSegmentHeight - 1.0F) {
-                    tessellator.startDrawingQuads();
-                    tessellator.setColorRGBA_F(red * 0.7F, green * 0.7F, blue * 0.7F, 0.8F);
-                    tessellator.setNormal(0.0F, -1.0F, 0.0F);
-                    tessellator.addVertexWithUV(startX, cloudElevation, endZ,   UVWindStartX,   UVWindEndZ);
-                    tessellator.addVertexWithUV(endX,   cloudElevation, endZ,   UVWindEndX,     UVWindEndZ);
-                    tessellator.addVertexWithUV(endX,   cloudElevation, startZ, UVWindEndX,     UVWindStartZ);
-                    tessellator.addVertexWithUV(startX, cloudElevation, startZ, UVWindStartX,   UVWindStartZ);
-                    tessellator.draw();
-                }
+            final float UVMinX = min * windSpeed + windX;
+            final float UVMaxX = max * windSpeed + windX;
+            final float UVMinZ = min * windSpeed + windZ;
+            final float UVMaxZ = max * windSpeed + windZ;
 
-                //Top
-                if (fancy && cloudElevation <= cloudSegmentHeight + 1.0F) {
-                    tessellator.startDrawingQuads();
-                    tessellator.setColorRGBA_F(red, green, blue, 0.8F);
-                    tessellator.setNormal(0.0F, 1.0F, 0.0F);
-                    tessellator.addVertexWithUV(startX, topOffset, endZ,   UVWindStartX,    UVWindEndZ);
-                    tessellator.addVertexWithUV(endX,   topOffset, endZ,   UVWindEndX,      UVWindEndZ);
-                    tessellator.addVertexWithUV(endX,   topOffset, startZ, UVWindEndX,      UVWindStartZ);
-                    tessellator.addVertexWithUV(startX, topOffset, startZ, UVWindStartX,    UVWindStartZ);
-                    tessellator.draw();
-                }
+            //Bottom
+            if (!fancy || cloudElevation > -cloudSegmentHeight - 1.0F) {
+                tessellator.startDrawingQuads();
+                tessellator.setColorRGBA_F(red * 0.7F, green * 0.7F, blue * 0.7F, 0.8F);
+                tessellator.setNormal(0.0F, -1.0F, 0.0F);
+                tessellator.addVertexWithUV(minX, cloudElevation, maxZ, UVMinX, UVMaxZ);
+                tessellator.addVertexWithUV(maxX, cloudElevation, maxZ, UVMaxX, UVMaxZ);
+                tessellator.addVertexWithUV(maxX, cloudElevation, minZ, UVMaxX, UVMinZ);
+                tessellator.addVertexWithUV(minX, cloudElevation, minZ, UVMinX, UVMinZ);
+                tessellator.draw();
             }
 
             if(fancy) {
+                //Top
+                if (cloudElevation <= cloudSegmentHeight + 1.0F) {
+                    tessellator.startDrawingQuads();
+                    tessellator.setColorRGBA_F(red, green, blue, 0.8F);
+                    tessellator.setNormal(0.0F, 1.0F, 0.0F);
+                    tessellator.addVertexWithUV(minX, topOffset, maxZ, UVMinX, UVMaxZ);
+                    tessellator.addVertexWithUV(maxX, topOffset, maxZ, UVMaxX, UVMaxZ);
+                    tessellator.addVertexWithUV(maxX, topOffset, minZ, UVMaxX, UVMinZ);
+                    tessellator.addVertexWithUV(minX, topOffset, minZ, UVMinX, UVMinZ);
+                    tessellator.draw();
+                }
 
-                for (int segmentX = -renderRadius + 1; segmentX <= renderRadius; ++segmentX) {
-                    for (int segmentZ = -renderRadius + 1; segmentZ <= renderRadius; ++segmentZ) {
-                        tessellator.startDrawingQuads();
-                        final float segmentOffsetX = segmentX * segmentWidth;
-                        final float segmentOffsetZ = segmentZ * segmentWidth;
-                        final float startX = segmentOffsetX - cameraRelativeX;
-                        final float startZ = segmentOffsetZ - cameraRelativeZ;
-                        final float endX = startX + segmentWidth;
-                        final float endZ = startZ + segmentWidth;
+                //sides
+                int segment, side;
 
-                        final float UVWindStartX = segmentOffsetX * windSpeed + windX;
-                        final float UVWindEndX = (segmentOffsetX + segmentWidth) * windSpeed + windX;
-                        final float UVWindStartZ = segmentOffsetZ * windSpeed + windZ;
-                        final float UVWindEndZ = (segmentOffsetZ + segmentWidth) * windSpeed + windZ;
-
-                        //Sides
-                        int side;
-                        tessellator.setColorRGBA_F(red * 0.9F, green * 0.9F, blue * 0.9F, 0.8F);
-                        if (segmentX > -1) {
-                            tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-                            for (side = 0; side < segmentWidth; ++side) {
-                                final float sideStartX = startX + (float) side;
-                                final float UVSide = (segmentOffsetX + (float) side + 0.5F) * windSpeed + windX;
-                                tessellator.addVertexWithUV(sideStartX, cloudElevation, endZ, UVSide, UVWindEndZ);
-                                tessellator.addVertexWithUV(sideStartX, top, endZ, UVSide, UVWindEndZ);
-                                tessellator.addVertexWithUV(sideStartX, top, startZ, UVSide, UVWindStartZ);
-                                tessellator.addVertexWithUV(sideStartX, cloudElevation, startZ, UVSide, UVWindStartZ);
-                            }
+                tessellator.startDrawingQuads();
+                tessellator.setColorRGBA_F(red * 0.9F, green * 0.9F, blue * 0.9F, 0.8F);
+                for (segment = -renderRadius + 1; segment <= renderRadius; ++segment) {
+                    final float segmentOffsetX = segment * segmentWidth;
+                    final float startX = segmentOffsetX - cameraRelativeX;
+                    if (segment > -1) {
+                        tessellator.setNormal(-1.0F, 0.0F, 0.0F);
+                        for (side = 0; side < segmentWidth; ++side) {
+                            final float sideStartX = startX + (float) side;
+                            final float UVSide = (segmentOffsetX + (float) side + 0.5F) * windSpeed + windX;
+                            tessellator.addVertexWithUV(sideStartX, cloudElevation, maxZ, UVSide, UVMaxZ);
+                            tessellator.addVertexWithUV(sideStartX, top,            maxZ, UVSide, UVMaxZ);
+                            tessellator.addVertexWithUV(sideStartX, top,            minZ, UVSide, UVMinZ);
+                            tessellator.addVertexWithUV(sideStartX, cloudElevation, minZ, UVSide, UVMinZ);
                         }
-                        if (segmentX <= 1) {
-                            tessellator.setNormal(1.0F, 0.0F, 0.0F);
-                            for (side = 0; side < segmentWidth; ++side) {
-                                final float sideEndXOverlap = startX + (float) side + 1.0F - edgeOverlap;
-                                final float UVSide = (segmentOffsetX + (float) side + 0.5F) * windSpeed + windX;
-                                tessellator.addVertexWithUV(sideEndXOverlap, cloudElevation, endZ, UVSide, UVWindEndZ);
-                                tessellator.addVertexWithUV(sideEndXOverlap, top, endZ, UVSide, UVWindEndZ);
-                                tessellator.addVertexWithUV(sideEndXOverlap, top, startZ, UVSide, UVWindStartZ);
-                                tessellator.addVertexWithUV(sideEndXOverlap, cloudElevation, startZ, UVSide, UVWindStartZ);
-                            }
+                    }
+                    if (segment <= 1) {
+                        tessellator.setNormal(1.0F, 0.0F, 0.0F);
+                        for (side = 0; side < segmentWidth; ++side) {
+                            final float sideEndXOverlap = startX + (float) side + 1.0F - edgeOverlap;
+                            final float UVSide = (segmentOffsetX + (float) side + 0.5F) * windSpeed + windX;
+                            tessellator.addVertexWithUV(sideEndXOverlap, cloudElevation,    maxZ, UVSide, UVMaxZ);
+                            tessellator.addVertexWithUV(sideEndXOverlap, top,               maxZ, UVSide, UVMaxZ);
+                            tessellator.addVertexWithUV(sideEndXOverlap, top,               minZ, UVSide, UVMinZ);
+                            tessellator.addVertexWithUV(sideEndXOverlap, cloudElevation,    minZ, UVSide, UVMinZ);
                         }
-
-                        tessellator.setColorRGBA_F(red * 0.8F, green * 0.8F, blue * 0.8F, 0.8F);
-                        if (segmentZ > -1) {
-                            tessellator.setNormal(0.0F, 0.0F, -1.0F);
-                            for (side = 0; side < segmentWidth; ++side) {
-                                final float sideStartZ = startZ + (float) side;
-                                final float UVSide = (segmentOffsetZ + (float) side + 0.5F) * windSpeed + windZ;
-                                tessellator.addVertexWithUV(startX, top, sideStartZ, UVWindStartX, UVSide);
-                                tessellator.addVertexWithUV(endX, top, sideStartZ, UVWindEndX, UVSide);
-                                tessellator.addVertexWithUV(endX, cloudElevation, sideStartZ, UVWindEndX, UVSide);
-                                tessellator.addVertexWithUV(startX, cloudElevation, sideStartZ, UVWindStartX, UVSide);
-                            }
-                        }
-                        if (segmentZ <= 1) {
-                            tessellator.setNormal(0.0F, 0.0F, 1.0F);
-                            for (side = 0; side < segmentWidth; ++side) {
-                                final float sideEndZOverlap = startZ + (float) side + 1.0F - edgeOverlap;
-                                final float UVSide = (segmentOffsetZ + (float) side + 0.5F) * windSpeed + windZ;
-                                tessellator.addVertexWithUV(startX, top, sideEndZOverlap, UVWindStartX, UVSide);
-                                tessellator.addVertexWithUV(endX, top, sideEndZOverlap, UVWindEndX, UVSide);
-                                tessellator.addVertexWithUV(endX, cloudElevation, sideEndZOverlap, UVWindEndX, UVSide);
-                                tessellator.addVertexWithUV(startX, cloudElevation, sideEndZOverlap, UVWindStartX, UVSide);
-                            }
-                        }
-                        tessellator.draw();
                     }
                 }
+                tessellator.draw();
+
+                tessellator.startDrawingQuads();
+                tessellator.setColorRGBA_F(red * 0.8F, green * 0.8F, blue * 0.8F, 0.8F);
+                for (segment = -renderRadius + 1; segment <= renderRadius; ++segment) {
+                    final float segmentOffsetZ = segment * segmentWidth;
+                    final float startZ = segmentOffsetZ - cameraRelativeZ;
+                    if (segment > -1) {
+                        tessellator.setNormal(0.0F, 0.0F, -1.0F);
+                        for (side = 0; side < segmentWidth; ++side) {
+                            final float sideStartZ = startZ + (float) side;
+                            final float UVSide = (segmentOffsetZ + (float) side + 0.5F) * windSpeed + windZ;
+                            tessellator.addVertexWithUV(minX, top,              sideStartZ, UVMinX, UVSide);
+                            tessellator.addVertexWithUV(maxX, top,              sideStartZ, UVMaxX, UVSide);
+                            tessellator.addVertexWithUV(maxX, cloudElevation,   sideStartZ, UVMaxX, UVSide);
+                            tessellator.addVertexWithUV(minX, cloudElevation,   sideStartZ, UVMinX, UVSide);
+                        }
+                    }
+                    if (segment <= 1) {
+                        tessellator.setNormal(0.0F, 0.0F, 1.0F);
+                        for (side = 0; side < segmentWidth; ++side) {
+                            final float sideEndZOverlap = startZ + (float) side + 1.0F - edgeOverlap;
+                            final float UVSide = (segmentOffsetZ + (float) side + 0.5F) * windSpeed + windZ;
+                            tessellator.addVertexWithUV(minX, top,              sideEndZOverlap, UVMinX, UVSide);
+                            tessellator.addVertexWithUV(maxX, top,              sideEndZOverlap, UVMaxX, UVSide);
+                            tessellator.addVertexWithUV(maxX, cloudElevation,   sideEndZOverlap, UVMaxX, UVSide);
+                            tessellator.addVertexWithUV(minX, cloudElevation,   sideEndZOverlap, UVMinX, UVSide);
+                        }
+                    }
+                }
+                tessellator.draw();
             }
         }
 
