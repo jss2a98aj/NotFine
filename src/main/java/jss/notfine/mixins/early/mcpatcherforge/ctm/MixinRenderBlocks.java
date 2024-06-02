@@ -105,7 +105,8 @@ public abstract class MixinRenderBlocks {
         return getBlockIcon(block, blockAccess, x, y, z, side);
     }
 
-    @Redirect(
+    //TODO: This produces errors
+    /*@Redirect(
         method = "renderBlockAnvilRotate(Lnet/minecraft/block/BlockAnvil;IIIIFFFFZZI)F",
         at = @At(
             value = "INVOKE",
@@ -113,7 +114,7 @@ public abstract class MixinRenderBlocks {
     private IIcon modifyRenderBlockAnvilRotate(RenderBlocks instance, Block block, int side, int meta,
         BlockAnvil specializedBlock, int x, int y, int z) {
         return getBlockIcon(block, blockAccess, x, y, z, side);
-    }
+    }*/
 
     @Redirect(
         method = "renderBlockRedstoneDiodeMetadata(Lnet/minecraft/block/BlockRedstoneDiode;IIII)V",
