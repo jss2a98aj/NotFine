@@ -424,25 +424,25 @@ class TileOverrideImpl {
                 face = 0;
             }
             face &= symmetry;
-            int i = renderBlockState.getX();
-            int j = renderBlockState.getY();
-            int k = renderBlockState.getZ();
+            int x = renderBlockState.getX();
+            int y = renderBlockState.getY();
+            int z = renderBlockState.getZ();
             int[] xOffset = renderBlockState.getOffset(face, REL_R);
             int[] yOffset = renderBlockState.getOffset(face, REL_D);
-            int x = i * xOffset[0] + j * xOffset[1] + k * xOffset[2];
-            int y = i * yOffset[0] + j * yOffset[1] + k * yOffset[2];
+            int offsetX = x * xOffset[0] + y * xOffset[1] + z * xOffset[2];
+            int offsetY = x * yOffset[0] + y * yOffset[1] + z * yOffset[2];
             if (face == NORTH_FACE || face == EAST_FACE) {
-                x--;
+                offsetX--;
             }
-            x %= width;
-            if (x < 0) {
-                x += width;
+            offsetX %= width;
+            if (offsetX < 0) {
+                offsetX += width;
             }
-            y %= height;
-            if (y < 0) {
-                y += height;
+            offsetY %= height;
+            if (offsetY < 0) {
+                offsetY += height;
             }
-            return icons[width * y + x];
+            return icons[width * offsetY + offsetX];
         }
 
         @Override

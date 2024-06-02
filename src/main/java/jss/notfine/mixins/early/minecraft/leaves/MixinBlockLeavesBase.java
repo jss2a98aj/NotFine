@@ -17,7 +17,7 @@ public abstract class MixinBlockLeavesBase extends Block implements IFaceObstruc
         return LeafRenderUtil.shouldSideBeRendered(world, x, y, z, side);
     }
 
-    @Override()
+    @Override
     public boolean isFaceNonObstructing(IBlockAccess world, int x, int y, int z, int side, double otherMinX, double otherMinY, double otherMinZ, double otherMaxX, double otherMaxY, double otherMaxZ) {
         return LeafRenderUtil.isFaceNonObstructing(world, x, y, z);
     }

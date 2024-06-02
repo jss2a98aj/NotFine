@@ -313,7 +313,6 @@ abstract class TileOverride implements Comparable<TileOverride> {
         }
     }
 
-
     final public boolean isDisabled() {
         return !properties.valid();
     }
