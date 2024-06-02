@@ -52,6 +52,7 @@ abstract public class MixinEntityRenderer {
         at = @At(
             value = "INVOKE",
             target = "Lorg/lwjgl/opengl/GL11;glFogf(IF)V",
+            remap = false,
             ordinal = 14
         )
     )
