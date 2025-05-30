@@ -28,7 +28,6 @@ public class WorldRendererTransformer implements IClassTransformer {
         if ("net.minecraft.client.renderer.WorldRenderer".equals(transformedName)) {
             return patchWorldRenderer(basicClass);
         }
-
         return basicClass;
     }
 

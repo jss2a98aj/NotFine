@@ -50,8 +50,6 @@ public class Namer {
         final boolean obfuscated = !(Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
         NotFineEarlyMixins.mcpfLogger.info("Environment obfuscated: {}", obfuscated);
         if (obfuscated) {
-            // due to mixin bug we can't use sortingIndex meaning we will run too early to use srg
-            // new NamerSrg().setNames();
             new NamerObf().setNames();
         } else {
             new NamerMcp().setNames();

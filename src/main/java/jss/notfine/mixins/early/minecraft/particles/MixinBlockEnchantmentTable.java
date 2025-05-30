@@ -19,6 +19,7 @@ public abstract class MixinBlockEnchantmentTable extends BlockContainer {
 	 * @author jss2a98aj
 	 * @reason Makes anything with enchantment power cause enchantment particles.
 	 */
+	@Override
 	@Overwrite()
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		//Unneeded in vanilla as the super call is empty.

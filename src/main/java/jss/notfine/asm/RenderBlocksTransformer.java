@@ -34,7 +34,6 @@ public class RenderBlocksTransformer implements IClassTransformer {
         if ("net.minecraft.client.renderer.RenderBlocks".equals(transformedName)) {
             return patchRenderBlocks(basicClass);
         }
-
         return basicClass;
     }
 

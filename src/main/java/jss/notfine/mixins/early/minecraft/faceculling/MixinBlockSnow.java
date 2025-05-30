@@ -18,6 +18,7 @@ public abstract class MixinBlockSnow extends Block implements IFaceObstructionCh
 	 * @author jss2a98aj
 	 * @reason More accurate face culling.
 	 */
+	@Override
 	@Overwrite()
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
