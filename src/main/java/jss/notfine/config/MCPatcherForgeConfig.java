@@ -108,7 +108,7 @@ public class MCPatcherForgeConfig {
 
         // spotless:off
 
-        customColorsEnabled = config.get(Category.CUSTOM_COLORS.toString(),"enabled",true,"Enable the custom colors module").getBoolean();
+        customColorsEnabled = config.get(Category.CUSTOM_COLORS.toString(),"enabled",false,"Enable the custom colors module").getBoolean();
         customColorsLoggingLevel = config.get(Category.CUSTOM_COLORS.toString(),"logging",Level.INFO.getName(),"logging level").getString();
         yVariance = config.get(Category.CUSTOM_COLORS.toString(),"yVariance",0).getInt();
         blockBlendRadius = config.get(Category.CUSTOM_COLORS.toString(),"blockBlendRadius",4).getInt();
@@ -132,13 +132,13 @@ public class MCPatcherForgeConfig {
         ccEgg = config.get(Category.CUSTOM_COLORS.toString(),"egg",true).getBoolean();
         ccLightmaps = config.get(Category.CUSTOM_COLORS.toString(),"lightmaps",true).getBoolean();
 
-        customItemTexturesEnabled = config.get(Category.CUSTOM_ITEM_TEXTURES.toString(),"enabled",true,"Enable the custom item textures module").getBoolean();
+        customItemTexturesEnabled = config.get(Category.CUSTOM_ITEM_TEXTURES.toString(),"enabled",false,"Enable the custom item textures module").getBoolean();
         customItemTexturesLoggingLevel = config.get(Category.CUSTOM_ITEM_TEXTURES.toString(),"logging",Level.INFO.getName(),"logging level").getString();
         citItems = config.get(Category.CUSTOM_ITEM_TEXTURES.toString(),"items",true).getBoolean();
         citEnchantments = config.get(Category.CUSTOM_ITEM_TEXTURES.toString(),"enchantments",true).getBoolean();
         citArmor = config.get(Category.CUSTOM_ITEM_TEXTURES.toString(),"armor",true).getBoolean();
 
-        connectedTexturesEnabled = config.get(Category.CONNECTED_TEXTURES.toString(),"enabled",true,"Enable the connected textures module").getBoolean();
+        connectedTexturesEnabled = config.get(Category.CONNECTED_TEXTURES.toString(),"enabled",false,"Enable the connected textures module").getBoolean();
         connectedTexturesLoggingLevel = config.get(Category.CONNECTED_TEXTURES.toString(),"logging",Level.INFO.getName(),"logging level").getString();
         maxRecursion = config.get(Category.CONNECTED_TEXTURES.toString(),"maxRecursion",4).getInt();
         debugTextures = config.get(Category.CONNECTED_TEXTURES.toString(),"debugTextures",false).getBoolean();
@@ -147,7 +147,7 @@ public class MCPatcherForgeConfig {
         ctmNonStandard = config.get(Category.CONNECTED_TEXTURES.toString(),"nonStandard",true).getBoolean();
         ctmGlassPane = config.get(Category.CONNECTED_TEXTURES.toString(),"glassPane",false).getBoolean();
 
-        extendedHDEnabled = config.get(Category.EXTENDED_HD.toString(),"enabled",true,"Enable the extended hd module").getBoolean();
+        extendedHDEnabled = config.get(Category.EXTENDED_HD.toString(),"enabled",false,"Enable the extended hd module").getBoolean();
         extendedHDLoggingLevel = config.get(Category.EXTENDED_HD.toString(),"logging",Level.INFO.getName(),"logging level").getString();
         maxMipMapLevel = config.get(Category.EXTENDED_HD.toString(),"maxMipMapLevel",3).getInt();
         anisotropicFiltering = config.get(Category.EXTENDED_HD.toString(),"anisotropicFiltering",1).getInt();
@@ -162,11 +162,11 @@ public class MCPatcherForgeConfig {
         nonHDFontWidth = config.get(Category.EXTENDED_HD.toString(),"nonHDFontWidth",false).getBoolean();
         mipmap = config.get(Category.EXTENDED_HD.toString(),"mipmap",false).getBoolean();
 
-        randomMobsEnabled = config.get(Category.RANDOM_MOBS.toString(),"enabled",true,"Enable the random mobs module").getBoolean();
+        randomMobsEnabled = config.get(Category.RANDOM_MOBS.toString(),"enabled",false,"Enable the random mobs module").getBoolean();
         randomMobsLoggingLevel = config.get(Category.RANDOM_MOBS.toString(),"logging",Level.INFO.getName(),"logging level").getString();
         leashLine = config.get(Category.RANDOM_MOBS.toString(),"leashLine",true).getBoolean();
 
-        betterSkiesEnabled = config.get(Category.BETTER_SKIES.toString(),"enabled",true,"Enable the better skies module").getBoolean();
+        betterSkiesEnabled = config.get(Category.BETTER_SKIES.toString(),"enabled",false,"Enable the better skies module").getBoolean();
         betterSkiesLoggingLevel = config.get(Category.BETTER_SKIES.toString(),"logging",Level.INFO.getName(),"logging level").getString();
         horizon = config.get(Category.BETTER_SKIES.toString(),"horizon",16).getInt();
         brightenFireworks = config.get(Category.BETTER_SKIES.toString(),"brightenFireworks",true).getBoolean();
