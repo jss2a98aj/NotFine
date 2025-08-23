@@ -28,7 +28,6 @@ import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import com.prupe.mcpatcher.cc.ColorizeBlock;
 import com.prupe.mcpatcher.cc.Colorizer;
 import com.prupe.mcpatcher.mal.block.RenderBlocksUtils;
-import com.prupe.mcpatcher.renderpass.RenderPass;
 
 @Mixin(RenderBlocks.class)
 public abstract class MixinRenderBlocks {
@@ -212,13 +211,6 @@ public abstract class MixinRenderBlocks {
         }
         RenderBlocksUtils
             .setupColorMultiplier(block, this.blockAccess, x, y, z, this.hasOverrideBlockTexture(), f, f1, f2);
-    }
-
-    @ModifyConstant(
-        method = "renderStandardBlockWithAmbientOcclusion(Lnet/minecraft/block/Block;IIIFFF)Z",
-        constant = { @Constant(floatValue = 0.5F), @Constant(floatValue = 0.6F), @Constant(floatValue = 0.8F) })
-    private float redirectAOBaseMultiplier(float constant) {
-        return RenderPass.getAOBaseMultiplier(constant);
     }
 
     // If only ordinal number was accessible ...

@@ -135,17 +135,6 @@ public enum Mixins {
               "base.MixinMinecraft"
         ))
     ),
-    MCPATCHER_FORGE_RENDERPASS(new Builder("MCPatcher Forge Renderpass")
-        .setPhase(Phase.EARLY)
-        .setApplyIf(() -> NotFineConfig.renderPass)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("mcpatcherforge.",
-            "renderpass.MixinEntityRenderer",
-            "renderpass.MixinRenderBlocks",
-            "renderpass.MixinRenderGlobal",
-            "renderpass.MixinWorldRenderer"
-        ))
-    ),
     MCPATCHER_FORGE_CUSTOM_COLORS(new Builder("MCP:F Custom Colors")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().customColorsEnabled)

@@ -17,7 +17,6 @@ public class NotFineConfig {
     public static boolean allowToggleFBO;
 
     public static boolean betterBlockFaceCulling;
-    public static boolean renderPass;
 
     public static void loadSettings() {
         File configFile = new File(Launch.minecraftHome + File.separator + "config" + File.separator + NotFine.MODID + File.separator + "notfine.cfg");
@@ -36,8 +35,6 @@ public class NotFineConfig {
         config.setCategoryComment(CATEGORY_TOGGLE, "Enable or disable various mod features.");
 
         config.setCategoryComment(CATEGORY_UNFINISHED, "Toggle mod features that are unfinished or require compatibility improvements.");
-        renderPass = config.getBoolean("renderPass", CATEGORY_UNFINISHED, false,
-            "Allows resource pack artists to add block textures to be rendered during additional passes.");
 
         if(config.hasChanged()) {
             config.save();

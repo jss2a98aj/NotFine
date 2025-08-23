@@ -16,9 +16,7 @@ import jss.notfine.mixinplugin.NotFineEarlyMixins;
 public enum AsmTransformers {
 
     RENDERBLOCKS("RenderBlocks transformer", () -> MCPatcherForgeConfig.instance().customColorsEnabled, Side.CLIENT,
-        "jss.notfine.asm.RenderBlocksTransformer"),
-    WORLDRENDERER("WorldRenderer transformer", () -> NotFineConfig.renderPass, Side.CLIENT,
-                  "jss.notfine.asm.WorldRendererTransformer");
+        "jss.notfine.asm.RenderBlocksTransformer");
 
     private final Supplier<Boolean> applyIf;
     private final Side side;
