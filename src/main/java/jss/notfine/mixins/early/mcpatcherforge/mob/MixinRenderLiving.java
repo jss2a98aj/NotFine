@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import com.prupe.mcpatcher.mob.LineRenderer;
 
-@Mixin(RenderLiving.class)
+@Mixin(value = RenderLiving.class, priority = 500)
 public abstract class MixinRenderLiving extends RendererLivingEntity {
 
     public MixinRenderLiving(ModelBase modelBase, float shadowSize) {
