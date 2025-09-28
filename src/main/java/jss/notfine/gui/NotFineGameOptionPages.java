@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import jss.notfine.config.NotFineConfig;
 import jss.notfine.core.Settings;
 import jss.notfine.core.SettingsManager;
+import jss.notfine.event.OptionPageEvent;
 import jss.notfine.gui.options.control.NotFineControlValueFormatter;
 import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
 import me.jellysquid.mods.sodium.client.gui.options.OptionGroup;
@@ -21,6 +22,7 @@ import me.jellysquid.mods.sodium.client.gui.options.storage.MinecraftOptionsStor
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.Display;
 
 import java.util.ArrayList;
@@ -138,7 +140,11 @@ public class NotFineGameOptionPages {
                 .setFlags(OptionFlag.REQUIRES_ASSET_RELOAD)
                 .build())
             .build());
-        return new OptionPage(I18n.format("options.video"), ImmutableList.copyOf(groups));
+
+        String pageName = "options.video";
+        OptionPageEvent event = new OptionPageEvent(pageName, groups);
+        MinecraftForge.EVENT_BUS.post(event);
+        return new OptionPage(I18n.format(pageName), ImmutableList.copyOf(event.groups));
     }
 
     public static OptionPage detail() {
@@ -154,7 +160,11 @@ public class NotFineGameOptionPages {
             .add(Settings.MODE_GLINT_WORLD.option)
             .add(Settings.MODE_GLINT_INV.option)
         .build());
-        return new OptionPage(I18n.format("options.button.detail"), ImmutableList.copyOf(groups));
+
+        String pageName = "options.button.detail";
+        OptionPageEvent event = new OptionPageEvent(pageName, groups);
+        MinecraftForge.EVENT_BUS.post(event);
+        return new OptionPage(I18n.format(pageName), ImmutableList.copyOf(event.groups));
     }
 
     public static OptionPage atmosphere() {
@@ -172,7 +182,11 @@ public class NotFineGameOptionPages {
             .add(Settings.FOG_DISABLE.option)
             .add(Settings.FOG_NEAR_DISTANCE.option)
         .build());
-        return new OptionPage(I18n.format("options.button.sky"), ImmutableList.copyOf(groups));
+
+        String pageName = "options.button.sky";
+        OptionPageEvent event = new OptionPageEvent(pageName, groups);
+        MinecraftForge.EVENT_BUS.post(event);
+        return new OptionPage(I18n.format(pageName), ImmutableList.copyOf(event.groups));
     }
 
     public static OptionPage particles() {
@@ -188,7 +202,11 @@ public class NotFineGameOptionPages {
             .add(Settings.PARTICLES_VOID.option)
             .add(Settings.PARTICLES_ENC_TABLE.option)
         .build());
-        return new OptionPage(I18n.format("options.button.particle"), ImmutableList.copyOf(groups));
+
+        String pageName = "options.button.particle";
+        OptionPageEvent event = new OptionPageEvent(pageName, groups);
+        MinecraftForge.EVENT_BUS.post(event);
+        return new OptionPage(I18n.format(pageName), ImmutableList.copyOf(event.groups));
     }
 
     public static OptionPage other() {
@@ -232,7 +250,10 @@ public class NotFineGameOptionPages {
             .add(Settings.GUI_BACKGROUND.option)
         .build());
 
-        return new OptionPage(I18n.format("options.button.other"), ImmutableList.copyOf(groups));
+        String pageName = "options.button.other";
+        OptionPageEvent event = new OptionPageEvent(pageName, groups);
+        MinecraftForge.EVENT_BUS.post(event);
+        return new OptionPage(I18n.format(pageName), ImmutableList.copyOf(event.groups));
     }
 
 }
