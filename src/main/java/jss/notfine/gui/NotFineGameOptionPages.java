@@ -244,6 +244,7 @@ public class NotFineGameOptionPages {
                 .setBinding((opts, value) -> opts.showCape = value, opts -> opts.showCape)
                 .build())
             .add(Settings.MODE_GUI_BACKGROUND.option)
+            .add(Settings.HORIZON_DISABLE.option)
         .build());
 
         groups.add(OptionGroup.createBuilder()
