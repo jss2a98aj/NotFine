@@ -181,6 +181,7 @@ public class NotFineGameOptionPages {
             .add(Settings.TOTAL_STARS.option)
             .add(Settings.FOG_DISABLE.option)
             .add(Settings.FOG_NEAR_DISTANCE.option)
+            .add(Settings.HORIZON_DISABLE.option)
         .build());
 
         String pageName = "options.button.sky";
@@ -244,7 +245,6 @@ public class NotFineGameOptionPages {
                 .setBinding((opts, value) -> opts.showCape = value, opts -> opts.showCape)
                 .build())
             .add(Settings.MODE_GUI_BACKGROUND.option)
-            .add(Settings.HORIZON_DISABLE.option)
         .build());
 
         groups.add(OptionGroup.createBuilder()
