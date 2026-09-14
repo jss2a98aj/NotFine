@@ -25,12 +25,12 @@
 dependencies {
     implementation("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     implementation rfg.deobf('curse.maven:witchery-69673:2234410')
-    implementation("com.github.GTNewHorizons:twilightforest:2.6.0:dev") {
+    implementation("com.github.GTNewHorizons:twilightforest:2.7.41:dev") {
         transitive = false
     }
     implementation("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
-    implementation("com.github.GTNewHorizons:TinkersConstruct:1.11.15-GTNH:dev")
-    implementation("com.github.GTNewHorizons:Natura:2.6.1:dev")
+    implementation("com.github.GTNewHorizons:TinkersConstruct:1.14.112-GTNH:dev")
+    implementation("com.github.GTNewHorizons:Natura:2.8.24:dev")
 
-    runtimeOnly("com.github.GTNewHorizons:Baubles:1.0.4:dev")
+    runtimeOnly("com.github.GTNewHorizons:Baubles-Expanded:2.2.23-GTNH:dev")
 }
