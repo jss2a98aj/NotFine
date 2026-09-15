@@ -45,8 +45,8 @@ public enum Settings {
         }
     },
     DYNAMIC_FOV(new NotFineOptionTickBox(true, null)),
-    HORIZON_DISABLE(new NotFineOptionTickBox(true, OptionImpact.LOW)),
-    FOG_DISABLE(new NotFineOptionTickBox(false, OptionImpact.LOW)),
+    HORIZON(new NotFineOptionTickBox(true, OptionImpact.LOW)),
+    TERRAIN_FOG(new NotFineOptionTickBox(false, OptionImpact.LOW)),
     FOG_NEAR_DISTANCE(new NotFineOptionSliderPercentage(75, 1, 100, 1, OptionImpact.LOW)),
     GUI_BACKGROUND(new NotFineOptionCycling<>(BackgroundSelect.DEFAULT, null)) {
         @Override

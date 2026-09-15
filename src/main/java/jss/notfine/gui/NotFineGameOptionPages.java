@@ -179,9 +179,9 @@ public class NotFineGameOptionPages {
             .add(Settings.MODE_CLOUD_TRANSLUCENCY.option)
             .add(Settings.MODE_STARS.option)
             .add(Settings.TOTAL_STARS.option)
-            .add(Settings.FOG_DISABLE.option)
+            .add(Settings.TERRAIN_FOG.option)
             .add(Settings.FOG_NEAR_DISTANCE.option)
-            .add(Settings.HORIZON_DISABLE.option)
+            .add(Settings.HORIZON.option)
         .build());
 
         String pageName = "options.button.sky";

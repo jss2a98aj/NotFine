@@ -43,10 +43,9 @@ public abstract class MixinRenderGlobal {
     @WrapWithCondition(
         method = "renderSky(F)V",
         at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glCallList(I)V", ordinal = 3, remap = false))
-    private boolean conditionalDisableHorizon(int i) {
-        return !(boolean)Settings.HORIZON_DISABLE.option.getStore();
+    private boolean conditionalRenderHorizon(int i) {
+        return (boolean)Settings.HORIZON.option.getStore();
     }
-
 
     @Inject(method="renderSky(F)V", at=@At(value="INVOKE", target="Lnet/minecraft/client/renderer/Tessellator;draw()I", ordinal = 0))
     private void conditionalTessellatorDrawEndSkybox(CallbackInfo ci) {
