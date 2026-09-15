@@ -1,400 +1,290 @@
 package jss.notfine.mixinplugin;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
+
+import com.gtnewhorizon.gtnhmixins.builders.IMixins;
+import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
 
 import jss.notfine.config.NotFineConfig;
 import jss.notfine.config.MCPatcherForgeConfig;
 
-// Adapted from Hodgepodge
-public enum Mixins {
+public enum Mixins implements IMixins {
 
-    NOTFINE_CORE(new Builder("NotFine")
+    NOTFINE_CORE(new MixinBuilder("NotFine")
         .setPhase(Phase.EARLY)
-        .setApplyIf(() -> true)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("minecraft.",
-            "clouds.MixinEntityRenderer",
-            "clouds.MixinGameSettings",
-            "clouds.MixinRenderGlobal",
-            "clouds.MixinWorldType",
+        .addClientMixins(
+            "minecraft.clouds.MixinEntityRenderer",
+            "minecraft.clouds.MixinGameSettings",
+            "minecraft.clouds.MixinRenderGlobal",
+            "minecraft.clouds.MixinWorldType",
 
-            "fix.MixinRenderItem",
+            "minecraft.fix.MixinRenderItem",
 
-            "gui.MixinGuiSlot",
+            "minecraft.gui.MixinGuiSlot",
 
-            "glint.MixinRenderBiped",
-            "glint.MixinRenderPlayer",
+            "minecraft.glint.MixinRenderBiped",
+            "minecraft.glint.MixinRenderPlayer",
 
-            "optimization.MixinRenderItemFrame",
+            "minecraft.optimization.MixinRenderItemFrame",
 
-            "leaves.MixinBlockLeaves",
-            "leaves.MixinBlockLeavesBase",
+            "minecraft.leaves.MixinBlockLeaves",
+            "minecraft.leaves.MixinBlockLeavesBase",
 
-            "particles.MixinBlockEnchantmentTable",
-            "particles.MixinEffectRenderer",
-            "particles.MixinWorldClient",
+            "minecraft.particles.MixinBlockEnchantmentTable",
+            "minecraft.particles.MixinEffectRenderer",
+            "minecraft.particles.MixinWorldClient",
 
-            "renderer.MixinRenderGlobal",
+            "minecraft.renderer.MixinRenderGlobal",
 
-            "toggle.MixinEntityRenderer",
-            "toggle.MixinGuiIngame",
-            "toggle.MixinRender",
-            "toggle.MixinRenderItem",
+            "minecraft.toggle.MixinEntityRenderer",
+            "minecraft.toggle.MixinGuiIngame",
+            "minecraft.toggle.MixinRender",
+            "minecraft.toggle.MixinRenderItem",
 
-            "interpolatedtexturemap.MixinTextureMap"
-        ))
+            "minecraft.interpolatedtexturemap.MixinTextureMap"
+        )
     ),
-    BETTER_FACE_CULLING(new Builder("Better face culling")
+    BETTER_FACE_CULLING(new MixinBuilder("Better face culling")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> NotFineConfig.betterBlockFaceCulling)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("minecraft.faceculling.",
-            "MixinBlock",
-            "MixinBlockCactus",
-            "MixinBlockCarpet",
-            "MixinBlockEnchantmentTable",
-            "MixinBlockFarmland",
-            "MixinBlockSlab",
-            "MixinBlockSnow",
-            "MixinBlockStairs",
-            "MixinRenderBlocks"
-        ))
+        .addClientMixins(
+            "minecraft.faceculling.MixinBlock",
+            "minecraft.faceculling.MixinBlockCactus",
+            "minecraft.faceculling.MixinBlockCarpet",
+            "minecraft.faceculling.MixinBlockEnchantmentTable",
+            "minecraft.faceculling.MixinBlockFarmland",
+            "minecraft.faceculling.MixinBlockSlab",
+            "minecraft.faceculling.MixinBlockSnow",
+            "minecraft.faceculling.MixinBlockStairs",
+            "minecraft.faceculling.MixinRenderBlocks"
+        )
     ),
-    NO_DYNAMIC_SURROUNDINGS(new Builder("No Dynamic Surroundings")
+    NO_DYNAMIC_SURROUNDINGS(new MixinBuilder("No Dynamic Surroundings")
         .setPhase(Phase.EARLY)
-        .setApplyIf(() -> true)
-        .addTargetedMod(TargetedMod.VANILLA)
         .addExcludedMod(TargetedMod.DYNAMIC_SURROUNDINGS_MIST)
         .addExcludedMod(TargetedMod.DYNAMIC_SURROUNDINGS_ORIGINAL)
-        .addMixinClasses("minecraft.toggle.MixinEntityRenderer$RenderRainSnow")
+        .addClientMixins("minecraft.toggle.MixinEntityRenderer$RenderRainSnow")
     ),
-    NO_CUSTOM_ITEM_TEXTURES(new Builder("No Custom Item Textures")
+    NO_CUSTOM_ITEM_TEXTURES(new MixinBuilder("No Custom Item Textures")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> !MCPatcherForgeConfig.instance().customItemTexturesEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("minecraft.glint.",
-            "MixinItemRenderer",
-            "MixinRenderItem"
-        ))
+        .addClientMixins(
+            "minecraft.glint.MixinItemRenderer",
+            "minecraft.glint.MixinRenderItem"
+        )
     ),
-    NATURA(new Builder("Natura compat")
+    NATURA(new MixinBuilder("Natura compat")
         .setPhase(Phase.LATE)
-        .setApplyIf(() -> true)
-        .addTargetedMod(TargetedMod.NATURA)
-        .addMixinClasses(addPrefix("leaves.natura.",
-            "MixinBerryBush",
-            "MixinNetherBerryBush"
-        ))
+        .addRequiredMod(TargetedMod.NATURA)
+        .addClientMixins(
+            "leaves.natura.MixinBerryBush",
+            "leaves.natura.MixinNetherBerryBush"
+        )
     ),
-    THAUMCRAFT(new Builder("Thaumcraft compat")
+    THAUMCRAFT(new MixinBuilder("Thaumcraft compat")
         .setPhase(Phase.LATE)
-        .setApplyIf(() -> true)
-        .addTargetedMod(TargetedMod.THAUMCRAFT)
-        .addMixinClasses("leaves.thaumcraft.MixinBlockMagicalLeaves")
+        .addRequiredMod(TargetedMod.THAUMCRAFT)
+        .addClientMixins("leaves.thaumcraft.MixinBlockMagicalLeaves")
     ),
-    THAUMCRAFT_BETTER_FACE_CULLING(new Builder("Better face culling Thaumcraft compat")
+    THAUMCRAFT_BETTER_FACE_CULLING(new MixinBuilder("Better face culling Thaumcraft compat")
         .setPhase(Phase.LATE)
         .setApplyIf(() -> NotFineConfig.betterBlockFaceCulling)
-        .addTargetedMod(TargetedMod.THAUMCRAFT)
-        .addMixinClasses(addPrefix("faceculling.thaumcraft.",
-            "MixinBlockWoodenDevice",
-            "MixinBlockStoneDevice",
-            "MixinBlockTable"
-        ))
+        .addRequiredMod(TargetedMod.THAUMCRAFT)
+        .addClientMixins(
+            "faceculling.thaumcraft.MixinBlockWoodenDevice",
+            "faceculling.thaumcraft.MixinBlockStoneDevice",
+            "faceculling.thaumcraft.MixinBlockTable"
+        )
     ),
-    TINKERS_CONSTRUCT(new Builder("Tinker's Construct compat")
+    TINKERS_CONSTRUCT(new MixinBuilder("Tinker's Construct compat")
         .setPhase(Phase.LATE)
-        .setApplyIf(() -> true)
-        .addTargetedMod(TargetedMod.TINKERS_CONSTRUCT)
-        .addMixinClasses("leaves.tconstruct.MixinOreberryBush")
+        .addRequiredMod(TargetedMod.TINKERS_CONSTRUCT)
+        .addClientMixins("leaves.tconstruct.MixinOreberryBush")
     ),
-    WITCHERY(new Builder("Witchery compat")
+    TWILIGHT_FOREST_ANY(new MixinBuilder("Twilight Forest compat")
         .setPhase(Phase.LATE)
-        .setApplyIf(() -> true)
-        .addTargetedMod(TargetedMod.WITCHERY)
-        .addMixinClasses("leaves.witchery.MixinBlockWitchLeaves")
+        .addRequiredMod(TargetedMod.TWILIGHT_FOREST_ANY)
+        .addClientMixins(
+            "leaves.twilightforest.MixinBlockTFLeaves",
+            "leaves.twilightforest.MixinBlockTFLeaves3"
+        )
     ),
-    MCPATCHER_FORGE(new Builder("MCPatcher Forge")
+    TWILIGHT_FOREST_GTNH(new MixinBuilder("Twilight Forest GTNH fork compat")
+        .setPhase(Phase.LATE)
+        .addRequiredMod(TargetedMod.TWILIGHT_FOREST_ANY)
+        .addExcludedMod(TargetedMod.TWILIGHT_FOREST_ORIGINAL)
+        .addClientMixins("leaves.twilightforest.MixinBlockTFMagicLeaves")
+    ),
+    WITCHERY(new MixinBuilder("Witchery compat")
+        .setPhase(Phase.LATE)
+        .addRequiredMod(TargetedMod.WITCHERY)
+        .addClientMixins("leaves.witchery.MixinBlockWitchLeaves")
+    ),
+    MCPATCHER_FORGE(new MixinBuilder("MCPatcher Forge")
         .setPhase(Phase.EARLY)
-        .setApplyIf(() -> true)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("mcpatcherforge.",
-              "base.MixinBlockGrass",
-              "base.MixinBlockMycelium",
+        .addClientMixins(
+            "mcpatcherforge.base.MixinBlockGrass",
+            "mcpatcherforge.base.MixinBlockMycelium",
 
-              "base.MixinAbstractTexture",
-              "base.MixinTextureAtlasSprite",
+            "mcpatcherforge.base.MixinAbstractTexture",
+            "mcpatcherforge.base.MixinTextureAtlasSprite",
 
-              "base.MixinSimpleReloadableResourceManager",
+            "mcpatcherforge.base.MixinSimpleReloadableResourceManager",
 
-              "base.MixinMinecraft"
-        ))
+            "mcpatcherforge.base.MixinMinecraft"
+        )
     ),
-    MCPATCHER_FORGE_CUSTOM_COLORS(new Builder("MCP:F Custom Colors")
+    MCPATCHER_FORGE_CUSTOM_COLORS(new MixinBuilder("MCP:F Custom Colors")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().customColorsEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("mcpatcherforge.cc.",
-            "block.material.MixinMapColor",
+        .addClientMixins(
+            "mcpatcherforge.cc.block.material.MixinMapColor",
 
-            "block.MixinBlock",
-            "block.MixinBlockDoublePlant",
-            "block.MixinBlockGrass",
-            "block.MixinBlockLeaves",
-            "block.MixinBlockLilyPad",
-            "block.MixinBlockLiquid",
-            "block.MixinBlockOldLeaf",
-            "block.MixinBlockRedstoneWire",
-            "block.MixinBlockReed",
-            "block.MixinBlockStem",
-            "block.MixinBlockTallGrass",
-            "block.MixinBlockVine",
+            "mcpatcherforge.cc.block.MixinBlock",
+            "mcpatcherforge.cc.block.MixinBlockDoublePlant",
+            "mcpatcherforge.cc.block.MixinBlockGrass",
+            "mcpatcherforge.cc.block.MixinBlockLeaves",
+            "mcpatcherforge.cc.block.MixinBlockLilyPad",
+            "mcpatcherforge.cc.block.MixinBlockLiquid",
+            "mcpatcherforge.cc.block.MixinBlockOldLeaf",
+            "mcpatcherforge.cc.block.MixinBlockRedstoneWire",
+            "mcpatcherforge.cc.block.MixinBlockReed",
+            "mcpatcherforge.cc.block.MixinBlockStem",
+            "mcpatcherforge.cc.block.MixinBlockTallGrass",
+            "mcpatcherforge.cc.block.MixinBlockVine",
 
-            "client.particle.MixinEntityAuraFX",
-            "client.particle.MixinEntityBubbleFX",
-            "client.particle.MixinEntityDropParticleFX",
-            "client.particle.MixinEntityPortalFX",
-            "client.particle.MixinEntityRainFX",
-            "client.particle.MixinEntityRedDustFX",
-            "client.particle.MixinEntitySplashFX",
-            "client.particle.MixinEntitySuspendFX",
+            "mcpatcherforge.cc.client.particle.MixinEntityAuraFX",
+            "mcpatcherforge.cc.client.particle.MixinEntityBubbleFX",
+            "mcpatcherforge.cc.client.particle.MixinEntityDropParticleFX",
+            "mcpatcherforge.cc.client.particle.MixinEntityPortalFX",
+            "mcpatcherforge.cc.client.particle.MixinEntityRainFX",
+            "mcpatcherforge.cc.client.particle.MixinEntityRedDustFX",
+            "mcpatcherforge.cc.client.particle.MixinEntitySplashFX",
+            "mcpatcherforge.cc.client.particle.MixinEntitySuspendFX",
 
-            "client.renderer.entity.MixinRenderWolf",
-            "client.renderer.entity.MixinRenderXPOrb",
+            "mcpatcherforge.cc.client.renderer.entity.MixinRenderWolf",
+            "mcpatcherforge.cc.client.renderer.entity.MixinRenderXPOrb",
 
-            "client.renderer.tileentity.MixinTileEntitySignRenderer",
+            "mcpatcherforge.cc.client.renderer.tileentity.MixinTileEntitySignRenderer",
 
-            "client.renderer.MixinEntityRenderer",
-            "client.renderer.MixinItemRenderer",
-            "client.renderer.MixinRenderBlocks",
-            "client.renderer.MixinRenderGlobal",
+            "mcpatcherforge.cc.client.renderer.MixinEntityRenderer",
+            "mcpatcherforge.cc.client.renderer.MixinItemRenderer",
+            "mcpatcherforge.cc.client.renderer.MixinRenderBlocks",
+            "mcpatcherforge.cc.client.renderer.MixinRenderGlobal",
 
-            "entity.MixinEntityList",
+            "mcpatcherforge.cc.entity.MixinEntityList",
 
-            "item.crafting.MixinRecipesArmorDyes",
+            "mcpatcherforge.cc.item.crafting.MixinRecipesArmorDyes",
 
-            "item.MixinItemArmor",
-            "item.MixinItemBlock",
-            "item.MixinItemMonsterPlacer",
+            "mcpatcherforge.cc.item.MixinItemArmor",
+            "mcpatcherforge.cc.item.MixinItemBlock",
+            "mcpatcherforge.cc.item.MixinItemMonsterPlacer",
 
-            "potion.MixinPotion",
-            "potion.MixinPotionHelper",
+            "mcpatcherforge.cc.potion.MixinPotion",
+            "mcpatcherforge.cc.potion.MixinPotionHelper",
 
-            "world.MixinWorld",
-            "world.MixinWorldProvider",
-            "world.MixinWorldProviderEnd",
-            "world.MixinWorldProviderHell"
-        ))
+            "mcpatcherforge.cc.world.MixinWorld",
+            "mcpatcherforge.cc.world.MixinWorldProvider",
+            "mcpatcherforge.cc.world.MixinWorldProviderEnd",
+            "mcpatcherforge.cc.world.MixinWorldProviderHell"
+        )
     ),
-    MCPATCHER_FORGE_CUSTOM_ITEM_TEXTURES(new Builder("MCP:F Custom Item Textures")
+    MCPATCHER_FORGE_CUSTOM_ITEM_TEXTURES(new MixinBuilder("MCP:F Custom Item Textures")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().customItemTexturesEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("mcpatcherforge.cit.",
-            "client.renderer.entity.MixinRenderBiped",
-            "client.renderer.entity.MixinRenderEntityLiving",
-            "client.renderer.entity.MixinRenderItem",
-            "client.renderer.entity.MixinRenderPlayer",
-            "client.renderer.entity.MixinRenderSnowball",
-            "client.renderer.MixinItemRenderer",
-            "client.renderer.MixinRenderGlobal",
-            "entity.MixinEntityLivingBase",
-            "item.MixinItem",
-            "nbt.MixinNBTTagCompound",
-            "nbt.MixinNBTTagList",
-            "world.MixinWorld"
-        ))
+        .addClientMixins(
+            "mcpatcherforge.cit.client.renderer.entity.MixinRenderBiped",
+            "mcpatcherforge.cit.client.renderer.entity.MixinRenderEntityLiving",
+            "mcpatcherforge.cit.client.renderer.entity.MixinRenderItem",
+            "mcpatcherforge.cit.client.renderer.entity.MixinRenderPlayer",
+            "mcpatcherforge.cit.client.renderer.entity.MixinRenderSnowball",
+            "mcpatcherforge.cit.client.renderer.MixinItemRenderer",
+            "mcpatcherforge.cit.client.renderer.MixinRenderGlobal",
+            "mcpatcherforge.cit.entity.MixinEntityLivingBase",
+            "mcpatcherforge.cit.item.MixinItem",
+            "mcpatcherforge.cit.nbt.MixinNBTTagCompound",
+            "mcpatcherforge.cit.nbt.MixinNBTTagList",
+            "mcpatcherforge.cit.world.MixinWorld"
+        )
     ),
-    MCPATCHER_FORGE_CONNECTED_TEXTURES(new Builder("MCP:F Connected Textures")
+    MCPATCHER_FORGE_CONNECTED_TEXTURES(new MixinBuilder("MCP:F Connected Textures")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().connectedTexturesEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses("mcpatcherforge.ctm.MixinRenderBlocks")
+        .addClientMixins("mcpatcherforge.ctm.MixinRenderBlocks")
     ),
-    MCPATCHER_FORGE_EXTENDED_HD(new Builder("MCP:F Extended hd")
+    MCPATCHER_FORGE_EXTENDED_HD(new MixinBuilder("MCP:F Extended hd")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().extendedHDEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("mcpatcherforge.hd.",
-            "MixinTextureClock",
-            "MixinTextureCompass",
-            "MixinTextureManager"
-        ))
+        .addClientMixins(
+            "mcpatcherforge.hd.MixinTextureClock",
+            "mcpatcherforge.hd.MixinTextureCompass",
+            "mcpatcherforge.hd.MixinTextureManager"
+        )
     ),
-    MCPATCHER_FORGE_EXTENDED_HD_FONT(new Builder("MCP:F Extended HD Font")
+    MCPATCHER_FORGE_EXTENDED_HD_FONT(new MixinBuilder("MCP:F Extended HD Font")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> (MCPatcherForgeConfig.instance().extendedHDEnabled && MCPatcherForgeConfig.instance().hdFont))
-        .addTargetedMod(TargetedMod.VANILLA)
         .addExcludedMod(TargetedMod.COFHCORE)
-        .addMixinClasses("mcpatcherforge.hd.MixinFontRenderer")
+        .addClientMixins("mcpatcherforge.hd.MixinFontRenderer")
     ),
-    MCPATCHER_FORGE_RANDOM_MOBS(new Builder("MCP:F Random Mobs")
+    MCPATCHER_FORGE_RANDOM_MOBS(new MixinBuilder("MCP:F Random Mobs")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().randomMobsEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("mcpatcherforge.mob.",
-            "MixinRender",
-            "MixinRenderEnderman",
-            "MixinRenderFish",
-            "MixinRenderLiving",
-            "MixinRenderMooshroom",
-            "MixinRenderSheep",
-            "MixinRenderSnowMan",
-            "MixinRenderSpider",
-            "MixinRenderWolf",
-            "MixinEntityLivingBase"
-        ))
+        .addClientMixins(
+            "mcpatcherforge.mob.MixinRender",
+            "mcpatcherforge.mob.MixinRenderEnderman",
+            "mcpatcherforge.mob.MixinRenderFish",
+            "mcpatcherforge.mob.MixinRenderLiving",
+            "mcpatcherforge.mob.MixinRenderMooshroom",
+            "mcpatcherforge.mob.MixinRenderSheep",
+            "mcpatcherforge.mob.MixinRenderSnowMan",
+            "mcpatcherforge.mob.MixinRenderSpider",
+            "mcpatcherforge.mob.MixinRenderWolf",
+            "mcpatcherforge.mob.MixinEntityLivingBase"
+        )
     ),
-    MCPATCHER_FORGE_SKY(new Builder("MCP:F Sky")
+    MCPATCHER_FORGE_SKY(new MixinBuilder("MCP:F Sky")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().betterSkiesEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses(addPrefix("mcpatcherforge.sky.",
-            "MixinEffectRenderer",
-            "MixinRenderGlobal"
-        ))
+        .addClientMixins(
+            "mcpatcherforge.sky.MixinEffectRenderer",
+            "mcpatcherforge.sky.MixinRenderGlobal"
+        )
     ),
-    MCPATCHER_FORGE_CC_NO_CTM(new Builder("MCP:F Custom Colors, no Connected Textures")
+    MCPATCHER_FORGE_CC_NO_CTM(new MixinBuilder("MCP:F Custom Colors, no Connected Textures")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> !MCPatcherForgeConfig.instance().connectedTexturesEnabled
                 && MCPatcherForgeConfig.instance().customColorsEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses("mcpatcherforge.cc_ctm.MixinRenderBlocksNoCTM")
+        .addClientMixins("mcpatcherforge.cc_ctm.MixinRenderBlocksNoCTM")
     ),
-    MCPATCHER_FORGE_CTM_NO_CC(new Builder("MCP:F Connected Textures, no Custom Colours")
+    MCPATCHER_FORGE_CTM_NO_CC(new MixinBuilder("MCP:F Connected Textures, no Custom Colors")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().connectedTexturesEnabled
                 && !MCPatcherForgeConfig.instance().customColorsEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses("mcpatcherforge.ctm_cc.MixinRenderBlocksNoCC")
+        .addClientMixins("mcpatcherforge.ctm_cc.MixinRenderBlocksNoCC")
     ),
-    MCPATCHER_FORGE_CTM_AND_CC(new Builder("MCP:F Connected Textures and Custom Colors")
+    MCPATCHER_FORGE_CTM_AND_CC(new MixinBuilder("MCP:F Connected Textures and Custom Colors")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().connectedTexturesEnabled
             && MCPatcherForgeConfig.instance().customColorsEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses("mcpatcherforge.ctm_cc.MixinRenderBlocks")
+        .addClientMixins("mcpatcherforge.ctm_cc.MixinRenderBlocks")
     ),
-    MCPATCHER_FORGE_CTM_OR_CC(new Builder("MCP:F Connected Textures or Custom Colors")
+    MCPATCHER_FORGE_CTM_OR_CC(new MixinBuilder("MCP:F Connected Textures or Custom Colors")
         .setPhase(Phase.EARLY)
         .setApplyIf(() -> MCPatcherForgeConfig.instance().connectedTexturesEnabled
                 || MCPatcherForgeConfig.instance().customColorsEnabled)
-        .addTargetedMod(TargetedMod.VANILLA)
-        .addMixinClasses("mcpatcherforge.ctm_cc.MixinTextureMap")
+        .addClientMixins("mcpatcherforge.ctm_cc.MixinTextureMap")
     );
 
-    public final String name;
-    public final List<String> mixinClasses;
-    private final Supplier<Boolean> applyIf;
-    public final Phase phase;
-    public final List<TargetedMod> targetedMods;
-    public final List<TargetedMod> excludedMods;
+    private final MixinBuilder builder;
 
-    private static class Builder {
-
-        private final String name;
-        private final List<String> mixinClasses = new ArrayList<>();
-        private Supplier<Boolean> applyIf;
-        private Phase phase = Phase.LATE;
-        private final List<TargetedMod> targetedMods = new ArrayList<>();
-        private final List<TargetedMod> excludedMods = new ArrayList<>();
-
-        public Builder(String name) {
-            this.name = name;
-        }
-
-        public Builder addMixinClasses(String... mixinClasses) {
-            this.mixinClasses.addAll(Arrays.asList(mixinClasses));
-            return this;
-        }
-
-        public Builder setPhase(Phase phase) {
-            this.phase = phase;
-            return this;
-        }
-
-        public Builder setApplyIf(Supplier<Boolean> applyIf) {
-            this.applyIf = applyIf;
-            return this;
-        }
-
-        public Builder addTargetedMod(TargetedMod mod) {
-            this.targetedMods.add(mod);
-            return this;
-        }
-
-        public Builder addExcludedMod(TargetedMod mod) {
-            this.excludedMods.add(mod);
-            return this;
-        }
+    Mixins(MixinBuilder builder) {
+        this.builder = builder;
     }
 
-    Mixins(Builder builder) {
-        this.name = builder.name;
-        this.mixinClasses = builder.mixinClasses;
-        this.applyIf = builder.applyIf;
-        this.targetedMods = builder.targetedMods;
-        this.excludedMods = builder.excludedMods;
-        this.phase = builder.phase;
-        if (this.targetedMods.isEmpty()) {
-            throw new RuntimeException("No targeted mods specified for " + this.name);
-        }
-        if (this.applyIf == null) {
-            throw new RuntimeException("No ApplyIf function specified for " + this.name);
-        }
-    }
-
-    private boolean allModsLoaded(List<TargetedMod> targetedMods, Set<String> loadedCoreMods, Set<String> loadedMods) {
-        if (targetedMods.isEmpty()) return false;
-
-        for (TargetedMod target : targetedMods) {
-            if (target == TargetedMod.VANILLA) continue;
-
-            // Check coremod first
-            if (!loadedCoreMods.isEmpty() && target.coreModClass != null
-                && !loadedCoreMods.contains(target.coreModClass)) return false;
-            else if (!loadedMods.isEmpty() && target.modId != null && !loadedMods.contains(target.modId)) return false;
-        }
-
-        return true;
-    }
-
-    private boolean noModsLoaded(List<TargetedMod> targetedMods, Set<String> loadedCoreMods, Set<String> loadedMods) {
-        if (targetedMods.isEmpty()) return true;
-
-        for (TargetedMod target : targetedMods) {
-            if (target == TargetedMod.VANILLA) continue;
-
-            // Check coremod first
-            if (!loadedCoreMods.isEmpty() && target.coreModClass != null
-                && loadedCoreMods.contains(target.coreModClass)) return false;
-            else if (!loadedMods.isEmpty() && target.modId != null && loadedMods.contains(target.modId)) return false;
-        }
-
-        return true;
-    }
-
-    public boolean shouldLoad(Set<String> loadedCoreMods, Set<String> loadedMods) {
-        return (applyIf.get()
-            && allModsLoaded(targetedMods, loadedCoreMods, loadedMods)
-            && noModsLoaded(excludedMods, loadedCoreMods, loadedMods));
-    }
-
-    @SuppressWarnings("SimplifyStreamApiCallChains")
-    private static String[] addPrefix(String prefix, String... values) {
-        return Arrays.stream(values)
-            .map(s -> prefix + s)
-            .collect(Collectors.toList())
-            .toArray(new String[values.length]);
-    }
-
-    public enum Phase {
-        EARLY,
-        LATE,
+    @Nonnull
+    @Override
+    public MixinBuilder getBuilder() {
+        return builder;
     }
 }

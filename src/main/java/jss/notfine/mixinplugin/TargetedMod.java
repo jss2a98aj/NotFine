@@ -1,37 +1,50 @@
 package jss.notfine.mixinplugin;
 
-// Adapted from hodgepodge
-public enum TargetedMod {
+import javax.annotation.Nonnull;
 
-    COFHCORE("CoFHCore", "cofh.asm.LoadingPlugin", "CoFHCore"),
-    DYNAMIC_SURROUNDINGS_MIST("Dynamic Surroundings", "org.blockartistry.mod.DynSurround.mixinplugin.DynamicSurroundingsEarlyMixins", "dsurround"),
-    DYNAMIC_SURROUNDINGS_ORIGINAL("Dynamic Surroundings", "org.blockartistry.mod.DynSurround.asm.TransformLoader", "dsurround"),
-    NATURA("Natura", null, "Natura"),
-    THAUMCRAFT("Thaumcraft", null, "Thaumcraft"),
-    TINKERS_CONSTRUCT("Tinker's Construct", null, "TConstruct"),
-    TWILIGHT_FOREST("TwilightForest", null, "TwilightForest"),
-    VANILLA("Minecraft", null),
-    WITCHERY("Witchery", null, "witchery");
+import com.gtnewhorizon.gtnhmixins.builders.ITargetMod;
+import com.gtnewhorizon.gtnhmixins.builders.TargetModBuilder;
 
-    /** The "name" in the @Mod annotation */
-    public final String modName;
-    /** Class that implements the IFMLLoadingPlugin interface */
-    public final String coreModClass;
-    /** The "modid" in the @Mod annotation */
-    public final String modId;
+import cpw.mods.fml.common.versioning.ComparableVersion;
 
-    TargetedMod(String modName, String coreModClass) {
-        this(modName, coreModClass, null);
+public enum TargetedMod implements ITargetMod {
+
+    COFHCORE("cofh.asm.LoadingPlugin", "CoFHCore"),
+    DYNAMIC_SURROUNDINGS_MIST("org.blockartistry.mod.DynSurround.mixinplugin.DynamicSurroundingsEarlyMixins", "dsurround"),
+    DYNAMIC_SURROUNDINGS_ORIGINAL("org.blockartistry.mod.DynSurround.asm.TransformLoader", "dsurround"),
+    NATURA("Natura"),
+    THAUMCRAFT("Thaumcraft"),
+    TINKERS_CONSTRUCT("TConstruct"),
+    TWILIGHT_FOREST_ANY("TwilightForest"),
+    TWILIGHT_FOREST_ORIGINAL(new TargetModBuilder().setTargetClass("twilightforest.TwilightForestMod")
+        .setModId("TwilightForest").testModVersion("TwilightForest", version -> isVersionLessThan(version, "2.4.3"))),
+    WITCHERY("witchery");
+
+    private final TargetModBuilder builder;
+
+    TargetedMod(TargetModBuilder builder) {
+        this.builder = builder;
     }
 
-    TargetedMod(String modName, String coreModClass, String modId) {
-        this.modName = modName;
-        this.coreModClass = coreModClass;
-        this.modId = modId;
+    TargetedMod(String modId) {
+        this(null, modId, null);
     }
 
+    TargetedMod(String coreModClass, String modId) {
+        this(coreModClass, modId, null);
+    }
+
+    TargetedMod(String coreModClass, String modId, String targetClass) {
+        this.builder = new TargetModBuilder().setCoreModClass(coreModClass).setModId(modId).setTargetClass(targetClass);
+    }
+
+    @Nonnull
     @Override
-    public String toString() {
-        return "TargetedMod{modName='" + modName + "', coreModClass='" + coreModClass + "', modId='" + modId + "'}";
+    public TargetModBuilder getBuilder() {
+        return builder;
+    }
+
+    private static boolean isVersionLessThan(String version, String target) {
+        return new ComparableVersion(version).compareTo(new ComparableVersion(target)) < 0;
     }
 }
