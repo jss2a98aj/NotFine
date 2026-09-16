@@ -9,6 +9,7 @@ import cpw.mods.fml.common.versioning.ComparableVersion;
 
 public enum TargetedMod implements ITargetMod {
 
+    BOP("BiomesOPlenty"),
     COFHCORE("cofh.asm.LoadingPlugin", "CoFHCore"),
     DYNAMIC_SURROUNDINGS_MIST("org.blockartistry.mod.DynSurround.mixinplugin.DynamicSurroundingsEarlyMixins", "dsurround"),
     DYNAMIC_SURROUNDINGS_ORIGINAL("org.blockartistry.mod.DynSurround.asm.TransformLoader", "dsurround"),

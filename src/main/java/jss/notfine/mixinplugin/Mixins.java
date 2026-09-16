@@ -73,6 +73,15 @@ public enum Mixins implements IMixins {
             "minecraft.glint.MixinRenderItem"
         )
     ),
+    BOP(new MixinBuilder("Biomes O' Plenty compat")
+        .setPhase(Phase.LATE)
+        .addRequiredMod(TargetedMod.BOP)
+        .addClientMixins(
+            "leaves.bop.MixinBlockBOPAppleLeaves",
+            "leaves.bop.MixinBlockBOPColorizedLeaves",
+            "leaves.bop.MixinBlockBOPLeaves"
+        )
+    ),
     NATURA(new MixinBuilder("Natura compat")
         .setPhase(Phase.LATE)
         .addRequiredMod(TargetedMod.NATURA)

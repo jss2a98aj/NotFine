@@ -33,6 +33,7 @@ For shader support see [Angelica](https://github.com/GTNewHorizons/Angelica) (WI
 
 ## Mods with leaf blocks that have been patched
 
+- [Biomes O' Plenty](https://www.curseforge.com/minecraft/mc-mods/biomes-o-plenty)
 - Natura [(GTNH fork)](https://github.com/GTNewHorizons/Natura) 2.6.3 or later
 - [Thaumcraft 4](https://www.curseforge.com/minecraft/mc-mods/thaumcraft/files/2227552)
 - Tinker's Construct [(GTNH fork)](https://github.com/GTNewHorizons/TinkersConstruct) 1.12.0-GTNH or later

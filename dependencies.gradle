@@ -31,6 +31,7 @@ dependencies {
     implementation("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     implementation("com.github.GTNewHorizons:TinkersConstruct:1.14.112-GTNH:dev")
     implementation("com.github.GTNewHorizons:Natura:2.8.24:dev")
+    implementation rfg.deobf("curse.maven:biomes-o-plenty-220318:2499612")
 
     runtimeOnly("com.github.GTNewHorizons:Baubles-Expanded:2.2.23-GTNH:dev")
 }
